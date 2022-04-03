@@ -3,14 +3,5 @@
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
-
 @import '~codemirror/lib/codemirror';
-@import '~codemirror/theme/material';
+@import '~codemirror/theme/nord';

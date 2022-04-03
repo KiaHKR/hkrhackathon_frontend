@@ -1,8 +1,3 @@
-.logo-div {
-    width: 100%;
-    height: 100%;
-}
-
 .stack {
     display: grid;
     grid-template-columns: 1fr;
@@ -19,13 +14,12 @@
         --clip-bottom: calc(var(--stack-height) * var(--inverse-index));
         clip-path: inset(var(--clip-top) 0 var(--clip-bottom) 0);
         animation: stack 750ms cubic-bezier(.46,.29,0,1.24) 1 backwards calc(var(--index) * 120ms), glitch 2s ease infinite 2s alternate-reverse;
-
-
-        span:nth-child(odd) { --glitch-translate: 8px; }
-        span:nth-child(even) { --glitch-translate: -8px; }
     }
+
+    span:nth-child(odd) { --glitch-translate: 8px; }
+    span:nth-child(even) { --glitch-translate: -8px; }
 }
-    
+
 @keyframes stack {
 0% {
     opacity: 0;
@@ -55,4 +49,9 @@
     text-shadow: 2px -3px 0 red, -2px 3px 0 blue;
 }
 4%, 100% {  text-shadow: none; transform: none; }
+}
+
+
+.main-logo{
+    margin: 15px auto;
 }
