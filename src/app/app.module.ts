@@ -5,14 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponentsModule } from './login-page-components/login-page-components.module';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CodemirrorModule,
+    LoginPageComponentsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
