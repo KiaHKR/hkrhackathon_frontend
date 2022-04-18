@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginPageComponentsModule } from './login-page-components/login-page-components.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LoginPageComponentsModule } from './login-page-components/login-page-co
     BrowserAnimationsModule,
     CodemirrorModule,
     LoginPageComponentsModule,
+    TabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

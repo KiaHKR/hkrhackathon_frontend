@@ -1,0 +1,50 @@
+@import '/src/app/globals.scss';
+
+
+.tabs-container {
+    height: 50vh;
+}
+
+.nav-tabs {
+    margin-top: 50px;
+
+    .nav-item {
+        margin: 0;
+
+        .nav-link {
+            border: none;
+            border-radius: 0px;
+            padding: 3px 15px;
+
+            background-color: $color-primary;
+            color: #8b8b8b;
+        }
+
+        .nav-link.active {
+            color: white;
+
+            border-bottom: 2px;
+        }
+    }
+
+    .nav-item:first-child {
+        .nav-link {
+            border-top-left-radius: 5px;
+        }
+    }
+
+    .nav-item:last-child {
+        .nav-link {
+            border-top-right-radius: 5px;
+        }
+    }
+}
+
+.tab-content {
+    .tab-pane {
+        .CodeMirror {
+            border-radius: 5px;
+            border-top-left-radius: 0px;
+        }
+    }
+}
