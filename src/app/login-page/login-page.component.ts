@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   loginCodemirror!: CodeMirror.EditorFromTextArea;
   registerCodemirror!: CodeMirror.EditorFromTextArea;
   inputError: string = ``
+  counter: number = 0;
 
   get registerDefaultText(): string {
     return `def sign_up(user):
@@ -45,7 +46,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.loginCodemirror = this.generateCodeMirror(this.loginTextarea.nativeElement);
+    this.loginCodemirror = this.generateLoginCodeMirror();
     this.loginCodemirror.setValue(this.loginDefaultText)
     this.loginCodemirror.refresh()
   }
@@ -117,7 +118,49 @@ export class LoginPageComponent implements OnInit {
       mode: 'python',
       theme: 'nord',
       lineWrapping: true,
+      extraKeys: {
+        Enter: () => { }
+      }
     });
+  }
+
+  generateLoginCodeMirror() {
+    const loginMirrorSession = this.generateCodeMirror(this.loginTextarea.nativeElement)
+    this.lockMirror(loginMirrorSession, true)
+    return loginMirrorSession
+  }
+
+  generateRegisterCodeMirror() {
+    const registerMirrorSession = this.generateCodeMirror(this.registerTextarea.nativeElement)
+    this.lockMirror(registerMirrorSession, false)
+    return registerMirrorSession
+
+  }
+
+  lockMirror(mirrorObject: CodeMirror.EditorFromTextArea, login: Boolean): void {
+
+    if (login) {
+      mirrorObject.on("beforeChange", (cm, change) => {
+        if (change.origin !== "setValue" && (change.from.line !== 5 || change.from.ch < 29 || change.to.ch > (29 + (this.counter - 1)))) {
+          change.cancel()
+          return
+        }
+        if (change.origin == "+delete") {
+          this.counter--;
+        }
+        else {
+          this.counter++;
+        }
+      })
+    }
+    else {
+      mirrorObject.on("beforeChange", (cm, change) => {
+        if (change.origin !== "setValue" && (change.from.line !== 5 || change.from.ch < 29 || change.to.ch > (29 + (this.counter - 1)))) {
+          change.cancel()
+        }
+      })
+    }
+
   }
 
   changeTab(newTabIndex: number): void {
@@ -126,13 +169,13 @@ export class LoginPageComponent implements OnInit {
 
     if (newTabIndex == 0) {
       this.registerCodemirror!.toTextArea()
-      this.loginCodemirror = this.generateCodeMirror(this.loginTextarea.nativeElement);
+      this.loginCodemirror = this.generateLoginCodeMirror();
       setTimeout(() => {
         this.loginCodemirror.refresh();
       })
     } else if (newTabIndex == 1) {
       this.loginCodemirror!.toTextArea()
-      this.registerCodemirror = this.generateCodeMirror(this.registerTextarea.nativeElement);
+      this.registerCodemirror = this.generateRegisterCodeMirror();
       if (this.firstTime) {
         this.registerCodemirror.setValue(this.registerDefaultText);
         this.firstTime = false;
