@@ -1,6 +1,5 @@
 @import '/src/app/globals.scss';
 
-
 .tabs-container {
     height: 50vh;
 }
@@ -42,9 +41,19 @@
 
 .tab-content {
     .tab-pane {
+        position: relative;
+
         .CodeMirror {
             border-radius: 5px;
             border-top-left-radius: 0px;
+        }
+
+        button {
+            position: absolute;
+            z-index: 10;
+            padding: 0.5rem 1rem;
+            bottom: 15px;
+            right: 15px;
         }
     }
 }

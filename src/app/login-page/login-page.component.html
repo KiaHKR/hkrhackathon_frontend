@@ -3,9 +3,15 @@
 <div class="col-sm-12 col-md-8 col-lg-5 container">
   <tabset class="tabs-container">
     <tab #loginTab heading="login.py" id="login-tab" (selectTab)="changeTab(0)">
+      <button type="button" class="btn btn-outline-light" (click)="userLogin()">
+        Login
+      </button>
       <textarea #loginCodemirror></textarea>
     </tab>
     <tab #registerTab heading="register.py" id="register-tab" (selectTab)="changeTab(1)">
+      <button type="button" class="btn btn-outline-light" (click)="userRegister()">
+        Register
+      </button>
       <textarea #registerCodemirror></textarea>
     </tab>
   </tabset>
