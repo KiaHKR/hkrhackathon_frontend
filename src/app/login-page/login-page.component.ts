@@ -40,16 +40,19 @@ export class LoginPageComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.loginCodemirror = CodeMirror.fromTextArea(this.loginTextarea.nativeElement, {
+    this.loginCodemirror = this.generateCodeMirror(this.loginTextarea.nativeElement);
+    this.loginCodemirror.setValue(this.loginDefaultText)
+    this.loginCodemirror.refresh()
+  }
+
+  generateCodeMirror(textarea: HTMLTextAreaElement): CodeMirror.EditorFromTextArea {
+    return CodeMirror.fromTextArea(textarea, {
       lineNumbers: true,
       mode: 'python',
       theme: 'nord'
     });
-    this.loginCodemirror.setValue(this.loginDefaultText)
-    this.lockMirror()
-    this.loginCodemirror.refresh()
-
   }
+
   lockMirror(): void {
 
     this.loginCodemirror.on("beforeChange", (cm, change) => {
@@ -57,8 +60,6 @@ export class LoginPageComponent implements OnInit {
         change.cancel()
       }
     })
-
-
   }
 
   changeTab(newTabIndex: number): void {
@@ -67,29 +68,20 @@ export class LoginPageComponent implements OnInit {
 
     if (newTabIndex == 0) {
       this.registerCodemirror!.toTextArea()
-      this.loginCodemirror = CodeMirror.fromTextArea(this.loginTextarea.nativeElement, {
-        lineNumbers: true,
-        mode: 'python',
-        theme: 'nord'
-      });
+      this.loginCodemirror = this.generateCodeMirror(this.loginTextarea.nativeElement);
       setTimeout(() => {
         this.loginCodemirror.refresh();
       })
     } else if (newTabIndex == 1) {
       this.loginCodemirror!.toTextArea()
-      this.registerCodemirror = CodeMirror.fromTextArea(this.registerTextarea.nativeElement, {
-        lineNumbers: true,
-        mode: "python",
-        theme: "nord"
-      });
+      this.registerCodemirror = this.generateCodeMirror(this.registerTextarea.nativeElement);
       if (this.firstTime) {
         this.registerCodemirror.setValue(this.registerDefaultText);
         this.firstTime = false;
       }
       setTimeout(() => {
         this.registerCodemirror.refresh();
-      })
-
+      });
     }
   }
 
