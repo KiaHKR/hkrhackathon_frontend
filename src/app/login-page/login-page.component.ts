@@ -46,7 +46,19 @@ export class LoginPageComponent implements OnInit {
       theme: 'nord'
     });
     this.loginCodemirror.setValue(this.loginDefaultText)
+    this.lockMirror()
     this.loginCodemirror.refresh()
+
+  }
+  lockMirror(): void {
+
+    this.loginCodemirror.on("beforeChange", (cm, change) => {
+      if (change.origin !== "setValue" && (change.from.line !== 6 || change.from.ch < 28 || change.to.ch < 28 || change.to.ch > cm.getLine(change.from.line).length - 1 || change.from.ch > cm.getLine(change.from.line).length - 1)) {
+        change.cancel()
+      }
+    })
+
+
   }
 
   changeTab(newTabIndex: number): void {
