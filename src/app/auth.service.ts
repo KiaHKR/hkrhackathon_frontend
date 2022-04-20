@@ -8,11 +8,11 @@ export class AuthService {
 
   constructor(private jwtHelper: JwtHelperService) { }
 
-  userLogin(username: string, password: string) {
+  userLogin(email: string, password: string) {
     // SUBMIT USERNAME AND PASSWORD TO BACKEND HERE
   }
 
-  userRegister() {
+  userRegister(email: string, name: string, year: string, password: string) {
 
   }
 

@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as CodeMirror from 'codemirror';
+import CMEditingIdentifier from 'src/models/cm_editing_identifier';
 import { AuthService } from '../auth.service';
+import { CodeMirrorService } from '../login-page-components/codemirror.service';
+import { InputValidationService } from '../login-page-components/input-validation.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -12,12 +15,34 @@ export class LoginPageComponent implements OnInit {
   @ViewChild('loginCodemirror') loginTextarea!: ElementRef;
   @ViewChild('registerCodemirror') registerTextarea!: ElementRef;
 
+  allowedEditingIdentifiersLogin = [
+    new CMEditingIdentifier(1, 12, 'login_email', false),
+    new CMEditingIdentifier(2, 14, 'login_password', true)
+  ]
+
+  allowedEditingIdentifiersRegister = [
+    new CMEditingIdentifier(1, 12, 'register_email', false),
+    new CMEditingIdentifier(2, 10, 'register_name', false),
+    new CMEditingIdentifier(3, 9, 'register_year', false),
+    new CMEditingIdentifier(4, 14, 'register_password', true)
+  ]
+
   selectedTab: number = 0;
-  firstTime: Boolean = true;
+  firstTime: boolean = true;
   loginCodemirror!: CodeMirror.EditorFromTextArea;
   registerCodemirror!: CodeMirror.EditorFromTextArea;
-  inputError: string = ``
-  counter: number = 0;
+  _passwordString: string = ``
+  _inputError: string = ``
+  inputCounters: {
+    [counter: string]: number,
+  } = {
+      login_email: 0,
+      login_password: 0,
+      register_email: 0,
+      register_name: 0,
+      register_year: 0,
+      register_password: 0,
+    }
 
   get registerDefaultText(): string {
     return `def sign_up(user):
@@ -25,7 +50,7 @@ export class LoginPageComponent implements OnInit {
   name = ""
   year =  # 1, 2, or 3
   password = ""
-  ${this.inputError}
+  ${this._inputError}
   return (e_mail, name, year, password)`
   }
 
@@ -33,26 +58,45 @@ export class LoginPageComponent implements OnInit {
     return `def login(user):
   e_mail = ""
   password = ""
-  ${this.inputError}
+  ${this._inputError}
   if len(e_mail) != 0 && len(password) != 0:
     access = requests.post('14.29.13.42:8300/auth', [e_mail, password])
     
   return access`}
 
-  constructor(private authService: AuthService) { }
+  set passwordString(value: string) {
+    this._passwordString = value;
+  }
+
+  get passwordString(): string {
+    return this._passwordString;
+  }
+
+  set inputError(value: string) {
+    this._inputError = value;
+  }
+
+  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService) { }
 
   ngOnInit(): void {
 
   }
 
   ngAfterViewInit(): void {
-    this.loginCodemirror = this.generateLoginCodeMirror();
-    this.loginCodemirror.setValue(this.loginDefaultText)
-    this.loginCodemirror.refresh()
+    this.loginCodemirror = this.getLoginCM();
+    this.loginCodemirror.setValue(this.loginDefaultText);
+    this.loginCodemirror.refresh();
+  }
+
+  getLoginCM(): CodeMirror.EditorFromTextArea {
+    return this.cmService.generateCodeMirror(this.loginTextarea.nativeElement, this.allowedEditingIdentifiersLogin, this.inputCounters, this.passwordString);
+  }
+
+  getRegisterCM(): CodeMirror.EditorFromTextArea {
+    return this.cmService.generateCodeMirror(this.registerTextarea.nativeElement, this.allowedEditingIdentifiersRegister, this.inputCounters, this.passwordString);
   }
 
   setInputError(login: Boolean, error: string) {
-    console.log(error)
     this.inputError = `\n "${error}"`
     if (login) {
       this.loginCodemirror.setValue(this.loginDefaultText);
@@ -69,113 +113,34 @@ export class LoginPageComponent implements OnInit {
     const email: string = /e_mail = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
     const password: string = /password = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
 
-
+    this.authService.userLogin(email, password);
   }
 
   userRegister() {
-    const emailRegExp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     const currentRegisterCMValue: string = this.registerCodemirror.getValue();
     const email: string = /e_mail = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const name: string = /name = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const year: string = /year = (.*?)#/.exec(currentRegisterCMValue)![1].trim();
     const password: string = /password = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
 
-    if (email == "") {
-      this.setInputError(false, "Email must not be empty.");
-      return
-    }
+    this.validationService.validateUserRegister(email, name, year, password, this.setInputError.bind(this));
 
-    if (!email.match(emailRegExp)) {
-      this.setInputError(false, "Invalid email format.")
-      return
-    }
-
-    if (name == "") {
-      this.setInputError(false, "Name must not be empty.")
-      return
-    }
-
-    const yearNum: number = Number.parseInt(year);
-    console.log(yearNum)
-    if (isNaN(yearNum) || yearNum < 1 || yearNum > 3) {
-      this.setInputError(false, "Year must only contain 1, 2, or 3.")
-      return
-    }
-
-    if (password.length < 8) {
-      this.setInputError(false, "Password must be at least 8 characters long.")
-    }
-
-    console.log(email)
-    console.log(name)
-    console.log(year)
-    console.log(password)
-  }
-
-  generateCodeMirror(textarea: HTMLTextAreaElement): CodeMirror.EditorFromTextArea {
-    return CodeMirror.fromTextArea(textarea, {
-      lineNumbers: true,
-      mode: 'python',
-      theme: 'nord',
-      lineWrapping: true,
-      extraKeys: {
-        Enter: () => { }
-      }
-    });
-  }
-
-  generateLoginCodeMirror() {
-    const loginMirrorSession = this.generateCodeMirror(this.loginTextarea.nativeElement)
-    this.lockMirror(loginMirrorSession, true)
-    return loginMirrorSession
-  }
-
-  generateRegisterCodeMirror() {
-    const registerMirrorSession = this.generateCodeMirror(this.registerTextarea.nativeElement)
-    this.lockMirror(registerMirrorSession, false)
-    return registerMirrorSession
-
-  }
-
-  lockMirror(mirrorObject: CodeMirror.EditorFromTextArea, login: Boolean): void {
-
-    if (login) {
-      mirrorObject.on("beforeChange", (cm, change) => {
-        if (change.origin !== "setValue" && (change.from.line !== 5 || change.from.ch < 29 || change.to.ch > (29 + (this.counter - 1)))) {
-          change.cancel()
-          return
-        }
-        if (change.origin == "+delete") {
-          this.counter--;
-        }
-        else {
-          this.counter++;
-        }
-      })
-    }
-    else {
-      mirrorObject.on("beforeChange", (cm, change) => {
-        if (change.origin !== "setValue" && (change.from.line !== 5 || change.from.ch < 29 || change.to.ch > (29 + (this.counter - 1)))) {
-          change.cancel()
-        }
-      })
-    }
-
+    this.authService.userRegister(email, name, year, password);
   }
 
   changeTab(newTabIndex: number): void {
     this.selectedTab = newTabIndex;
-
+    this.passwordString = ``;
 
     if (newTabIndex == 0) {
       this.registerCodemirror!.toTextArea()
-      this.loginCodemirror = this.generateLoginCodeMirror();
+      this.loginCodemirror = this.getLoginCM();
       setTimeout(() => {
         this.loginCodemirror.refresh();
       })
     } else if (newTabIndex == 1) {
       this.loginCodemirror!.toTextArea()
-      this.registerCodemirror = this.generateRegisterCodeMirror();
+      this.registerCodemirror = this.getRegisterCM();
       if (this.firstTime) {
         this.registerCodemirror.setValue(this.registerDefaultText);
         this.firstTime = false;
