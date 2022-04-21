@@ -1,0 +1,32 @@
+.list-container {
+    background-color: #2e3440;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+
+    .puzzle-list-container {
+        .puzzle-list-item {
+            list-style: none;
+            padding: 0.2em;
+            padding-left: 0.6em;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: rgba($color: #fff, $alpha: 0.2);
+                cursor: pointer;
+            }
+        }
+
+        .inaccessible {
+            color: #7d7d7d;
+
+            &:hover {
+                background-color: rgba($color: #fff, $alpha: 0.1);
+                cursor: default;
+            }
+        }
+
+    }
+}

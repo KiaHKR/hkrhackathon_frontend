@@ -9,15 +9,17 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginPageComponentsModule } from './login-page-components/login-page-components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { MainPageComponent } from './main-page/main-page.component';
 import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    MainPageComponent
+    PuzzleListComponent,
+    PuzzleComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,7 @@ import { JwtHelperService, JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
     BrowserAnimationsModule,
     CodemirrorModule,
     LoginPageComponentsModule,
-    TabsModule,
+    TabsModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

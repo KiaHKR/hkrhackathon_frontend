@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation, AfterViewInit, ElementRef, ViewCh
 import * as CodeMirror from 'codemirror';
 import CMEditingIdentifier from 'src/models/cm_editing_identifier';
 import { AuthService } from '../auth.service';
-import { CodeMirrorService } from '../login-page-components/codemirror.service';
-import { InputValidationService } from '../login-page-components/input-validation.service';
+import { InputValidationService } from '../../services/input-validation.service';
+import { CodeMirrorService } from 'src/services/codemirror.service';
 
 @Component({
   templateUrl: './login-page.component.html',

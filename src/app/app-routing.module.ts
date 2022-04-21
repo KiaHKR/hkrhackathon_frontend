@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { MainPageComponent } from './main-page/main-page.component';
+import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
+import { PuzzleComponent } from './puzzle/puzzle.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginPageComponent, },
-  { path: '', component: MainPageComponent, canActivate: [AuthGuard] }
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginPageComponent },
+  { path: 'puzzles', component: PuzzleListComponent, canActivate: [] },
+  { path: 'puzzle/:id', component: PuzzleComponent, canActivate: [] },
 ];
 
 @NgModule({
