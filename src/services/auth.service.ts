@@ -10,8 +10,6 @@ export class AuthService {
   constructor(private jwtHelper: JwtHelperService) { }
 
   async userLogin(email: string, password: string, notifiyLoginError: Function): Promise<boolean> {
-    console.log(email)
-    console.log(password)
     const res = await fetch(`${BASE_API_URL}/login`, {
       method: 'POST',
       headers: {
@@ -36,8 +34,30 @@ export class AuthService {
     return true;
   }
 
-  userRegister(email: string, name: string, year: string, password: string) {
+  async userRegister(email: string, name: string, year: string, password: string) {
+    const res = await fetch(`${BASE_API_URL}/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        'email': email,
+        'name': name,
+        'year': year,
+        'password': password,
+      })
+    });
 
+    if (res == null) return false;
+
+    if (!res.ok) {
+      return false;
+    }
+
+    console.log(res.headers.get('x-auth-header'))
+
+    localStorage.setItem('x-auth-token', res.headers.get('x-auth-header')!);
+    return true;
   }
 
   async isAuthenticated(): Promise<boolean> {

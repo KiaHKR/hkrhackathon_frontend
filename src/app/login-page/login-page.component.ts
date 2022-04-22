@@ -120,7 +120,7 @@ export class LoginPageComponent implements OnInit {
     }
   }
 
-  userRegister() {
+  async userRegister() {
     const currentRegisterCMValue: string = this.registerCodemirror.getValue();
     const email: string = /e_mail = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const name: string = /name = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
@@ -129,7 +129,9 @@ export class LoginPageComponent implements OnInit {
 
     this.validationService.validateUserRegister(email, name, year, password, this.notifiyRegisterError.bind(this));
 
-    this.authService.userRegister(email, name, year, password);
+    if (await this.authService.userRegister(email, name, year, password)) {
+      this.route.navigate(['puzzles'])
+    }
   }
 
   changeTab(newTabIndex: number): void {
