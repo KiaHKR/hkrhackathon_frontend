@@ -9,14 +9,16 @@ export class CodeMirrorService {
 
   constructor() { }
 
-  private getCodeMirrorFromTextArea(textarea: HTMLTextAreaElement): CodeMirror.EditorFromTextArea {
+  private getCodeMirrorFromTextArea(textarea: HTMLTextAreaElement, notifiyEnterPressed: () => void): CodeMirror.EditorFromTextArea {
     return CodeMirror.fromTextArea(textarea, {
       lineNumbers: true,
       mode: 'python',
       theme: 'nord',
       lineWrapping: true,
       extraKeys: {
-        Enter: () => { }
+        Enter: () => { notifiyEnterPressed() },
+        "Ctrl-Z": () => { },
+        "Ctrl-Shift-Z": () => { },
       }
     });
   }
@@ -25,10 +27,12 @@ export class CodeMirrorService {
     textarea: HTMLTextAreaElement,
     allowedEditingIdentifiers: Array<CMEditingIdentifier>,
     inputCounters: { [counter: string]: number },
-    passwordString: string | null = null,
+    setPasswordString: (value: string) => void,
+    getPasswordString: () => string,
+    notifyEnterPressed: () => void,
   ): CodeMirror.EditorFromTextArea {
-    const cmSession = this.getCodeMirrorFromTextArea(textarea);
-    this.lockMirror(cmSession, allowedEditingIdentifiers, inputCounters, passwordString);
+    const cmSession = this.getCodeMirrorFromTextArea(textarea, notifyEnterPressed);
+    this.lockMirror(cmSession, allowedEditingIdentifiers, inputCounters, setPasswordString, getPasswordString);
     return cmSession;
   }
 
@@ -36,10 +40,13 @@ export class CodeMirrorService {
     mirrorObject: CodeMirror.EditorFromTextArea,
     allowedEditingIdentifiers: Array<CMEditingIdentifier>,
     inputCounters: { [counter: string]: number },
-    passwordString: string | null = null
+    setPasswordString: (value: string) => void,
+    getPasswordString: () => string
   ): void {
     mirrorObject.on("beforeChange", (cm, change) => {
       if (change.origin == "setValue") return;
+
+      console.log(change);
 
       let shouldCancelChange = true;
       for (const location of allowedEditingIdentifiers) {
@@ -52,9 +59,9 @@ export class CodeMirrorService {
           shouldCancelChange = false;
           if (location.passwordField) {
             if (change.text[0].length == 1) {
-              passwordString!.slice(0, passwordString!.length - 1);
+              getPasswordString()!.slice(0, getPasswordString()!.length - 1);
             } else {
-              passwordString = passwordString!.replace(passwordString!.substring(change.from.ch - location.ch, change.to.ch - location.ch), '');
+              setPasswordString(getPasswordString()!.replace(getPasswordString()!.substring(change.from.ch - location.ch, change.to.ch - location.ch), ''));
             }
           }
           break;
@@ -64,7 +71,8 @@ export class CodeMirrorService {
           inputCounters[location.counter] += change.text[0].length;
           shouldCancelChange = false;
           if (location.passwordField) {
-            passwordString += change.text[0];
+            let currentPassword = getPasswordString();
+            setPasswordString(currentPassword += change.text[0])
             change.text[0] = "*".repeat(change.text[0].length);
           }
           break;
@@ -73,7 +81,8 @@ export class CodeMirrorService {
         inputCounters[location.counter]++;
         shouldCancelChange = false;
         if (location.passwordField) {
-          passwordString += change.text[0];
+          let currentPassword = getPasswordString();
+          setPasswordString(currentPassword += change.text[0])
           change.text[0] = "*".repeat(change.text[0].length);
         }
         break;

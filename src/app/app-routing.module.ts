@@ -6,10 +6,11 @@ import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'puzzles', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
-  { path: 'puzzles', component: PuzzleListComponent, canActivate: [] },
-  { path: 'puzzle/:id', component: PuzzleComponent, canActivate: [] },
+  { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard] },
+  { path: 'puzzle/:id', component: PuzzleComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'puzzles', pathMatch: 'full' }
 ];
 
 @NgModule({

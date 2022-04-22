@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewEncapsulation, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import * as CodeMirror from 'codemirror';
 import CMEditingIdentifier from 'src/models/cm_editing_identifier';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { InputValidationService } from '../../services/input-validation.service';
 import { CodeMirrorService } from 'src/services/codemirror.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -76,7 +77,7 @@ export class LoginPageComponent implements OnInit {
     this._inputError = value;
   }
 
-  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService) { }
+  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) { }
 
   ngOnInit(): void {
 
@@ -89,31 +90,34 @@ export class LoginPageComponent implements OnInit {
   }
 
   getLoginCM(): CodeMirror.EditorFromTextArea {
-    return this.cmService.generateCodeMirror(this.loginTextarea.nativeElement, this.allowedEditingIdentifiersLogin, this.inputCounters, this.passwordString);
+    return this.cmService.generateCodeMirror(this.loginTextarea.nativeElement, this.allowedEditingIdentifiersLogin, this.inputCounters, (value: string) => this.passwordString = value, () => this.passwordString, () => this.userLogin());
   }
 
   getRegisterCM(): CodeMirror.EditorFromTextArea {
-    return this.cmService.generateCodeMirror(this.registerTextarea.nativeElement, this.allowedEditingIdentifiersRegister, this.inputCounters, this.passwordString);
+    return this.cmService.generateCodeMirror(this.registerTextarea.nativeElement, this.allowedEditingIdentifiersRegister, this.inputCounters, (value: string) => this.passwordString = value, () => this.passwordString, () => this.userRegister());
   }
 
-  setInputError(login: Boolean, error: string) {
-    this.inputError = `\n "${error}"`
-    if (login) {
-      this.loginCodemirror.setValue(this.loginDefaultText);
-      this.loginCodemirror.refresh();
-      return
-    }
-
+  notifiyRegisterError(error: string) {
+    this.inputError = `\n '${error}'`
+    this.passwordString = "";
     this.registerCodemirror.setValue(this.registerDefaultText);
     this.registerCodemirror.refresh();
   }
 
-  userLogin() {
+  notifiyLoginError(error: string) {
+    this.inputError = `\n '${error}'`
+    this.passwordString = "";
+    this.loginCodemirror.setValue(this.loginDefaultText);
+    this.loginCodemirror.refresh();
+  }
+
+  async userLogin() {
     const currentLoginCMValue: string = this.loginCodemirror.getValue();
     const email: string = /e_mail = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
-    const password: string = /password = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
 
-    this.authService.userLogin(email, password);
+    if (await this.authService.userLogin(email, this.passwordString, this.notifiyLoginError.bind(this))) {
+      this.route.navigate(['puzzles'])
+    }
   }
 
   userRegister() {
@@ -123,7 +127,7 @@ export class LoginPageComponent implements OnInit {
     const year: string = /year = (.*?)#/.exec(currentRegisterCMValue)![1].trim();
     const password: string = /password = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
 
-    this.validationService.validateUserRegister(email, name, year, password, this.setInputError.bind(this));
+    this.validationService.validateUserRegister(email, name, year, password, this.notifiyRegisterError.bind(this));
 
     this.authService.userRegister(email, name, year, password);
   }

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PuzzleComponent implements OnInit {
 
+  //TODO Get the actual Puzzle object from Puzzle Service endpoint
   puzzleId: string = this.activatedRoute.snapshot.paramMap.get('id')!;
 
   constructor(private activatedRoute: ActivatedRoute) { }
