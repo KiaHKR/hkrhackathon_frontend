@@ -10,20 +10,26 @@ export class PuzzleService {
   constructor() { }
 
 
-  async fetchPuzzles(): Promise<Array<Puzzle>> {
-    // const token = localStorage.getItem('x-auth-token');
-    // if (token == null) return [];
-    // const puzzlesRes = await fetch(`${BASE_API_URL}/puzzles`, {
-    //   headers: {
-    //     'x-auth-header': token,
-    //   }
-    // })
+  async fetchPuzzles(notifyDisplayError?: (error: string) => void): Promise<Array<Puzzle> | null> {
+    const token = localStorage.getItem('x-auth-token');
+    if (token == null) {
+      if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
+      return null;
+    }
+    const puzzlesRes = await fetch(`${BASE_API_URL}/puzzles`, {
+      headers: {
+        'x-auth-header': token,
+      }
+    })
 
-    // if (puzzlesRes == null) return [];
+    if (puzzlesRes == null || !puzzlesRes.ok) {
+      if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching puzzles. Please reload the page and try again.');
+      return null;
+    };
 
-    // const data = await puzzlesRes.json();
+    const data = await puzzlesRes.json();
 
-    // return data;
+    return data;
 
     return [
       new Puzzle("1", "Puzzle 1", "story 1", ["Example 1", "Example 2", "Example 3"]),
@@ -33,10 +39,13 @@ export class PuzzleService {
     ]
   }
 
-  async answerPuzzle(puzzleId: string, answer: string): Promise<boolean> {
+  async answerPuzzle(puzzleId: string, answer: string, notifyDisplayError?: (error: string) => void): Promise<boolean | null> {
 
     const token = localStorage.getItem('x-auth-token');
-    if (token == null) return false;
+    if (token == null) {
+      if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
+      return null;
+    };
 
     const correctAnswerRes = await fetch(`${BASE_API_URL}/puzzles/${puzzleId}`, {
       method: 'POST',
@@ -49,7 +58,10 @@ export class PuzzleService {
       })
     })
 
-    if (correctAnswerRes == null) return false;
+    if (correctAnswerRes == null || !correctAnswerRes.ok) {
+      if (notifyDisplayError != undefined) notifyDisplayError('There was an error submitting your answer. Please reload the page and try again.');
+      return null;
+    }
 
     const data = await correctAnswerRes.json();
 
