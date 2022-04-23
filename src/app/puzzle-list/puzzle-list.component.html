@@ -1,19 +1,21 @@
+<login-page-glitch-logo></login-page-glitch-logo>
+
 <div class="container col-md-4">
     <tabset class="tab-container">
-        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="puzzleTabActive = false" >
-            <div class="py-3 px-4 list-container">
+        <tab  heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="puzzleTabActive = false" >
+            <div class="py-3 px-4 list-container" #listContainer>
                 <h3 class="mb-4">Challenges</h3>
                 <ul class="m-0 p-0 puzzle-list-container">
-                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles" (click)="openPuzzle(puzzle)">
+                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles; let i = index" (click)="openPuzzle(puzzle, i+1)">
                         {{puzzle.title}}</li>
                     <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">{{puzzle.title}}</li>
                 </ul>
             </div>
         </tab>
         
-        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive" id="puzzle-tab" >
-            <div class="py-3 px-2 list-container">
-                <puzzle-component [puzzle]="chosenPuzzle!"></puzzle-component>
+        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
+            <div class="py-3 px-2 list-container puzzle-grower" id="puzzle-container"  >
+                <puzzle-component [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()"></puzzle-component>
             </div>
         </tab>
     </tabset>

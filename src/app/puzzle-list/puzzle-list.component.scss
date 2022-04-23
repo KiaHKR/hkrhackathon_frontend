@@ -92,7 +92,7 @@
 }
 
 #bottom-container{
-    max-height: 900px;
+    max-height: 800px;
     overflow-y: scroll;
     width: auto;
     overflow-x: hidden;
@@ -114,4 +114,18 @@
 
   #file{
       color: #fff;
+  }
+
+  #task-title{
+      overflow-wrap: normal;
+  }
+
+  #user-answer{
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid white;
+      border-radius: 5px;
+  }
+  #user-answer:focus{
+    outline: none;
   }
