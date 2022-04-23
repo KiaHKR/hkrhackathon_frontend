@@ -3,5 +3,5 @@ export class User {
     email!: string;
     year!: number;
     isAdmin!: boolean;
-    nextPuzzleId!: string;
+    currentPuzzleId!: string;
 }
