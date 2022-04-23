@@ -5,15 +5,10 @@ import { User } from 'src/models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private static USER: User | undefined;
 
   constructor() { }
 
-  get user() {
-    return UserService.USER;
-  }
+  async getUser() {
 
-  set user(user: User | undefined) {
-    UserService.USER = user;
   }
 }

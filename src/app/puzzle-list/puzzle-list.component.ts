@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 
@@ -13,7 +12,7 @@ export class PuzzleListComponent implements OnInit {
 
   puzzleList!: Array<Puzzle>;
   chosenPuzzle?: Puzzle;
-  userNextPuzzle: string = "3";
+  userCurrentPuzzle: string = "3";
   puzzleTabActive: boolean = false;
 
   accessiblePuzzles: Array<Puzzle> = [];
@@ -24,21 +23,20 @@ export class PuzzleListComponent implements OnInit {
   ngOnInit(): void {
     this.puzzleService.fetchPuzzles().then((puzzles) => {
       this.puzzleList = puzzles;
-    })
+      let accessible = true;
+      for (const puzzle of this.puzzleList) {
+        if (accessible) {
+          this.accessiblePuzzles.push(puzzle);
 
-    let accessible = true;
-    for (const puzzle of this.puzzleList) {
-      if (accessible) {
-        this.accessiblePuzzles.push(puzzle);
-
-        if (puzzle.id == this.userNextPuzzle) {
-          accessible = false;
+          if (puzzle.id == this.userCurrentPuzzle) {
+            accessible = false;
+          }
+          continue
         }
-        continue
-      }
 
-      this.inaccessiblePuzzles.push(puzzle);
-    }
+        this.inaccessiblePuzzles.push(puzzle);
+      }
+    })
   }
 
   openPuzzle(puzzle: Puzzle): void {
