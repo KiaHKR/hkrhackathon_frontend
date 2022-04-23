@@ -9,7 +9,6 @@ const routes: Routes = [
   { path: '', redirectTo: 'puzzles', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard] },
-  { path: 'puzzle/:id', component: PuzzleComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'puzzles', pathMatch: 'full' }
 ];
 

@@ -1,3 +1,4 @@
+@import '/src/app/globals.scss';
 .list-container {
     background-color: #2e3440;
     color: #fff;
@@ -5,6 +6,7 @@
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
+    border-top-left-radius: 0;
 
     .puzzle-list-container {
         .puzzle-list-item {
@@ -28,5 +30,40 @@
             }
         }
 
+    }
+}
+
+.nav-tabs {
+    margin-top: 50px;
+
+    .nav-item {
+        margin: 0;
+
+        .nav-link {
+            border: none;
+            border-radius: 0px;
+            padding: 3px 15px;
+
+            background-color: $color-primary;
+            color: #8b8b8b;
+        }
+
+        .nav-link.active {
+            color: white;
+
+            border-bottom: 2px;
+        }
+    }
+
+    .nav-item:first-child {
+        .nav-link {
+            border-top-left-radius: 5px;
+        }
+    }
+
+    .nav-item:last-child {
+        .nav-link {
+            border-top-right-radius: 5px;
+        }
     }
 }

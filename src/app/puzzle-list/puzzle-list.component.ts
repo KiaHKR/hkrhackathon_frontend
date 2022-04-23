@@ -1,26 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
+import { PuzzleServiceService } from 'src/services/puzzle-service.service';
 
 @Component({
   templateUrl: './puzzle-list.component.html',
-  styleUrls: ['./puzzle-list.component.scss']
+  styleUrls: ['./puzzle-list.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class PuzzleListComponent implements OnInit {
+  @ViewChild("puzzle-tab") puzzleTab?: ElementRef;
 
-  puzzleList: Array<Puzzle> = [
-    new Puzzle("1", "cake", "me too"),
-    new Puzzle("2", "cake2", "me too2"),
-    new Puzzle("3", "cake3", "me too3"),
-    new Puzzle("4", "cake4", "me too4"),
-    new Puzzle("5", "cake5", "me too5")
-  ]
+  puzzleList: Array<Puzzle> = this.puzzleService.fetchPuzzles();
+  chosenPuzzle?: Puzzle;
   userNextPuzzle: string = "3";
+  puzzleTabActive: boolean = false;
 
   accessiblePuzzles: Array<Puzzle> = [];
   inaccessiblePuzzles: Array<Puzzle> = [];
 
-  constructor(private route: Router) { }
+  constructor(private puzzleService: PuzzleServiceService) { }
 
   ngOnInit(): void {
     let accessible = true;
@@ -38,8 +37,10 @@ export class PuzzleListComponent implements OnInit {
     }
   }
 
-  openPuzzle(puzzleId: string): void {
-    this.route.navigate(['/puzzle', puzzleId])
+  openPuzzle(puzzle: Puzzle): void {
+    this.chosenPuzzle = puzzle;
+    this.puzzleTabActive = true;
+
   }
 
 }

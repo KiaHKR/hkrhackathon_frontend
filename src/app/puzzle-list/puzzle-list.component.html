@@ -1,10 +1,19 @@
 <div class="container col-md-4">
-    <div class="m-3 py-3 px-4 list-container">
-        <h3 class="mb-4">Challenges</h3>
-        <ul class="m-0 p-0 puzzle-list-container">
-            <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles" (click)="openPuzzle(puzzle.id)">
-                {{puzzle.name}}</li>
-            <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">{{puzzle.name}}</li>
-        </ul>
-    </div>
+    <tabset class="tab-container">
+        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="puzzleTabActive = false" >
+            <div class="py-3 px-4 list-container">
+                <h3 class="mb-4">Challenges</h3>
+                <ul class="m-0 p-0 puzzle-list-container">
+                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles" (click)="openPuzzle(puzzle)">
+                        {{puzzle.title}}</li>
+                    <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">{{puzzle.title}}</li>
+                </ul>
+            </div>
+        </tab>
+        
+        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive" id="puzzle-tab" >
+            <puzzle-component [puzzle]="chosenPuzzle!">
+            </puzzle-component>
+        </tab>
+    </tabset>
 </div>
