@@ -10,7 +10,6 @@ import { PuzzleServiceService } from 'src/services/puzzle-service.service';
 })
 export class PuzzleComponent implements OnInit {
 
-  //TODO Get the actual Puzzle object from Puzzle Service endpoint
   @Input() puzzle!: Puzzle;
 
 

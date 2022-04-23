@@ -12,8 +12,9 @@
         </tab>
         
         <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive" id="puzzle-tab" >
-            <puzzle-component [puzzle]="chosenPuzzle!">
-            </puzzle-component>
+            <div class="py-3 px-2 list-container">
+                <puzzle-component [puzzle]="chosenPuzzle!"></puzzle-component>
+            </div>
         </tab>
     </tabset>
 </div>
