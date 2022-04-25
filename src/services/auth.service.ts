@@ -9,7 +9,7 @@ export class AuthService {
 
   constructor(private jwtHelper: JwtHelperService) { }
 
-  async userLogin(email: string, password: string, notifiyLoginError: Function): Promise<boolean> {
+  async userLogin(email: string, password: string, notifiyLoginError: (value: string) => void): Promise<boolean> {
     const res = await fetch(`${BASE_API_URL}/login`, {
       method: 'POST',
       headers: {
@@ -21,7 +21,10 @@ export class AuthService {
       })
     });
 
-    if (res == null) return false;
+    if (res == null) {
+      notifiyLoginError('An error occurred, please try again.');
+      return false;
+    }
 
     const json = await res.json();
 
@@ -34,7 +37,7 @@ export class AuthService {
     return true;
   }
 
-  async userRegister(email: string, name: string, year: string, password: string) {
+  async userRegister(email: string, name: string, year: string, password: string, notifiyRegisterError: (value: string) => void): Promise<boolean> {
     const res = await fetch(`${BASE_API_URL}/user`, {
       method: 'POST',
       headers: {
@@ -48,13 +51,17 @@ export class AuthService {
       })
     });
 
-    if (res == null) return false;
-
-    if (!res.ok) {
+    if (res == null) {
+      notifiyRegisterError('An error occurred, please try again.')
       return false;
     }
 
-    console.log(res.headers.get('x-auth-header'))
+    const json = await res.json();
+
+    if (!res.ok) {
+      notifiyRegisterError(json.error)
+      return false;
+    }
 
     localStorage.setItem('x-auth-token', res.headers.get('x-auth-header')!);
     return true;

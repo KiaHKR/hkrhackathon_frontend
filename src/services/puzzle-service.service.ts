@@ -9,7 +9,6 @@ export class PuzzleService {
 
   constructor() { }
 
-
   async fetchPuzzles(notifyDisplayError?: (error: string) => void): Promise<Array<Puzzle> | null> {
     const token = localStorage.getItem('x-auth-token');
     if (token == null) {
@@ -39,7 +38,7 @@ export class PuzzleService {
     ]
   }
 
-  async answerPuzzle(puzzleId: string, answer: string, notifyDisplayError?: (error: string) => void): Promise<boolean | null> {
+  async answerPuzzle(puzzleId: string, answer: string, notifyDisplayError?: (error: string) => void): Promise<{ answer: boolean, information: string } | null> {
 
     const token = localStorage.getItem('x-auth-token');
     if (token == null) {
@@ -58,13 +57,17 @@ export class PuzzleService {
       })
     })
 
-    if (correctAnswerRes == null || !correctAnswerRes.ok) {
+    if (correctAnswerRes == null) {
       if (notifyDisplayError != undefined) notifyDisplayError('There was an error submitting your answer. Please reload the page and try again.');
       return null;
     }
 
     const data = await correctAnswerRes.json();
 
-    return data.answer;
+    if (data.error) {
+      if (notifyDisplayError) notifyDisplayError(data.error)
+    }
+
+    return data;
   }
 }

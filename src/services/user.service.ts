@@ -50,6 +50,12 @@ export class UserService {
     }
 
     const data = await puzzleStringRes.json();
-    return data.userFile;
+
+    if (data.error) {
+      if (notifyDisplayError != undefined) notifyDisplayError(data.error);
+      return null;
+    }
+
+    return data.userInput;
   }
 }
