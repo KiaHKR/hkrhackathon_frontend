@@ -23,8 +23,10 @@ export class PuzzleListComponent implements OnInit {
   ngOnInit(): void {
 
 
-
     this.puzzleService.fetchPuzzles().then((puzzles) => {
+      if (puzzles == null) {
+        return
+      }
       this.puzzleList = puzzles;
       let accessible = true;
       for (const puzzle of this.puzzleList) {

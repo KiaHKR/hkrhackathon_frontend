@@ -32,30 +32,31 @@ export class UserService {
   }
 
   async getUserFile(puzzleId: string, notifyDisplayError?: (error: string) => void): Promise<string | null> {
-    const token = localStorage.getItem('x-auth-token');
-    if (token == null) {
-      if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
-      return null;
-    }
+    return "HERPA MERPA" + puzzleId
+    // const token = localStorage.getItem('x-auth-token');
+    // if (token == null) {
+    //   if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
+    //   return null;
+    // }
 
-    const puzzleStringRes = await fetch(`${BASE_API_URL}/user/${puzzleId}`, {
-      headers: {
-        'x-auth-header': token
-      }
-    })
+    // const puzzleStringRes = await fetch(`${BASE_API_URL}/user/${puzzleId}`, {
+    //   headers: {
+    //     'x-auth-header': token
+    //   }
+    // })
 
-    if (puzzleStringRes == null || !puzzleStringRes.ok) {
-      if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching your puzzle data. Please reload the page and try again.');
-      return null;
-    }
+    // if (puzzleStringRes == null || !puzzleStringRes.ok) {
+    //   if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching your puzzle data. Please reload the page and try again.');
+    //   return null;
+    // }
 
-    const data = await puzzleStringRes.json();
+    // const data = await puzzleStringRes.json();
 
-    if (data.error) {
-      if (notifyDisplayError != undefined) notifyDisplayError(data.error);
-      return null;
-    }
+    // if (data.error) {
+    //   if (notifyDisplayError != undefined) notifyDisplayError(data.error);
+    //   return null;
+    // }
 
-    return data.userInput;
+    // return data.userInput;
   }
 }
