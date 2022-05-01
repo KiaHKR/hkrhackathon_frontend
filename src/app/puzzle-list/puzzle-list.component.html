@@ -2,7 +2,7 @@
 
 <div class="container col-md-4">
     <tabset class="tab-container">
-        <tab  heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="puzzleTabActive = false" >
+        <tab  heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabActive()" >
             <div class="py-3 px-4 list-container" #listContainer>
                 <h3 class="mb-4">Challenges</h3>
                 <ul class="m-0 p-0 puzzle-list-container">
@@ -15,7 +15,7 @@
         
         <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
             <div class="py-3 px-2 list-container puzzle-grower" id="puzzle-container"  >
-                <puzzle-component [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()"></puzzle-component>
+                <puzzle-component [switchtab]="openList" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()"></puzzle-component>
             </div>
         </tab>
     </tabset>

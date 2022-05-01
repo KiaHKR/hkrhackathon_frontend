@@ -6,29 +6,32 @@ import { User } from 'src/models/user';
   providedIn: 'root'
 })
 export class UserService {
+  static user = new User("", "", 2, true, "2")
 
   constructor() { }
 
   async getUser(notifyDisplayError?: (error: string) => void): Promise<User | null> {
-    const token = localStorage.getItem('x-auth-token');
-    if (token == null) {
-      if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
-      return null;
-    }
+    return UserService.user
 
-    const userRes = await fetch(`${BASE_API_URL}/user`, {
-      headers: {
-        'x-auth-header': token
-      }
-    })
+    // const token = localStorage.getItem('x-auth-token');
+    // if (token == null) {
+    //   if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
+    //   return null;
+    // }
 
-    if (userRes == null || !userRes.ok) {
-      if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching user information. Please reload the page and try again.');
-      return null;
-    }
+    // const userRes = await fetch(`${BASE_API_URL}/user`, {
+    //   headers: {
+    //     'x-auth-header': token
+    //   }
+    // })
 
-    const data = await userRes.json();
-    return (data as User);
+    // if (userRes == null || !userRes.ok) {
+    //   if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching user information. Please reload the page and try again.');
+    //   return null;
+    // }
+
+    // const data = await userRes.json();
+    // return (data as User);
   }
 
   async getUserFile(puzzleId: string, notifyDisplayError?: (error: string) => void): Promise<string | null> {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import Puzzle from 'src/models/puzzle';
 import { BASE_API_URL } from 'src/globals';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,8 @@ export class PuzzleService {
 
   async answerPuzzle(puzzleId: string, answer: string, notifyDisplayError?: (error: string) => void): Promise<{ answer: boolean, information: string } | null> {
     if (answer == "a") {
+      UserService.user.currentPuzzleId = "3"
+      console.log(UserService.user.currentPuzzleId)
       return { answer: true, information: "yes" }
     }
     return { answer: false, information: "no" }

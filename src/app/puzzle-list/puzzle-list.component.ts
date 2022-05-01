@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   templateUrl: './puzzle-list.component.html',
@@ -11,38 +12,50 @@ export class PuzzleListComponent implements OnInit {
 
   puzzleList!: Array<Puzzle>;
   chosenPuzzle?: Puzzle;
-  userCurrentPuzzle: string = "3";
   puzzleTabActive: boolean = false;
   chosenPuzzleIndex?: string;
 
   accessiblePuzzles: Array<Puzzle> = [];
   inaccessiblePuzzles: Array<Puzzle> = [];
 
-  constructor(private puzzleService: PuzzleService) { }
+  constructor(private puzzleService: PuzzleService, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.updateList()
+  }
 
+  updateList() {
+    this.accessiblePuzzles = []
+    this.inaccessiblePuzzles = []
+    this.userService.getUser().then(user => {
+      if (user == null) return
 
-    this.puzzleService.fetchPuzzles().then((puzzles) => {
-      if (puzzles == null) {
-        return
-      }
-      this.puzzleList = puzzles;
-      let accessible = true;
-      for (const puzzle of this.puzzleList) {
-        if (accessible) {
-          this.accessiblePuzzles.push(puzzle);
+      this.puzzleService.fetchPuzzles().then((puzzles) => {
+        if (puzzles == null) return
 
-          if (puzzle.id == this.userCurrentPuzzle) {
-            accessible = false;
+        this.puzzleList = puzzles;
+        let accessible = true;
+        for (const puzzle of this.puzzleList) {
+          if (accessible) {
+            this.accessiblePuzzles.push(puzzle);
+
+            if (puzzle.id == user?.currentPuzzleId) {
+              accessible = false;
+            }
+            continue
           }
-          continue
-        }
 
-        this.inaccessiblePuzzles.push(puzzle);
-      }
+          this.inaccessiblePuzzles.push(puzzle);
+        }
+      })
     })
   }
+
+  listTabActive() {
+    this.puzzleTabActive = false
+    this.updateList()
+  }
+
 
   openPuzzle(puzzle: Puzzle, index: number): void {
     this.chosenPuzzle = puzzle;
@@ -50,6 +63,10 @@ export class PuzzleListComponent implements OnInit {
     this.puzzleTabActive = true;
 
 
+  }
+
+  openList(): void {
+    this.puzzleTabActive = false;
   }
 
 }

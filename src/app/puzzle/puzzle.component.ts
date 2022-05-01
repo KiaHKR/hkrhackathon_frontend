@@ -14,6 +14,7 @@ export class PuzzleComponent implements OnInit {
   @Input() puzzle!: Puzzle;
   @Input() index!: string;
   @Input() indexTotal!: string;
+  @Input() switchtab!: Function;
   @ViewChild("answerField") answerField!: ElementRef;
 
 
@@ -21,7 +22,8 @@ export class PuzzleComponent implements OnInit {
   }
 
   routePage() {
-    this.route.navigate(["puzzles/" + this.puzzle.id])
+    let task_reroute = this.route.serializeUrl(this.route.createUrlTree(['/puzzles/' + this.puzzle.id]))
+    window.open(task_reroute, '_blank')
   }
 
   verifyAnswer() {
@@ -31,6 +33,7 @@ export class PuzzleComponent implements OnInit {
     else {
       const checkAnswer = this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {
         if (answer?.answer == true) {
+          this.switchtab()
           console.log(answer?.information)
         }
         else {
