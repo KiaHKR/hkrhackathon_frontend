@@ -46,12 +46,12 @@
         </div>
     </div>
 </div>
-<alert #successAlert type="success" dismissOnTimeout="" [isOpen]="alertsOpen" [dismissible]="true"
+<alert #successAlert type="success" dismissOnTimeout="5000" [isOpen]="alertsOpen" [dismissible]="true"
     (onClosed)="alertClosed()" *ngIf="puzzleCompleted != undefined && puzzleCompleted">
     <h5 class="alert-heading">Puzzle completed!</h5>
     You unlocked the next task! Check the puzzles tab.
 </alert>
-<alert #failedAlert type="danger" dismissOnTimeout="" [isOpen]="alertsOpen" [dismissible]="true"
+<alert #failedAlert type="danger" dismissOnTimeout="5000" [isOpen]="alertsOpen" [dismissible]="true"
     (onClosed)="alertClosed()" *ngIf="puzzleCompleted != undefined && !puzzleCompleted">
     <h5 class="alert-heading">Input wrong!</h5>
     {{puzzleInformation}}
