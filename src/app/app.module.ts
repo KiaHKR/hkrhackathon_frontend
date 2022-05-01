@@ -9,6 +9,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { LoginPageComponentsModule } from './login-page-components/login-page-components.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AlertModule } from 'ngx-bootstrap/alert';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
@@ -29,7 +30,8 @@ import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
     BrowserAnimationsModule,
     CodemirrorModule,
     LoginPageComponentsModule,
-    TabsModule
+    TabsModule,
+    AlertModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

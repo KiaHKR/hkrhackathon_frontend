@@ -77,7 +77,11 @@ export class LoginPageComponent implements OnInit {
     this._inputError = value;
   }
 
-  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) { }
+  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) {
+    authService.isAuthenticated().then((authenticated) => {
+      if (authenticated) route.navigate(['puzzles']);
+    })
+  }
 
   ngOnInit(): void {
 
@@ -137,6 +141,7 @@ export class LoginPageComponent implements OnInit {
   changeTab(newTabIndex: number): void {
     this.selectedTab = newTabIndex;
     this.passwordString = ``;
+    this._inputError = ``;
 
     if (newTabIndex == 0) {
       this.registerCodemirror!.toTextArea()

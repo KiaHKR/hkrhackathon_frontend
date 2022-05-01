@@ -17,6 +17,11 @@ export class PuzzleListComponent implements OnInit {
 
   accessiblePuzzles: Array<Puzzle> = [];
   inaccessiblePuzzles: Array<Puzzle> = [];
+  puzzleCompleted?: boolean;
+
+  alertsOpen: boolean = true;
+
+  userIsAdmin: boolean = false;
 
   constructor(private puzzleService: PuzzleService, private userService: UserService) { }
 
@@ -29,6 +34,8 @@ export class PuzzleListComponent implements OnInit {
     this.inaccessiblePuzzles = []
     this.userService.getUser().then(user => {
       if (user == null) return
+
+      this.userIsAdmin = user == undefined ? false : user.isAdmin;
 
       this.puzzleService.fetchPuzzles().then((puzzles) => {
         if (puzzles == null) return
@@ -53,20 +60,22 @@ export class PuzzleListComponent implements OnInit {
 
   listTabActive() {
     this.puzzleTabActive = false
+    this.alertsOpen = false;
     this.updateList()
   }
-
 
   openPuzzle(puzzle: Puzzle, index: number): void {
     this.chosenPuzzle = puzzle;
     this.chosenPuzzleIndex = `${index}`;
     this.puzzleTabActive = true;
-
-
   }
 
-  openList(): void {
-    this.puzzleTabActive = false;
+  setAlertsOpen(value: boolean) {
+    this.alertsOpen = value;
+  }
+
+  openAdmin() {
+
   }
 
 }

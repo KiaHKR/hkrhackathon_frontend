@@ -1,21 +1,28 @@
+<div *ngIf="userIsAdmin" class="admin-btn-container">
+    <button type='button' (click)="openAdmin()" class="btn btn-lg btn-outline-dark mb-2">Dashboard</button>
+</div>
 <login-page-glitch-logo></login-page-glitch-logo>
 
-<div class="container col-md-4">
+<div class="container col-sm-8 col-md-6 col-lg-6 col-xl-4 mb-5">
     <tabset class="tab-container">
-        <tab  heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabActive()" >
+        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabActive()">
             <div class="py-3 px-4 list-container" #listContainer>
                 <h3 class="mb-4">Challenges</h3>
                 <ul class="m-0 p-0 puzzle-list-container">
-                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles; let i = index" (click)="openPuzzle(puzzle, i+1)">
+                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles; let i = index"
+                        (click)="openPuzzle(puzzle, i+1)">
                         {{puzzle.title}}</li>
-                    <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">{{puzzle.title}}</li>
+                    <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">
+                        {{puzzle.title}}</li>
                 </ul>
             </div>
         </tab>
-        
+
         <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
-            <div class="py-3 px-2 list-container puzzle-grower" id="puzzle-container"  >
-                <puzzle-component [switchtab]="openList" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()"></puzzle-component>
+            <div class="py-3 px-2 list-container" id="puzzle-container">
+                <puzzle-component [alertsOpen]="alertsOpen" [setAlertsOpen]="setAlertsOpen.bind(this)"
+                    [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()">
+                </puzzle-component>
             </div>
         </tab>
     </tabset>

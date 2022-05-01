@@ -1,4 +1,11 @@
 @import '/src/app/globals.scss';
+
+.admin-btn-container {
+    position: absolute;
+    right: 3rem;
+    top: 2rem;
+}
+
 .list-container {
     background-color: #2e3440;
     color: #fff;
@@ -7,6 +14,8 @@
     justify-content: center;
     border-radius: 10px;
     border-top-left-radius: 0;
+    transition: height 2ms ease-in-out;
+
 
     .puzzle-list-container {
         .puzzle-list-item {
@@ -68,64 +77,7 @@
     }
 }
 
-
-.top-row{
-    display: flex;
-    align-items: center;
-
-
-    .task-number{
-        flex-direction: column;
-        flex-grow: 1;
-    }
+.alert {
+    margin-bottom: 0px;
+    margin-top: 1rem;
 }
-
-.examples{
-    .example-text-container{
-        background-color: #20282e !important;
-        padding: 15px;
-        border-radius: 10px;
-    }
-    .example-text-container>p{
-        margin: 0
-    }
-}
-
-#bottom-container{
-    max-height: 800px;
-    overflow-y: scroll;
-    width: auto;
-    overflow-x: hidden;
-}
-
-/* Scroll 3 */
-#bottom-container::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-  }
-  #bottom-container::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 10px;
-  }
-  #bottom-container::-webkit-scrollbar-thumb {
-    background-color: #20282e !important;
-    border-radius: 10px;
-  }
-
-  #file{
-      color: #fff;
-  }
-
-  #task-title{
-      overflow-wrap: normal;
-  }
-
-  #user-answer{
-      background-color: transparent;
-      color: #fff;
-      border: 1px solid white;
-      border-radius: 5px;
-  }
-  #user-answer:focus{
-    outline: none;
-  }

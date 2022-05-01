@@ -1,44 +1,58 @@
-<div class="container">
+<div class="puzzle-container container">
     <div class="row top-row p-3">
-        <div class="col-md-10 task-title">
+        <div class="col-xl-10 col-md-8 task-title">
             <h3 id="task-title">{{puzzle.title}}</h3>
         </div>
-        <div class="offset-md-1 col-md-1 task-number">
-            <h6 id="task-number">Task {{index}} / {{indexTotal}}</h6>
+        <div class="offset-xl-0 col-xl-2 offset-md-1 col-md-3 task-number">
+            <h6 id="task-number">Task <br> {{index}} / {{indexTotal}}</h6>
         </div>
     </div>
     <hr>
     <div id="bottom-container" class="p-3">
-    <div class="row task-story">
-        <h4>Story</h4>
-        <p id="task-story">{{puzzle.story}}</p>
+        <div class="row task-story">
+            <h4>Story</h4>
+            <p id="task-story">{{puzzle.story}}</p>
 
-    </div>
-    <hr>
-    <div class="row" id="examples">
-        <div *ngFor="let example of puzzle.examples; let i = index" class="examples mt-4">
-            <h6>Example {{i+1}}</h6>
-            <div class="example-text-container">
-            <p>{{example}}</p>
-            </div>
         </div>
-
-
-    </div>
-    <div class="row mt-3">
-        <a [routerLink]="" target="_blank" (click)="(routePage())" id="file"><p>Go to file </p></a>
-    </div>
-    <div class="row mt-3">
-        <form action="">
-            <div class="form-group">
-                <label for="user-answer">Output:</label>
-                <input #answerField class="m-2 " type="text" id="user-answer">
-                <button #answerButton type='button' (click)="verifyAnswer()" class="btn btn-sm btn-outline-light">Submit</button>
-                <small id="answerHelp" class="form-text text-muted m-2">This should be the output you recieved from your solution</small>
+        <hr>
+        <div class="row" id="examples">
+            <div *ngFor="let example of puzzle.examples; let i = index" class="examples mt-4">
+                <h6>Example {{i+1}}</h6>
+                <div class="example-text-container">
+                    <p>{{example}}</p>
+                </div>
             </div>
-        </form>
-        
+
+
+        </div>
+        <div class="row mt-3 file-link-container">
+            <a [routerLink]="" target="_blank" (click)="(routePage())" id="file">
+                <p>Go to file </p>
+            </a>
+        </div>
+        <div class="row mt-3">
+            <form action="">
+                <div class="form-group">
+                    <label for="user-answer">Answer:</label>
+                    <input #answerField class="form-control mt-2 mb-2" type="text" id="user-answer">
+                    <button #answerButton type='button' (click)="verifyAnswer()"
+                        class="btn btn-sm btn-outline-light mb-2">Submit</button>
+                    <small id="answerHelp" class="form-text text-muted m-2 mt-4"><br>This should be the output you
+                        recieved from
+                        your solution</small>
+                </div>
+            </form>
+
+        </div>
     </div>
 </div>
-
-</div>
+<alert #successAlert type="success" dismissOnTimeout="" [isOpen]="alertsOpen" [dismissible]="true"
+    (onClosed)="alertClosed()" *ngIf="puzzleCompleted != undefined && puzzleCompleted">
+    <h5 class="alert-heading">Puzzle completed!</h5>
+    You unlocked the next task! Check the puzzles tab.
+</alert>
+<alert #failedAlert type="danger" dismissOnTimeout="" [isOpen]="alertsOpen" [dismissible]="true"
+    (onClosed)="alertClosed()" *ngIf="puzzleCompleted != undefined && !puzzleCompleted">
+    <h5 class="alert-heading">Input wrong!</h5>
+    {{puzzleInformation}}
+</alert>

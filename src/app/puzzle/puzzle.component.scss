@@ -1,0 +1,76 @@
+.top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .task-number {
+        text-align: right;
+        width: fit-content;
+    }
+}
+
+.examples {
+    .example-text-container {
+        background-color: #20282e !important;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    .example-text-container>p {
+        margin: 0
+    }
+}
+
+#bottom-container {
+    max-height: 800px;
+    overflow-y: scroll;
+    width: auto;
+    overflow-x: hidden;
+}
+
+/* Scroll 3 */
+#bottom-container::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+#bottom-container::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+#bottom-container::-webkit-scrollbar-thumb {
+    background-color: #20282e !important;
+    border-radius: 10px;
+}
+
+.file-link-container {
+
+    width: fit-content;
+
+    #file {
+        color: #fff;
+        padding-top: 1rem;
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+
+#task-title {
+    overflow-wrap: normal;
+}
+
+#user-answer {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid white;
+    border-radius: 5px;
+
+    &:focus {
+        outline: none;
+    }
+}
