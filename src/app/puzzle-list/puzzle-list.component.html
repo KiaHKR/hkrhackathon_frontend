@@ -1,5 +1,8 @@
-<div *ngIf="userIsAdmin" class="admin-btn-container">
-    <button type='button' (click)="openAdmin()" class="btn btn-lg btn-outline-dark mb-2">Dashboard</button>
+<div class="top-btn-container">
+    <div *ngIf="userIsAdmin">
+        <button type='button' (click)="openAdmin()" class="btn btn-md btn-outline-dark mb-2">Dashboard</button>
+    </div>
+    <button type="button" (click)="logout()" class="btn btn-lg btn-outline-dark mb-2">Logout</button>
 </div>
 <login-page-glitch-logo></login-page-glitch-logo>
 
