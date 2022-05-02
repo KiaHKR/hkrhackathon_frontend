@@ -60,7 +60,7 @@ export class PuzzleService {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        answer: answer
+        guess: answer
       })
     })
 

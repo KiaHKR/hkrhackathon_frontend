@@ -118,7 +118,6 @@ export class LoginPageComponent implements OnInit {
   async userLogin() {
     const currentLoginCMValue: string = this.loginCodemirror.getValue();
     const email: string = /e_mail = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
-
     if (await this.authService.userLogin(email, this.passwordString, this.notifiyLoginError.bind(this))) {
       this.route.navigate(['puzzles'])
     }
@@ -129,11 +128,10 @@ export class LoginPageComponent implements OnInit {
     const email: string = /e_mail = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const name: string = /name = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const year: string = /year = (.*?)#/.exec(currentRegisterCMValue)![1].trim();
-    const password: string = /password = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
 
-    this.validationService.validateUserRegister(email, name, year, password, this.notifiyRegisterError.bind(this));
+    this.validationService.validateUserRegister(email, name, year, this.passwordString, this.notifiyRegisterError.bind(this));
 
-    if (await this.authService.userRegister(email, name, Number.parseInt(year), password, this.notifiyRegisterError.bind(this))) {
+    if (await this.authService.userRegister(email, name, Number.parseInt(year), this.passwordString, this.notifiyRegisterError.bind(this))) {
       this.route.navigate(['puzzles'])
     }
   }
