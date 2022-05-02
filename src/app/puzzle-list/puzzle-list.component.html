@@ -8,7 +8,7 @@
         <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabActive()">
             <div class="py-3 px-4 list-container" #listContainer>
                 <h3 class="mb-4">Challenges</h3>
-                <ul class="m-0 p-0 puzzle-list-container">
+                <ul *ngIf="!loading" class="m-0 p-0 puzzle-list-container">
                     <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles; let i = index"
                         (click)="openPuzzle(puzzle, i+1)">
                         {{puzzle.title}}</li>
@@ -20,7 +20,7 @@
 
         <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
             <div class="py-3 px-2 list-container" id="puzzle-container">
-                <puzzle-component [alertsOpen]="alertsOpen" [setAlertsOpen]="setAlertsOpen.bind(this)"
+                <puzzle-component *ngIf="!loading" [alertsOpen]="alertsOpen" [setAlertsOpen]="setAlertsOpen.bind(this)"
                     [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()">
                 </puzzle-component>
             </div>

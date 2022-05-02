@@ -10,7 +10,7 @@ import { UserService } from 'src/services/user.service';
 })
 export class PuzzleListComponent implements OnInit {
 
-  puzzleList!: Array<Puzzle>;
+  puzzleList: Array<Puzzle> = [];
   chosenPuzzle?: Puzzle;
   puzzleTabActive: boolean = false;
   chosenPuzzleIndex?: string;
@@ -18,6 +18,7 @@ export class PuzzleListComponent implements OnInit {
   accessiblePuzzles: Array<Puzzle> = [];
   inaccessiblePuzzles: Array<Puzzle> = [];
   puzzleCompleted?: boolean;
+  loading: boolean = true;
 
   alertsOpen: boolean = true;
 
@@ -30,6 +31,8 @@ export class PuzzleListComponent implements OnInit {
   }
 
   updateList() {
+    this.loading = true;
+    this.puzzleList = []
     this.accessiblePuzzles = []
     this.inaccessiblePuzzles = []
     this.userService.getUser().then(user => {
@@ -39,8 +42,11 @@ export class PuzzleListComponent implements OnInit {
 
       this.puzzleService.fetchPuzzles().then((puzzles) => {
         if (puzzles == null) return
+        puzzles.forEach(element => {
+          console.log(element._examples)
+          this.puzzleList.push(new Puzzle(element._id, element._title, element._story, element._examples))
 
-        this.puzzleList = puzzles;
+        });
         let accessible = true;
         for (const puzzle of this.puzzleList) {
           if (accessible) {
@@ -54,6 +60,7 @@ export class PuzzleListComponent implements OnInit {
 
           this.inaccessiblePuzzles.push(puzzle);
         }
+        this.loading = false;
       })
     })
   }
