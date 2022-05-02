@@ -26,7 +26,6 @@ export class InputValidationService {
     }
 
     const yearNum: number = Number.parseInt(year);
-    console.log(yearNum)
     if (isNaN(yearNum) || yearNum < 1 || yearNum > 3) {
       errorCB("Year must only contain 1, 2, or 3.")
       return

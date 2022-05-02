@@ -15,8 +15,7 @@ export class PuzzlePageComponent implements OnInit {
 
   getFile() {
 
-    const file_input = this.userService.getUserFile(this.route.snapshot.params['id']).then(file => {
-      console.log(file)
+    this.userService.getUserFile(this.route.snapshot.params['id']).then(file => {
       if (file == null) {
         return
       }

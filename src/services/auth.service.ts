@@ -37,7 +37,7 @@ export class AuthService {
     return true;
   }
 
-  async userRegister(email: string, name: string, year: string, password: string, notifiyRegisterError: (value: string) => void): Promise<boolean> {
+  async userRegister(email: string, name: string, year: number, password: string, notifiyRegisterError: (value: string) => void): Promise<boolean> {
     const res = await fetch(`${BASE_API_URL}/user`, {
       method: 'POST',
       headers: {

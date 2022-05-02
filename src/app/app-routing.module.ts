@@ -6,7 +6,6 @@ import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'puzzles', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'puzzles/:id', component: PuzzlePageComponent, canActivate: [AuthGuard] },
   { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard] },

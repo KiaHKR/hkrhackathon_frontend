@@ -133,7 +133,7 @@ export class LoginPageComponent implements OnInit {
 
     this.validationService.validateUserRegister(email, name, year, password, this.notifiyRegisterError.bind(this));
 
-    if (await this.authService.userRegister(email, name, year, password, this.notifiyRegisterError.bind(this))) {
+    if (await this.authService.userRegister(email, name, Number.parseInt(year), password, this.notifiyRegisterError.bind(this))) {
       this.route.navigate(['puzzles'])
     }
   }

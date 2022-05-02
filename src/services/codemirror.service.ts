@@ -46,8 +46,6 @@ export class CodeMirrorService {
     mirrorObject.on("beforeChange", (cm, change) => {
       if (change.origin == "setValue") return;
 
-      console.log(change);
-
       let shouldCancelChange = true;
       for (const location of allowedEditingIdentifiers) {
         if (change.from.line !== location.line || change.from.ch < location.ch || change.to.ch > (location.ch + inputCounters[location.counter])) {
