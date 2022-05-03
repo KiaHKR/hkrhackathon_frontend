@@ -38,7 +38,9 @@ export class PuzzleComponent implements OnInit {
     window.open(task_reroute, '_blank')
   }
 
-  verifyAnswer() {
+  verifyAnswer(event: Event) {
+    event.preventDefault();
+
     if (this.answerField.nativeElement.value == "") {
       alert("please enter an answer into the Output field")
     }

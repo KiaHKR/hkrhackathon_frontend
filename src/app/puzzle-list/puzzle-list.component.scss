@@ -1,13 +1,27 @@
 @import '/src/app/globals.scss';
 
-.admin-btn-container {
+.top-btn-container {
     position: absolute;
     right: 3rem;
     top: 2rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    gap: 1rem;
+
+    button {
+        outline-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
 }
 
 .list-container {
-    background-color: #2e3440;
+    background-color: $color-primary;
     color: #fff;
     display: flex;
     flex-direction: column;

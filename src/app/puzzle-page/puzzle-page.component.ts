@@ -23,8 +23,6 @@ export class PuzzlePageComponent implements OnInit {
         this.input_file = file
       }
     })
-
-
   }
 
   ngOnInit(): void {

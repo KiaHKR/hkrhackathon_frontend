@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label for="user-answer">Answer:</label>
                     <input #answerField class="form-control mt-2 mb-2" type="text" id="user-answer">
-                    <button #answerButton type='button' (click)="verifyAnswer()"
+                    <button #answerButton type='submit' (click)="verifyAnswer($event)"
                         class="btn btn-sm btn-outline-light mb-2">Submit</button>
                     <small id="answerHelp" class="form-text text-muted m-2 mt-4"><br>This should be the output you
                         recieved from
