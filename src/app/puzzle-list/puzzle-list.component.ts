@@ -25,7 +25,7 @@ export class PuzzleListComponent implements OnInit {
 
   userIsAdmin: boolean = false;
 
-  constructor(private puzzleService: PuzzleService, private userService: UserService, private router: Router) { }
+  constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.updateList()
@@ -83,10 +83,4 @@ export class PuzzleListComponent implements OnInit {
   openAdmin() {
     this.router.navigate(['dashboard'])
   }
-
-  logout() {
-    localStorage.removeItem('x-auth-token');
-    this.router.navigate(['login'])
-  }
-
 }

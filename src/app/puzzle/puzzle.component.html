@@ -1,7 +1,7 @@
 <div class="puzzle-container container">
     <div class="row top-row p-3">
         <div class="col-xl-10 col-md-8 task-title">
-            <h3 id="task-title">{{puzzle.title}}</h3>
+            <h3 id="task-title">{{puzzle == undefined ? "" : puzzle.title}}</h3>
         </div>
         <div class="offset-xl-0 col-xl-2 offset-md-1 col-md-3 task-number">
             <h6 id="task-number">Task <br> {{index}} / {{indexTotal}}</h6>
@@ -11,7 +11,7 @@
     <div id="bottom-container" class="p-3">
         <div class="row task-story">
             <h4>Story</h4>
-            <p id="task-story">{{puzzle.story}}</p>
+            <p id="task-story">{{puzzle == undefined ? "" : puzzle.story}}</p>
 
         </div>
         <hr>
@@ -22,8 +22,6 @@
                     <p>{{example}}</p>
                 </div>
             </div> -->
-
-
         </div>
         <div class="row mt-3 file-link-container">
             <a [routerLink]="" target="_blank" (click)="(routePage())" id="file">

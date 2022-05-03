@@ -1,0 +1,23 @@
+.user-table {
+    width: 80%;
+    margin: auto auto;
+}
+
+::ng-deep .center-header .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-column-delete {
+    flex: 0 0 5%;
+    text-align: right;
+}
+
+.mat-column-isAdmin {
+    text-align: center;
+}
+
+.mat-column-year {
+    flex: 0 0 5%;
+    text-align: center;
+}

@@ -88,7 +88,7 @@ export class AuthService {
 
     if (adminAuth) {
       const body = await authorizedRes.json();
-      if (!body.publicUser.isAdmin) return false;
+      if (!body.isAdmin) return false;
     }
 
     return true;

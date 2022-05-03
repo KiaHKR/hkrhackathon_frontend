@@ -1,0 +1,7 @@
+<h3 mat-dialog-title>Delete user?</h3>
+<mat-dialog-content>Are you sure you wish to permanently delete the account connected to this email: {{data.email}}
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-flat-button color="warn" [mat-dialog-close]="true">Confirm</button>
+</mat-dialog-actions>

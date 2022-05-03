@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BASE_API_URL } from 'src/globals';
 import { User } from 'src/models/user';
 
@@ -8,7 +9,12 @@ import { User } from 'src/models/user';
 export class UserService {
   static user = new User("", "", 2, true, "2")
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  logout() {
+    localStorage.removeItem('x-auth-token');
+    this.router.navigate(['login'])
+  }
 
   async getUser(notifyDisplayError?: (error: string) => void): Promise<User | null> {
     // return UserService.user

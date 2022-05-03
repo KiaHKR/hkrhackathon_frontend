@@ -34,7 +34,13 @@ export class AdminService {
       return null;
     }
 
-    return body.publicUsers;
+    let parsedUserList = []
+
+    for (const userJSON of body) {
+      parsedUserList.push(new User(userJSON.name, userJSON.email, userJSON.year, userJSON.isAdmin, userJSON.currentPuzzleId))
+    }
+
+    return parsedUserList;
 
   }
 
@@ -76,7 +82,8 @@ export class AdminService {
     const res = await fetch(`${BASE_API_URL}/admin/${email}`, {
       method: "PUT",
       headers: {
-        'x-auth-header': token
+        'x-auth-header': token,
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name: user.name,

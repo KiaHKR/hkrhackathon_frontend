@@ -16,6 +16,8 @@ import { PuzzleComponent } from './puzzle/puzzle.component';
 import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 
+import { AdminPageComponentsModule } from './admin-page-components/admin-page-components.module';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     PuzzleListComponent,
     PuzzleComponent,
     PuzzlePageComponent,
-    AdminPageComponent
+    AdminPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
     LoginPageComponentsModule,
     TabsModule,
     AlertModule,
+    AdminPageComponentsModule,
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
