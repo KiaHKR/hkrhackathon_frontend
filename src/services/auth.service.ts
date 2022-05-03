@@ -67,7 +67,7 @@ export class AuthService {
     return true;
   }
 
-  async isAuthenticated(): Promise<boolean> {
+  async isAuthenticated(adminAuth: boolean = false): Promise<boolean> {
     const token = localStorage.getItem('x-auth-token');
     if (token === null) return false;
     if (this.jwtHelper.isTokenExpired(token)) return false;
@@ -79,8 +79,12 @@ export class AuthService {
       }
     });
 
-    if (authorizedRes == null) return false;
-    if (!authorizedRes.ok) return false;
+    if (authorizedRes == null || !authorizedRes.ok) return false;
+
+    if (adminAuth) {
+      const body = await authorizedRes.json();
+      if (!body.publicUser.isAdmin) return false;
+    }
 
     return true;
   }

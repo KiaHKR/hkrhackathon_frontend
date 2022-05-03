@@ -14,6 +14,7 @@ import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
     LoginPageComponent,
     PuzzleListComponent,
     PuzzleComponent,
-    PuzzlePageComponent
+    PuzzlePageComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 import { UserService } from 'src/services/user.service';
@@ -24,7 +25,7 @@ export class PuzzleListComponent implements OnInit {
 
   userIsAdmin: boolean = false;
 
-  constructor(private puzzleService: PuzzleService, private userService: UserService) { }
+  constructor(private puzzleService: PuzzleService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.updateList()
@@ -82,7 +83,7 @@ export class PuzzleListComponent implements OnInit {
   }
 
   openAdmin() {
-
+    this.router.navigate(['dashboard'])
   }
 
 }
