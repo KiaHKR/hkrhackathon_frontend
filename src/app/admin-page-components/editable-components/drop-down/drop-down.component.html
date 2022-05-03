@@ -1,0 +1,12 @@
+<div *ngIf="!editing" class="static-container">
+    <p>{{initValue}}</p>
+    <button mat-icon-button (click)="toggleEditing()">
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+
+<mat-form-field *ngIf="editing">
+    <mat-select [(value)]="initValue" (selectionChange)="onChange(user, $event); toggleEditing();">
+        <mat-option *ngFor="let value of options" [value]="value">{{value}}</mat-option>
+    </mat-select>
+</mat-form-field>

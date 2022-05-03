@@ -10,7 +10,7 @@ export class PuzzleService {
 
   constructor() { }
 
-  async fetchPuzzles(notifyDisplayError?: (error: string) => void): Promise<Array<{ _id: string, _title: string, _story: string, _examples: { inputExample: string, logicExample: string } }> | null> {
+  async fetchPuzzles(notifyDisplayError?: (error: string) => void): Promise<Array<Puzzle> | null> {
     const token = localStorage.getItem('x-auth-token');
     if (token == null) {
       if (notifyDisplayError != undefined) notifyDisplayError('Saved user token not found.');
@@ -27,9 +27,14 @@ export class PuzzleService {
       return null;
     };
 
-    const data = await puzzlesRes.json();
+    const data: { _id: string, _title: string, _story: string, _examples: { inputExample: string, logicExample: string } }[] = await puzzlesRes.json();
 
-    return data
+    let puzzleList: Puzzle[] = [];
+    data.forEach(element => {
+      puzzleList.push(new Puzzle(element._id, element._title, element._story, element._examples))
+    });
+
+    return puzzleList;
 
 
     // return [

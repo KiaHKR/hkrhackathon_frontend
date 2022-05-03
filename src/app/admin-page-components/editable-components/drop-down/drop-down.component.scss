@@ -1,0 +1,14 @@
+.static-container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0.1rem;
+    align-items: center;
+
+    p {
+        margin: 0;
+    }
+
+    ::ng-deep .material-icons {
+        font-size: 20px;
+    }
+}

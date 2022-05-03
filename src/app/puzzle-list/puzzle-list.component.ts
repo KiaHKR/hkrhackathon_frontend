@@ -43,9 +43,7 @@ export class PuzzleListComponent implements OnInit {
 
       this.puzzleService.fetchPuzzles().then((puzzles) => {
         if (puzzles == null) return
-        puzzles.forEach(element => {
-          this.puzzleList.push(new Puzzle(element._id, element._title, element._story, element._examples))
-        });
+        this.puzzleList = puzzles;
         let accessible = true;
         for (const puzzle of this.puzzleList) {
           if (accessible) {
