@@ -16,12 +16,18 @@
         </div>
         <hr>
         <div class="row" id="examples">
-            <!-- <div *ngFor="let example of puzzle.examples; let i = index" class="examples mt-4">
-                <h6>Example {{i+1}}</h6>
+            <div class="examples mt-4">
+                <h6>Input Example</h6>
                 <div class="example-text-container">
-                    <p>{{example}}</p>
+                    <p>{{puzzle == undefined ? "" : puzzle.examples.inputExample}}</p>
                 </div>
-            </div> -->
+            </div>
+            <div class="examples mt-4">
+                <h6>Logic Example</h6>
+                <div class="example-text-container">
+                    <p>{{puzzle == undefined ? "" : puzzle.examples.logicExample}}</p>
+                </div>
+            </div>
         </div>
         <div class="row mt-3 file-link-container">
             <a [routerLink]="" target="_blank" (click)="(routePage())" id="file">

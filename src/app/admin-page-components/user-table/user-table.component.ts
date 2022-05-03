@@ -41,7 +41,6 @@ export class UserTableComponent implements OnInit {
 
   fetchUsers(): void {
     this.adminService.getAllUsers(this.displayError.bind(this)).then(users => {
-      console.log(users)
       if (users != undefined && users != null) return this.reloadUserList(users);
     })
   }
@@ -51,16 +50,16 @@ export class UserTableComponent implements OnInit {
   }
 
   adminChanged(user: User, event: MatSlideToggleChange) {
+    let tempUserList = this.users.data;
+
+    const userObjIndex = tempUserList.indexOf(user);
+    user.isAdmin = event.checked;
+
     this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
       if (!success) {
         event.source.toggle();
         return;
       }
-
-      let tempUserList = this.users.data;
-
-      const userObjIndex = tempUserList.indexOf(user);
-      user.isAdmin = event.checked;
 
       tempUserList[userObjIndex] = user;
 
