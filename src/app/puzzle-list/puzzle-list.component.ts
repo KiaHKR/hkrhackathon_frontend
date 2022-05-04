@@ -22,8 +22,6 @@ export class PuzzleListComponent implements OnInit {
   puzzleCompleted?: boolean;
   loading: boolean = true;
 
-  alertsOpen: boolean = true;
-
   userIsAdmin: boolean = false;
 
   constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
@@ -69,7 +67,6 @@ export class PuzzleListComponent implements OnInit {
 
   listTabActive() {
     this.puzzleTabActive = false
-    this.alertsOpen = false;
     this.updateList()
   }
 
@@ -77,10 +74,6 @@ export class PuzzleListComponent implements OnInit {
     this.chosenPuzzle = puzzle;
     this.chosenPuzzleIndex = `${index}`;
     this.puzzleTabActive = true;
-  }
-
-  setAlertsOpen(value: boolean) {
-    this.alertsOpen = value;
   }
 
   openAdmin() {

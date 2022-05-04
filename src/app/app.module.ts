@@ -17,6 +17,7 @@ import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminPageComponentsModule } from './admin-page-components/admin-page-components.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatIconModule } from '@angular/material/icon';
     TabsModule,
     AlertModule,
     AdminPageComponentsModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

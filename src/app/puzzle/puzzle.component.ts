@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 @Component({
   templateUrl: './puzzle.component.html',
@@ -13,24 +14,14 @@ export class PuzzleComponent implements OnInit {
   @Input() puzzle!: Puzzle;
   @Input() index!: string;
   @Input() indexTotal!: string;
-  @Input() alertsOpen!: boolean;
-  @Input() setAlertsOpen!: (value: boolean) => void;
   @ViewChild("answerField") answerField!: ElementRef;
 
-  puzzleCompleted?: boolean;
-  puzzleInformation?: string;
 
-
-  constructor(private puzzleService: PuzzleService, private route: Router) {
+  constructor(private puzzleService: PuzzleService, private route: Router, private _snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
 
-  }
-
-  alertClosed() {
-    this.puzzleCompleted = undefined;
-    this.puzzleInformation = undefined;
   }
 
   routePage() {
@@ -42,19 +33,15 @@ export class PuzzleComponent implements OnInit {
     event.preventDefault();
 
     if (this.answerField.nativeElement.value == "") {
-      alert("please enter an answer into the Output field")
+      this._snackbar.open("Please enter a value to submit.", "dismiss", { panelClass: 'failure-snackbar' })
     }
     else {
       const checkAnswer = this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {
         if (answer?.answer == true) {
-          this.puzzleCompleted = answer?.answer;
-          this.answerField.nativeElement.value = "";
-          this.setAlertsOpen(true);
+          this._snackbar.open("Puzzle completed!", "dismiss", { duration: 5000, panelClass: 'success-snackbar' })
         }
         else {
-          this.puzzleCompleted = answer?.answer;
-          this.puzzleInformation = answer?.information;
-          this.setAlertsOpen(true);
+          this._snackbar.open(answer?.information!, "dismiss", { duration: 5000, panelClass: 'failure-snackbar' })
         }
       })
     }

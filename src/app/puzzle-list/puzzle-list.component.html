@@ -43,8 +43,8 @@
 
         <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
             <div class="py-3 px-2 list-container" id="puzzle-container">
-                <puzzle-component *ngIf="!loading" [alertsOpen]="alertsOpen" [setAlertsOpen]="setAlertsOpen.bind(this)"
-                    [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!" [indexTotal]="puzzleList.length.toString()">
+                <puzzle-component *ngIf="!loading" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!"
+                    [indexTotal]="puzzleList.length.toString()">
                 </puzzle-component>
             </div>
         </tab>

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MoveDirection, ClickMode, HoverMode, OutMode, Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 
 @Component({
   selector: 'app-background-particles',
   templateUrl: './background-particles.component.html',
-  styleUrls: ['./background-particles.component.scss']
+  styleUrls: ['./background-particles.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BackgroundParticlesComponent implements OnInit {
 
