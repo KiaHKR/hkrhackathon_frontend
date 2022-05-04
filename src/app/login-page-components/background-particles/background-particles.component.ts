@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MoveDirection, ClickMode, HoverMode, OutMode, Engine } from "tsparticles-engine";
+import { MoveDirection, ClickMode, HoverMode, OutMode, Engine } from "src/tsparticles-engine";
 import { loadFull } from "tsparticles";
 
 @Component({
