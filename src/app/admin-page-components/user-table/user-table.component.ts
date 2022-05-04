@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSelectChange } from '@angular/material/select';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { AdminService } from 'src/services/admin.service';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 import { UserService } from 'src/services/user.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { TextComponent } from '../editable-components/text/text.component';
 
 @Component({
   selector: 'admin-user-table',
@@ -31,7 +33,7 @@ export class UserTableComponent implements OnInit {
     'delete'
   ]
 
-  constructor(private adminService: AdminService, private dialog: MatDialog, private puzzleService: PuzzleService) { }
+  constructor(private adminService: AdminService, private dialog: MatDialog, private puzzleService: PuzzleService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.users.sort = this.sort;
@@ -41,7 +43,7 @@ export class UserTableComponent implements OnInit {
 
   //TODO implement actual error display
   displayError(error: string): void {
-    alert(error)
+    this._snackBar.open(error, 'dismiss')
   }
 
   fetchUsers(): void {
@@ -121,7 +123,43 @@ export class UserTableComponent implements OnInit {
       tempUserList[userObjIndex] = user;
       this.reloadUserList(tempUserList);
     })
-
   }
 
+  updateYear(user: User, event: MatSelectChange): void {
+    let tempUserList = this.users.data;
+
+    const userObjIndex = tempUserList.indexOf(user);
+    const oldUser = tempUserList[userObjIndex];
+    user.year = Number.parseInt(event.value);
+
+    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
+      if (!success) {
+        event.source.value = oldUser.year;
+        return;
+      }
+
+      tempUserList[userObjIndex] = user;
+      this.reloadUserList(tempUserList);
+    })
+  }
+
+  updateName(user: User, event: { preventChange: () => void, confirmChange: () => void, value: string }): void {
+    console.log("ACTUALLY UPDATING NOW")
+    let tempUserList = this.users.data;
+
+    const userObjIndex = tempUserList.indexOf(user);
+    const oldUser = tempUserList[userObjIndex];
+    user.name = event.value;
+
+    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
+      if (!success) {
+        event.preventChange();
+        return;
+      }
+
+      event.confirmChange();
+      tempUserList[userObjIndex] = user;
+      this.reloadUserList(tempUserList);
+    })
+  }
 }
