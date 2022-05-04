@@ -63,15 +63,9 @@
                 width: 100%;
 
                 .puzzle-title {
+                    flex-grow: 1;
                     white-space: nowrap;
                     margin: 0;
-                }
-
-                .puzzle-status-divider {
-                    height: 0px;
-                    background-color: rgb(170, 170, 170);
-                    margin: 0 0.5em;
-                    flex-grow: 1;
                 }
 
                 .puzzle-status {

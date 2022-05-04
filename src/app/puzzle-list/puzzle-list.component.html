@@ -18,7 +18,6 @@
                         <li class="puzzle-list-item" (click)="openPuzzle(puzzle, i+1)">
                             <div class="puzzle-container">
                                 <p class="puzzle-title">{{puzzle.title}}</p>
-                                <div class="puzzle-status-divider"></div>
                                 <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}</p>
                                 <mat-icon *ngIf="i != accessiblePuzzles.length - 1" class="open-icon">done</mat-icon>
                                 <mat-icon *ngIf="i == accessiblePuzzles.length - 1"
@@ -32,7 +31,6 @@
                         <li class="puzzle-list-item inaccessible">
                             <div class="puzzle-container">
                                 <p class="puzzle-title">{{puzzle.title}}</p>
-                                <div class="puzzle-status-divider"></div>
                                 <p class="puzzle-status">Locked</p>
                                 <mat-icon>block</mat-icon>
                             </div>
