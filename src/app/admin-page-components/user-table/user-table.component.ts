@@ -5,14 +5,10 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import Puzzle from 'src/models/puzzle';
 import { User } from 'src/models/user';
 import { AdminService } from 'src/services/admin.service';
 import { PuzzleService } from 'src/services/puzzle-service.service';
-import { UserService } from 'src/services/user.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
-import { TextComponent } from '../editable-components/text/text.component';
 
 @Component({
   selector: 'admin-user-table',

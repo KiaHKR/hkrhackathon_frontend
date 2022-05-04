@@ -29,7 +29,7 @@ export class AuthService {
     const json = await res.json();
 
     if (!res.ok) {
-      notifiyLoginError(json.error);
+      notifiyLoginError("Invalid email or password.");
       return false;
     }
 
@@ -60,7 +60,7 @@ export class AuthService {
     const json = await res.json();
 
     if (!res.ok) {
-      notifiyRegisterError(json.error)
+      notifiyRegisterError(json.error.replaceAll('"', ''))
       return false;
     }
 

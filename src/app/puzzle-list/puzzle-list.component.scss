@@ -20,6 +20,14 @@
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .top-btn-container {
+        z-index: 10;
+        right: 1rem;
+        top: 1rem;
+    }
+}
+
 .list-container {
     background-color: $color-primary;
     color: #fff;

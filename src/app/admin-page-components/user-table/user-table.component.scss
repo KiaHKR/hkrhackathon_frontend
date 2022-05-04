@@ -1,6 +1,10 @@
 .user-table {
     width: 80%;
     margin: auto auto;
+
+    .email-text {
+        padding-right: 0.5em;
+    }
 }
 
 ::ng-deep .center-header .mat-sort-header-container {

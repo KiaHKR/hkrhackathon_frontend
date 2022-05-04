@@ -56,11 +56,7 @@ export class CodeMirrorService {
           inputCounters[location.counter]--;
           shouldCancelChange = false;
           if (location.passwordField) {
-            if (change.text[0].length == 1) {
-              getPasswordString()!.slice(0, getPasswordString()!.length - 1);
-            } else {
-              setPasswordString(getPasswordString()!.replace(getPasswordString()!.substring(change.from.ch - location.ch, change.to.ch - location.ch), ''));
-            }
+            setPasswordString(getPasswordString()!.replace(getPasswordString()!.substring(change.from.ch - location.ch, change.to.ch - location.ch), ''));
           }
           break;
         }
