@@ -1,3 +1,5 @@
+<app-background-particles></app-background-particles>
+
 <div class="top-btn-container">
     <div *ngIf="userIsAdmin">
         <button type='button' (click)="openAdmin()" class="btn btn-sm btn-outline-dark mb-2">Dashboard</button>
@@ -12,11 +14,27 @@
             <div class="py-3 px-4 list-container" #listContainer>
                 <h3 class="mb-4">Challenges</h3>
                 <ul *ngIf="!loading" class="m-0 p-0 puzzle-list-container">
-                    <li class="puzzle-list-item" *ngFor="let puzzle of accessiblePuzzles; let i = index"
-                        (click)="openPuzzle(puzzle, i+1)">
-                        {{puzzle.title}}</li>
-                    <li class="puzzle-list-item inaccessible" *ngFor="let puzzle of inaccessiblePuzzles">
-                        {{puzzle.title}}</li>
+                    <div *ngFor="let puzzle of accessiblePuzzles; let i = index">
+                        <li class="puzzle-list-item" (click)="openPuzzle(puzzle, i+1)">
+                            <div class="puzzle-container">
+                                <p class="puzzle-title">{{puzzle.title}}</p>
+                                <div class="puzzle-status-divider"></div>
+                                <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}
+                                </p>
+                            </div>
+                        </li>
+                        <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">
+                    </div>
+                    <div *ngFor="let puzzle of inaccessiblePuzzles; let i = index">
+                        <li class="puzzle-list-item inaccessible">
+                            <div class="puzzle-container">
+                                <p class="puzzle-title">{{puzzle.title}}</p>
+                                <div class="puzzle-status-divider"></div>
+                                <p class="puzzle-status">Locked</p>
+                            </div>
+                        </li>
+                        <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">
+                    </div>
                 </ul>
             </div>
         </tab>

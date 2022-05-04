@@ -2,12 +2,13 @@
 
 .top-btn-container {
     position: absolute;
-    right: 3rem;
+    right: 2rem;
     top: 2rem;
 
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
+    justify-content: end;
 
     gap: 1rem;
 
@@ -38,18 +39,57 @@
     border-top-left-radius: 0;
     transition: height 2ms ease-in-out;
 
-
     .puzzle-list-container {
+        div:first-child {
+            .puzzle-list-item {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+        }
+
+        div:last-child {
+            .puzzle-list-item {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
         .puzzle-list-item {
             list-style: none;
-            padding: 0.2em;
+            padding: 1em;
             padding-left: 0.6em;
-            border-radius: 5px;
 
             &:hover {
                 background-color: rgba($color: #fff, $alpha: 0.2);
                 cursor: pointer;
             }
+
+            .puzzle-container {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+
+                .puzzle-title {
+                    white-space: nowrap;
+                    margin: 0;
+                }
+
+                .puzzle-status-divider {
+                    height: 1px;
+                    max-width: 80px;
+                    width: 100%;
+                    background-color: rgb(170, 170, 170);
+                    margin: 0 0.3em;
+                }
+
+                .puzzle-status {
+                    font-size: 12pt;
+                    color: rgb(170, 170, 170);
+                    margin: 0;
+                }
+            }
+
+
         }
 
         .inaccessible {
@@ -58,6 +98,16 @@
             &:hover {
                 background-color: rgba($color: #fff, $alpha: 0.1);
                 cursor: default;
+            }
+
+            .puzzle-container {
+                .puzzle-status-divider {
+                    background-color: #7d7d7d;
+                }
+
+                .puzzle-status {
+                    color: #7d7d7d;
+                }
             }
         }
 
