@@ -2,9 +2,9 @@
 
 <div class="top-btn-container">
     <div *ngIf="userIsAdmin">
-        <button type='button' (click)="openAdmin()" class="btn btn-sm btn-outline-dark mb-2">Dashboard</button>
+        <button type='button' (click)="openAdmin()" class="btn btn-sm btn-outline-light mb-2">Dashboard</button>
     </div>
-    <button type="button" (click)="userService.logout()" class="btn btn-md btn-outline-dark mb-2">Logout</button>
+    <button type="button" (click)="userService.logout()" class="btn btn-md btn-outline-light mb-2">Logout</button>
 </div>
 <login-page-glitch-logo></login-page-glitch-logo>
 
@@ -19,8 +19,11 @@
                             <div class="puzzle-container">
                                 <p class="puzzle-title">{{puzzle.title}}</p>
                                 <div class="puzzle-status-divider"></div>
-                                <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}
-                                </p>
+                                <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}</p>
+                                <mat-icon *ngIf="i != accessiblePuzzles.length - 1" class="open-icon">done</mat-icon>
+                                <mat-icon *ngIf="i == accessiblePuzzles.length - 1"
+                                    class="material-icons-outlined  open-icon">
+                                    pending</mat-icon>
                             </div>
                         </li>
                         <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">
@@ -31,6 +34,7 @@
                                 <p class="puzzle-title">{{puzzle.title}}</p>
                                 <div class="puzzle-status-divider"></div>
                                 <p class="puzzle-status">Locked</p>
+                                <mat-icon>block</mat-icon>
                             </div>
                         </li>
                         <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">

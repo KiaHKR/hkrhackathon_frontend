@@ -11,14 +11,6 @@
     justify-content: end;
 
     gap: 1rem;
-
-    button {
-        outline-color: $color-primary;
-
-        &:hover {
-            background-color: $color-primary;
-        }
-    }
 }
 
 @media screen and (max-width: 1000px) {
@@ -68,6 +60,7 @@
                 display: flex;
                 flex-flow: row nowrap;
                 align-items: center;
+                width: 100%;
 
                 .puzzle-title {
                     white-space: nowrap;
@@ -75,17 +68,21 @@
                 }
 
                 .puzzle-status-divider {
-                    height: 1px;
-                    max-width: 80px;
-                    width: 100%;
+                    height: 0px;
                     background-color: rgb(170, 170, 170);
-                    margin: 0 0.3em;
+                    margin: 0 0.5em;
+                    flex-grow: 1;
                 }
 
                 .puzzle-status {
                     font-size: 12pt;
                     color: rgb(170, 170, 170);
                     margin: 0;
+                    margin-right: 0.4em;
+                }
+
+                .open-icon {
+                    color: rgb(170, 170, 170);
                 }
             }
 
@@ -116,6 +113,7 @@
 
 .nav-tabs {
     margin-top: 50px;
+    border-bottom: none;
 
     .nav-item {
         margin: 0;

@@ -13,13 +13,13 @@ export class BackgroundParticlesComponent implements OnInit {
   particlesOptions = {
     background: {
       color: {
-        value: "#fff"
+        value: "#141a21"
       }
     },
     fpsLimit: 60,
     particles: {
       color: {
-        value: "#000"
+        value: "#fff"
       },
       collisions: {
         enable: false,
