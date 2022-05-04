@@ -41,7 +41,6 @@ export class UserTableComponent implements OnInit {
     this.fetchUsers();
   }
 
-  //TODO implement actual error display
   displayError(error: string): void {
     this._snackBar.open(error, 'dismiss')
   }

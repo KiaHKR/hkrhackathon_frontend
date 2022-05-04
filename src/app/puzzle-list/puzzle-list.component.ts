@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
@@ -25,10 +26,14 @@ export class PuzzleListComponent implements OnInit {
 
   userIsAdmin: boolean = false;
 
-  constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router) { }
+  constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.updateList()
+  }
+
+  displayError(error: string): void {
+    this._snackBar.open(error, 'dismiss')
   }
 
   updateList() {
@@ -36,12 +41,12 @@ export class PuzzleListComponent implements OnInit {
     this.puzzleList = []
     this.accessiblePuzzles = []
     this.inaccessiblePuzzles = []
-    this.userService.getUser().then(user => {
+    this.userService.getUser(this.displayError.bind(this)).then(user => {
       if (user == null) return
 
       this.userIsAdmin = user == undefined ? false : user.isAdmin;
 
-      this.puzzleService.fetchPuzzles().then((puzzles) => {
+      this.puzzleService.fetchPuzzles(this.displayError.bind(this)).then((puzzles) => {
         if (puzzles == null) return
         this.puzzleList = puzzles;
         let accessible = true;
