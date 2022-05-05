@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { User } from 'src/models/user';
-import { AdminService } from 'src/services/admin.service';
+import { AdminUserService } from 'src/services/admin/admin-user.service';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
@@ -29,7 +29,7 @@ export class UserTableComponent implements OnInit {
     'delete'
   ]
 
-  constructor(private adminService: AdminService, private dialog: MatDialog, private puzzleService: PuzzleService, private _snackBar: MatSnackBar) { }
+  constructor(private adminUserService: AdminUserService, private dialog: MatDialog, private puzzleService: PuzzleService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.users.sort = this.sort;
@@ -42,7 +42,7 @@ export class UserTableComponent implements OnInit {
   }
 
   fetchUsers(): void {
-    this.adminService.getAllUsers(this.displayError.bind(this)).then(users => {
+    this.adminUserService.getAllUsers(this.displayError.bind(this)).then(users => {
       if (users != undefined && users != null) return this.reloadUserList(users);
     })
   }
@@ -67,7 +67,7 @@ export class UserTableComponent implements OnInit {
     const userObjIndex = tempUserList.indexOf(user);
     user.isAdmin = event.checked;
 
-    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
+    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
       if (!success) {
         event.source.toggle();
         return;
@@ -89,7 +89,7 @@ export class UserTableComponent implements OnInit {
     }).afterClosed().subscribe((success: boolean) => {
       if (!success) return;
 
-      this.adminService.deleteUser(user.email, this.displayError.bind(this)).then((success) => {
+      this.adminUserService.deleteUser(user.email, this.displayError.bind(this)).then((success) => {
         if (!success) return;
 
         let tempUserList = this.users.data;
@@ -118,7 +118,7 @@ export class UserTableComponent implements OnInit {
       if (puzzle.id == user.currentPuzzleId) break;
     }
 
-    const success = await this.adminService.updateUserPuzzles(user.email, newAllowedPuzzleIds, user.currentPuzzleId, this.displayError.bind(this));
+    const success = await this.adminUserService.updateUserPuzzles(user.email, newAllowedPuzzleIds, user.currentPuzzleId, this.displayError.bind(this));
     if (!success) {
       event.source.value = oldUser.currentPuzzleId;
       return;
@@ -135,7 +135,7 @@ export class UserTableComponent implements OnInit {
     const oldUser = tempUserList[userObjIndex];
     user.year = Number.parseInt(event.value);
 
-    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
+    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
       if (!success) {
         event.source.value = oldUser.year;
         return;
@@ -154,7 +154,7 @@ export class UserTableComponent implements OnInit {
     const oldUser = tempUserList[userObjIndex];
     user.name = event.value;
 
-    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
+    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
       if (!success) {
         event.preventChange();
         return;

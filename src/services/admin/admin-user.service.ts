@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BASE_API_URL } from 'src/globals';
-import Puzzle from 'src/models/puzzle';
 import { User } from 'src/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminService {
+export class AdminUserService {
 
   constructor() { }
 
