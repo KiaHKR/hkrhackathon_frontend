@@ -5,11 +5,15 @@ import { AuthService } from '../../services/auth.service';
 import { InputValidationService } from '../../services/input-validation.service';
 import { CodeMirrorService } from 'src/services/codemirror.service';
 import { Router } from '@angular/router';
+import { tabFadeAnimation } from 'src/utils/animations';
 
 @Component({
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    tabFadeAnimation
+  ]
 })
 export class LoginPageComponent implements OnInit {
 
@@ -45,6 +49,9 @@ export class LoginPageComponent implements OnInit {
       register_password: 0,
     }
 
+  // Animation states
+  tabVisibilityState: string = 'hidden';
+
   get registerDefaultText(): string {
     return `def sign_up(user):
   e_mail = ""
@@ -77,6 +84,7 @@ export class LoginPageComponent implements OnInit {
     this._inputError = value;
   }
 
+
   constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) {
     authService.isAuthenticated().then((authenticated) => {
       if (authenticated) route.navigate(['puzzles']);
@@ -91,6 +99,7 @@ export class LoginPageComponent implements OnInit {
     this.loginCodemirror = this.getLoginCM();
     this.loginCodemirror.setValue(this.loginDefaultText);
     this.loginCodemirror.refresh();
+    this.tabVisibilityState = 'shown';
   }
 
   getLoginCM(): CodeMirror.EditorFromTextArea {

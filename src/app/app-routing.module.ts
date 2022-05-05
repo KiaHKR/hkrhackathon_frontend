@@ -8,10 +8,10 @@ import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
-  { path: 'puzzles/:id', component: PuzzlePageComponent, canActivate: [AuthGuard] },
-  { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: AdminPageComponent, canActivate: [AdminAuthGuard] },
+  { path: 'login', component: LoginPageComponent, data: { showBackground: true } },
+  { path: 'puzzles/:id', component: PuzzlePageComponent, canActivate: [AuthGuard], data: { showBackground: false } },
+  { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard], data: { showBackground: true } },
+  { path: 'dashboard', component: AdminPageComponent, canActivate: [AdminAuthGuard], data: { showBackground: false } },
   { path: '**', redirectTo: 'puzzles', pathMatch: 'full' },
 ];
 

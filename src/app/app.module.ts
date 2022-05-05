@@ -18,6 +18,10 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminPageComponentsModule } from './admin-page-components/admin-page-components.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AccountComponent } from './account/account.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 
 @NgModule({
@@ -28,6 +32,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     PuzzleComponent,
     PuzzlePageComponent,
     AdminPageComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +44,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AlertModule,
     AdminPageComponentsModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

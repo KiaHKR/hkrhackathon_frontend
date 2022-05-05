@@ -1,8 +1,8 @@
-<app-background-particles></app-background-particles>
+<!-- <app-background-particles></app-background-particles> -->
 
 <login-page-glitch-logo></login-page-glitch-logo>
 
-<div class="col-sm-12 col-md-8 col-lg-5 container">
+<div class="col-sm-12 col-md-8 col-lg-5 container" [@tabsFadeTrigger]="tabVisibilityState">
   <tabset class="tabs-container">
     <tab #loginTab heading="login.py" id="login-tab" (selectTab)="changeTab(0)">
       <button type="button" class="btn btn-outline-light" (click)="userLogin()">

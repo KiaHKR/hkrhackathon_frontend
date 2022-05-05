@@ -35,10 +35,12 @@
             </a>
         </div>
         <div class="row mt-3">
-            <form action="">
+            <form action="" autocomplete="off">
                 <div class="form-group">
-                    <label for="user-answer">Answer:</label>
-                    <input #answerField class="form-control mt-2 mb-2" type="text" id="user-answer">
+                    <mat-form-field>
+                        <mat-label>Answer</mat-label>
+                        <input matInput #answerField type="text">
+                    </mat-form-field>
                     <button #answerButton type='submit' (click)="verifyAnswer($event)"
                         class="btn btn-sm btn-outline-light mb-2">Submit</button>
                     <small id="answerHelp" class="form-text text-muted m-2 mt-4"><br>This should be the output you
@@ -46,7 +48,6 @@
                         your solution</small>
                 </div>
             </form>
-
         </div>
     </div>
 </div>

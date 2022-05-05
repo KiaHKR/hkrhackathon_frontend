@@ -1,14 +1,30 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 import { UserService } from 'src/services/user.service';
+import { tabFadeAnimation } from 'src/utils/animations';
 
 @Component({
   templateUrl: './puzzle-list.component.html',
   styleUrls: ['./puzzle-list.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  animations: [
+    tabFadeAnimation,
+    trigger('tabsBodyExpand', [
+      state('expanded', style({
+        height: '*'
+      })),
+      state('collapsed', style({
+        height: '0px'
+      })),
+      transition('collapsed => expanded', [
+        animate('0.2s')
+      ])
+    ])
+  ]
 })
 export class PuzzleListComponent implements OnInit {
 
@@ -23,6 +39,11 @@ export class PuzzleListComponent implements OnInit {
   loading: boolean = true;
 
   userIsAdmin: boolean = false;
+
+  // Animation states
+  tabVisibilityState: string = 'hidden';
+  puzzleTabExpandState: string = 'collapsed';
+  puzzleListTabExpandState: string = 'collapsed';
 
   constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -60,20 +81,30 @@ export class PuzzleListComponent implements OnInit {
 
           this.inaccessiblePuzzles.push(puzzle);
         }
+
         this.loading = false;
+        this.tabVisibilityState = 'shown';
+        this.puzzleListTabExpandState = 'expanded';
+        this.puzzleTabExpandState = 'collapsed';
       })
     })
   }
 
-  listTabActive() {
+  listTabOpened() {
     this.puzzleTabActive = false
     this.updateList()
+  }
+
+  puzzleTabOpened() {
+    this.puzzleListTabExpandState = 'collapsed';
+    this.puzzleTabExpandState = 'expanded';
   }
 
   openPuzzle(puzzle: Puzzle, index: number): void {
     this.chosenPuzzle = puzzle;
     this.chosenPuzzleIndex = `${index}`;
     this.puzzleTabActive = true;
+    this.puzzleTabOpened();
   }
 
   openAdmin() {

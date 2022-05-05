@@ -36,7 +36,7 @@ export class PuzzleComponent implements OnInit {
       this._snackbar.open("Please enter a value to submit.", "dismiss", { panelClass: 'failure-snackbar' })
     }
     else {
-      const checkAnswer = this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {
+      this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {
         if (answer?.answer == true) {
           this._snackbar.open("Puzzle completed!", "dismiss", { duration: 5000, panelClass: 'success-snackbar' })
         }

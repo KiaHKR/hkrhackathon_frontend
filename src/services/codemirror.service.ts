@@ -15,6 +15,7 @@ export class CodeMirrorService {
       mode: 'python',
       theme: 'nord',
       lineWrapping: true,
+      scrollbarStyle: 'null',
       extraKeys: {
         Enter: () => { notifiyEnterPressed() },
         "Ctrl-Z": () => { },

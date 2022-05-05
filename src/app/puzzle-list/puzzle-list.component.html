@@ -1,5 +1,3 @@
-<app-background-particles></app-background-particles>
-
 <div class="top-btn-container">
     <div *ngIf="userIsAdmin">
         <button type='button' (click)="openAdmin()" class="btn btn-sm btn-outline-light mb-2">Dashboard</button>
@@ -8,11 +6,12 @@
 </div>
 <login-page-glitch-logo></login-page-glitch-logo>
 
-<div class="container col-sm-8 col-md-6 col-lg-6 col-xl-4 mb-5">
+<div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-4 mb-5"
+    [@tabsFadeTrigger]="tabVisibilityState">
     <tabset class="tab-container">
-        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabActive()">
-            <div class="py-3 px-4 list-container" #listContainer>
-                <h3 class="mb-4">Challenges</h3>
+        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="listTabOpened()">
+            <div class="py-3 px-4 list-container" #listContainer [@tabsBodyExpand]="puzzleListTabExpandState">
+                <h3 *ngIf="!loading" class="mb-4">Challenges</h3>
                 <ul *ngIf="!loading" class="m-0 p-0 puzzle-list-container">
                     <div *ngFor="let puzzle of accessiblePuzzles; let i = index">
                         <li class="puzzle-list-item" (click)="openPuzzle(puzzle, i+1)">
@@ -41,8 +40,9 @@
             </div>
         </tab>
 
-        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" [active]="puzzleTabActive">
-            <div class="py-3 px-2 list-container" id="puzzle-container">
+        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" (selectTab)="puzzleTabOpened()"
+            [active]="puzzleTabActive">
+            <div class="py-3 px-2 list-container" id="puzzle-container" [@tabsBodyExpand]="puzzleTabExpandState">
                 <puzzle-component *ngIf="!loading" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!"
                     [indexTotal]="puzzleList.length.toString()">
                 </puzzle-component>

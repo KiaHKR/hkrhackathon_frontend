@@ -17,31 +17,9 @@
     }
 
     .example-text-container>p {
-        margin: 0
+        margin: 0;
+        font-family: Consolas !important;
     }
-}
-
-#bottom-container {
-    max-height: 800px;
-    overflow-y: scroll;
-    width: auto;
-    overflow-x: hidden;
-}
-
-/* Scroll 3 */
-#bottom-container::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-}
-
-#bottom-container::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 10px;
-}
-
-#bottom-container::-webkit-scrollbar-thumb {
-    background-color: #20282e !important;
-    border-radius: 10px;
 }
 
 .file-link-container {
@@ -64,19 +42,34 @@
     overflow-wrap: normal;
 }
 
-#user-answer {
-    background-color: transparent;
-    color: #fff;
-    border: 1px solid white;
-    border-radius: 5px;
+.form-group {
+    display: flex;
+    flex-flow: column nowrap;
 
-    &:focus {
-        outline: none;
-    }
-}
 
-.example-text-container {
-    p {
-        font-family: Consolas !important;
+    ::ng-deep .mat-focused .mat-form-field-label {
+        /*change color of label*/
+        color: rgb(190, 190, 190) !important;
     }
+
+    ::ng-deep.mat-form-field-underline {
+        /*change color of underline*/
+        background-color: rgb(190, 190, 190) !important;
+    }
+
+    ::ng-deep.mat-form-field-ripple {
+        /*change color of underline when focused*/
+        background-color: white !important;
+        ;
+    }
+
+    ::ng-deep .mat-form-field-label {
+        color: white !important;
+    }
+
+    ::ng-deep .mat-input-element {
+        caret-color: rgb(223, 223, 223) !important;
+    }
+
+
 }
