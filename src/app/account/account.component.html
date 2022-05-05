@@ -8,14 +8,17 @@
             <h4>Manage Account</h4>
             <div class="px-3">
                 <form class="mat-form">
-                    <mat-form-field>
-                        <mat-label>Name</mat-label>
-                        <input [value]="user.name" matInput type="text" id="name-input">
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Year</mat-label>
-                        <input [value]="user.year" matInput type="text" id="year-input">
-                    </mat-form-field>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Name</mat-label>
+                            <input [value]="user.name" matInput type="text" id="name-input">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Year</mat-label>
+                            <input [value]="user.year" matInput type="text" id="year-input">
+                        </mat-form-field>
+                    </div>
+                    <button mat-stroked-button type="submit">Save changes</button>
                 </form>
             </div>
         </div>
@@ -38,6 +41,7 @@
                             <input matInput type="password" id="repeat-new-password">
                         </mat-form-field>
                     </div>
+                    <button mat-stroked-button type="submit">Change password</button>
                 </form>
             </div>
         </div>
