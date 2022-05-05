@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BASE_API_URL } from 'src/globals';
+import Puzzle from 'src/models/puzzle';
 import { User } from 'src/models/user';
 
 @Injectable({
@@ -100,6 +101,39 @@ export class AdminService {
 
     const body = await res.json();
 
+    if (!res.ok) {
+      errorCB(body.error);
+      return false;
+    }
+
+    return true;
+  }
+
+  async updateUserPuzzles(email: string, allowedPuzzleIds: string[], newPuzzleId: string, errorCB: (error: string) => void): Promise<boolean> {
+    const token = localStorage.getItem('x-auth-token');
+    if (token == undefined) {
+      errorCB("Couldn't fetch user token.")
+      return false;
+    }
+
+    const res = await fetch(`${BASE_API_URL}/admin/update/${email}`, {
+      method: "PUT",
+      headers: {
+        'x-auth-header': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        puzzles: allowedPuzzleIds,
+        newPuzzleId: newPuzzleId,
+      })
+    })
+
+    if (res == undefined) {
+      errorCB("Coudln't update puzzles, due to internal error.")
+      return false;
+    }
+
+    const body = await res.json();
     if (!res.ok) {
       errorCB(body.error);
       return false;

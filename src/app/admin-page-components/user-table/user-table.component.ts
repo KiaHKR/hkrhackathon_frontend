@@ -102,22 +102,30 @@ export class UserTableComponent implements OnInit {
     })
   }
 
-  updatePuzzleId(user: User, event: MatSelectChange): void {
+  async updatePuzzleId(user: User, event: MatSelectChange): Promise<void> {
     let tempUserList = this.users.data;
 
     const userObjIndex = tempUserList.indexOf(user);
     const oldUser = tempUserList[userObjIndex];
     user.currentPuzzleId = event.value;
 
-    this.adminService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
-      if (!success) {
-        event.source.value = oldUser.currentPuzzleId;
-        return;
-      }
+    const puzzles = await this.puzzleService.fetchPuzzles(this.displayError.bind(this));
+    if (puzzles == null) return;
 
-      tempUserList[userObjIndex] = user;
-      this.reloadUserList(tempUserList);
-    })
+    let newAllowedPuzzleIds = [];
+    for (const puzzle of puzzles) {
+      newAllowedPuzzleIds.push(puzzle.id)
+      if (puzzle.id == user.currentPuzzleId) break;
+    }
+
+    const success = await this.adminService.updateUserPuzzles(user.email, newAllowedPuzzleIds, user.currentPuzzleId, this.displayError.bind(this));
+    if (!success) {
+      event.source.value = oldUser.currentPuzzleId;
+      return;
+    }
+
+    tempUserList[userObjIndex] = user;
+    this.reloadUserList(tempUserList);
   }
 
   updateYear(user: User, event: MatSelectChange): void {
