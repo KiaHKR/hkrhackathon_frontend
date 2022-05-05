@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import Puzzle from 'src/models/puzzle';
+import { User } from 'src/models/user';
 import { PuzzleService } from 'src/services/puzzle-service.service';
 import { UserService } from 'src/services/user.service';
 import { tabFadeAnimation } from 'src/utils/animations';
@@ -39,10 +40,12 @@ export class PuzzleListComponent implements OnInit {
   loading: boolean = true;
 
   userIsAdmin: boolean = false;
+  user!: User;
 
   // Animation states
   tabVisibilityState: string = 'hidden';
   puzzleTabExpandState: string = 'collapsed';
+  accountTabExpandState: string = 'collapsed';
   puzzleListTabExpandState: string = 'collapsed';
 
   constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
@@ -64,6 +67,7 @@ export class PuzzleListComponent implements OnInit {
       if (user == null) return
 
       this.userIsAdmin = user == undefined ? false : user.isAdmin;
+      this.user = user;
 
       this.puzzleService.fetchPuzzles(this.displayError.bind(this)).then((puzzles) => {
         if (puzzles == null) return
@@ -84,8 +88,9 @@ export class PuzzleListComponent implements OnInit {
 
         this.loading = false;
         this.tabVisibilityState = 'shown';
-        this.puzzleListTabExpandState = 'expanded';
         this.puzzleTabExpandState = 'collapsed';
+        this.accountTabExpandState = 'collapsed';
+        this.puzzleListTabExpandState = 'expanded';
       })
     })
   }
@@ -95,7 +100,14 @@ export class PuzzleListComponent implements OnInit {
     this.updateList()
   }
 
+  accountTabOpened() {
+    this.puzzleListTabExpandState = 'collapsed';
+    this.puzzleTabExpandState = 'collapsed';
+    this.accountTabExpandState = 'expanded';
+  }
+
   puzzleTabOpened() {
+    this.accountTabExpandState = 'collapsed';
     this.puzzleListTabExpandState = 'collapsed';
     this.puzzleTabExpandState = 'expanded';
   }

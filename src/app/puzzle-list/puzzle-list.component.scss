@@ -29,6 +29,7 @@
     justify-content: center;
     border-radius: 10px;
     border-top-left-radius: 0;
+    border-top-right-radius: 0;
     overflow: hidden;
 
     .puzzle-list-container {
@@ -116,6 +117,8 @@
             border: none;
             border-radius: 0px;
             padding: 3px 15px;
+            height: 100%;
+            display: flex;
 
             background-color: $color-primary;
             color: #8b8b8b;
@@ -126,22 +129,26 @@
 
             border-bottom: 2px;
         }
-    }
 
-    .nav-item:first-child {
-        .nav-link {
-            border-top-left-radius: 5px;
+        &:first-child {
+            .nav-link {
+                border-top-left-radius: 5px;
+            }
+        }
+
+        &:nth-child(2) {
+            .nav-link {
+                border-top-right-radius: 5px;
+            }
+        }
+
+        &:last-child {
+            margin-left: auto;
+
+            .nav-link {
+                border-top-right-radius: 5px;
+                border-top-left-radius: 5px;
+            }
         }
     }
-
-    .nav-item:last-child {
-        .nav-link {
-            border-top-right-radius: 5px;
-        }
-    }
-}
-
-.alert {
-    margin-bottom: 0px;
-    margin-top: 1rem;
 }

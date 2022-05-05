@@ -1,1 +1,45 @@
-<p>account works!</p>
+<div class="container">
+    <div class="row p-3">
+        <h3 id="welcome-user">Welcome {{user.name}}!</h3>
+    </div>
+    <hr>
+    <div class="bottom-container p-3">
+        <div class="manage-account account-section">
+            <h4>Manage Account</h4>
+            <div class="px-3">
+                <form class="mat-form">
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input [value]="user.name" matInput type="text" id="name-input">
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Year</mat-label>
+                        <input [value]="user.year" matInput type="text" id="year-input">
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="manage-password account-section">
+            <h4>Change Password</h4>
+            <div class="px-3">
+                <form class="mat-form">
+                    <mat-form-field>
+                        <mat-label>Current password</mat-label>
+                        <input matInput type="password" id="old-password">
+                    </mat-form-field>
+                    <div class="new-password-container">
+                        <mat-form-field>
+                            <mat-label>New password</mat-label>
+                            <input matInput type="password" id="new-password">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Repeat password</mat-label>
+                            <input matInput type="password" id="repeat-new-password">
+                        </mat-form-field>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
