@@ -1,0 +1,43 @@
+@import '/src/app/globals.scss';
+
+.primary-container {
+    padding-top: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: $color-primary;
+    overflow-x: hidden;
+    color: white;
+    
+    ul {
+        padding: 0;
+        list-style-type: none;
+
+        li {
+            white-space: nowrap;
+            padding: 1em 1rem;
+            transition: background-color 200ms ease-out;
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        hr {
+            padding: 0;
+            margin: 0;    
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    }
+}

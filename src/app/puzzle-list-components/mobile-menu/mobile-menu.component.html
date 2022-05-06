@@ -1,0 +1,11 @@
+<div class="primary-container" [@slideInOut]="slideInOutState">
+    <h2>Sections</h2>
+    <ul>
+        <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" (click)="selectTab('list')">All puzzles</li>
+        <hr>
+        <li *ngIf="showPuzzleTab" matRipple matRippleColor="rgba(255, 255, 255, 0.2)" (click)="selectTab('puzzle')">
+            Active puzzle</li>
+        <hr *ngIf="showPuzzleTab">
+        <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" (click)="selectTab('account')">Account</li>
+    </ul>
+</div>

@@ -31,7 +31,6 @@ export class PuzzleListComponent implements OnInit {
 
   puzzleList: Array<Puzzle> = [];
   chosenPuzzle?: Puzzle;
-  puzzleTabActive: boolean = false;
   chosenPuzzleIndex?: string;
 
   accessiblePuzzles: Array<Puzzle> = [];
@@ -42,11 +41,17 @@ export class PuzzleListComponent implements OnInit {
   userIsAdmin: boolean = false;
   user!: User;
 
+  // Tab active bools
+  puzzleTabActive: boolean = false;
+  listTabActive: boolean = true;
+  accountTabActive: boolean = false;
+
   // Animation states
   tabVisibilityState: string = 'hidden';
   puzzleTabExpandState: string = 'collapsed';
   accountTabExpandState: string = 'collapsed';
   puzzleListTabExpandState: string = 'collapsed';
+  mobileMenuPositionState: string = 'in';
 
   constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
 
@@ -88,35 +93,55 @@ export class PuzzleListComponent implements OnInit {
 
         this.loading = false;
         this.tabVisibilityState = 'shown';
-        this.puzzleTabExpandState = 'collapsed';
-        this.accountTabExpandState = 'collapsed';
         this.puzzleListTabExpandState = 'expanded';
       })
     })
   }
 
-  listTabOpened() {
-    this.puzzleTabActive = false
-    this.updateList()
+  updateTabFromMenu(activeTab: string) {
+    this.listTabActive = false;
+    this.puzzleTabActive = false;
+    this.accountTabActive = false;
+
+    if (activeTab == 'list') {
+      this.listTabActive = true;
+    } else
+      if (activeTab == 'puzzle') {
+        this.puzzleTabActive = true;
+      } else
+        if (activeTab == 'account') {
+          this.accountTabActive = true;
+        }
   }
 
-  accountTabOpened() {
-    this.puzzleListTabExpandState = 'collapsed';
-    this.puzzleTabExpandState = 'collapsed';
-    this.accountTabExpandState = 'expanded';
-  }
-
-  puzzleTabOpened() {
+  changeTab(activeTab: string) {
     this.accountTabExpandState = 'collapsed';
     this.puzzleListTabExpandState = 'collapsed';
-    this.puzzleTabExpandState = 'expanded';
+    this.puzzleTabExpandState = 'collapsed';
+
+
+    if (activeTab == 'list') {
+      this.updateList()
+    } else
+      if (activeTab == 'puzzle') {
+        this.puzzleTabExpandState = 'expanded';
+      } else
+        if (activeTab == 'account') {
+          this.accountTabExpandState = 'expanded';
+        }
   }
 
   openPuzzle(puzzle: Puzzle, index: number): void {
-    this.chosenPuzzle = puzzle;
-    this.chosenPuzzleIndex = `${index}`;
-    this.puzzleTabActive = true;
-    this.puzzleTabOpened();
+    new Promise(f => setTimeout(f, 100)).then(() => {
+      this.chosenPuzzle = puzzle;
+      this.chosenPuzzleIndex = `${index}`;
+      this.updateTabFromMenu('puzzle');
+      this.changeTab('puzzle');
+    })
+  }
+
+  openCloseMenu() {
+    this.mobileMenuPositionState = this.mobileMenuPositionState == 'in' ? 'out' : 'in';
   }
 
   openAdmin() {

@@ -12,8 +12,6 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
-import { PuzzleComponent } from './puzzle/puzzle.component';
-import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminPageComponentsModule } from './admin-page-components/admin-page-components.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +20,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { AccountComponent } from './account/account.component';
+import { PuzzleListComponentsModule } from './puzzle-list-components/puzzle-list-components.module';
+import { MatRippleModule } from '@angular/material/core';
 
 
 
@@ -30,8 +30,6 @@ import { AccountComponent } from './account/account.component';
     AppComponent,
     LoginPageComponent,
     PuzzleListComponent,
-    PuzzleComponent,
-    PuzzlePageComponent,
     AdminPageComponent,
     AccountComponent
   ],
@@ -48,7 +46,9 @@ import { AccountComponent } from './account/account.component';
     MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
-    MatButtonModule
+    MatButtonModule,
+    PuzzleListComponentsModule,
+    MatRippleModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
