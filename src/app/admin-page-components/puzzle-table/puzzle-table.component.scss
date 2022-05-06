@@ -1,0 +1,36 @@
+.user-table {
+    width: 80%;
+    margin: auto auto;
+
+    .email-text {
+        padding-right: 0.5em;
+    }
+}
+
+::ng-deep .center-header .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-row {
+    height: auto;
+}
+
+.mat-column-delete {
+    text-align: right;
+}
+
+.mat-column-isAdmin {
+    text-align: center;
+}
+
+.mat-column-year {
+    text-align: center;
+}
+
+.user-info-title{
+    h6{
+        color: rgba(0, 0, 0, 0.54);
+        
+    }
+}
