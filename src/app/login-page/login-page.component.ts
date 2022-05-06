@@ -10,7 +10,6 @@ import { tabFadeAnimation } from 'src/utils/animations';
 @Component({
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   animations: [
     tabFadeAnimation
   ]

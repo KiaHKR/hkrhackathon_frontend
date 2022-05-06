@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { PuzzleComponent } from './puzzle/puzzle.component';
 import { PuzzlePageComponent } from './puzzle-page/puzzle-page.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { MatRippleModule } from '@angular/material/core';
+import { AccountComponent } from './account/account.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,20 +17,22 @@ import { MatRippleModule } from '@angular/material/core';
     PuzzleComponent,
     PuzzlePageComponent,
     MobileMenuComponent,
+    AccountComponent
   ],
   imports: [
     CommonModule,
     MatIconModule,
-    MatSnackBarModule,
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    ReactiveFormsModule
   ],
   exports: [
     PuzzleComponent,
     PuzzlePageComponent,
-    MobileMenuComponent
+    MobileMenuComponent,
+    AccountComponent
   ]
 })
 export class PuzzleListComponentsModule { }

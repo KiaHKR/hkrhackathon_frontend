@@ -6,9 +6,11 @@ import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { PuzzlePageComponent } from './puzzle-list-components/puzzle-page/puzzle-page.component';
+import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent, data: { showBackground: true } },
+  { path: 'user/reset', component: ResetPasswordPageComponent, data: { showBackground: true } },
   { path: 'puzzles/:id', component: PuzzlePageComponent, canActivate: [AuthGuard], data: { showBackground: false } },
   { path: 'puzzles', component: PuzzleListComponent, canActivate: [AuthGuard], data: { showBackground: true } },
   { path: 'dashboard', component: AdminPageComponent, canActivate: [AdminAuthGuard], data: { showBackground: false } },

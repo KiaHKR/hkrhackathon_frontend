@@ -1,6 +1,6 @@
 <div class="top-buttons">
     <div class="top-menu-container">
-        <button type="button" (click)="openCloseMenu()">
+        <button type="button" (click)="toggleMenuState()">
             <mat-icon style="color: white">{{mobileMenuPositionState == 'in' ? 'menu' : 'clear'}}</mat-icon>
             <h4 *ngIf="mobileMenuPositionState == 'out'" style="color: rgba(255, 255, 255, 0.4); font-weight: 300;"
                 class="ml-5 mb-0">Close
@@ -19,7 +19,7 @@
 <login-page-glitch-logo></login-page-glitch-logo>
 
 <app-mobile-menu [slideInOutState]="mobileMenuPositionState" [changeTab]="updateTabFromMenu.bind(this)"
-    [showPuzzleTab]="chosenPuzzle != undefined">
+    [itemList]="tabList" [toggleMenuState]="toggleMenuState.bind(this)" [showPuzzleTab]="chosenPuzzle != undefined">
 </app-mobile-menu>
 
 <div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-4 my-5"

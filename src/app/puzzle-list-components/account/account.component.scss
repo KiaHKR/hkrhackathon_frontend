@@ -31,29 +31,32 @@
 .mat-form {
     ::ng-deep .mat-focused .mat-form-field-label {
         /*change color of label*/
-        color: rgb(190, 190, 190) !important;
+        color: rgba(255, 255, 255, 0.6) !important;
     }
 
     ::ng-deep.mat-form-field-underline {
         /*change color of underline*/
-        background-color: rgb(190, 190, 190) !important;
+        background-color: rgba(255, 255, 255, 0.6) !important;
     }
 
     ::ng-deep.mat-form-field-ripple {
         /*change color of underline when focused*/
         background-color: white !important;
-        ;
     }
 
     ::ng-deep .mat-form-field-label {
-        color: white !important;
+        color: rgba(255, 255, 255, 0.6) !important;
     }
 
     ::ng-deep .mat-input-element {
-        caret-color: rgb(223, 223, 223) !important;
+        caret-color: rgb(255, 255, 255) !important;
     }
 
     .mat-stroked-button:not(.mat-button-disabled) {
         border-color: white;
+    }
+
+    .mat-button-disabled {
+        color: rgba(255, 255, 255, 0.3);
     }
 }

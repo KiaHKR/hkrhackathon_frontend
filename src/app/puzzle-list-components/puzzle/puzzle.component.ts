@@ -33,7 +33,7 @@ export class PuzzleComponent implements OnInit {
     event.preventDefault();
 
     if (this.answerField.nativeElement.value == "") {
-      this._snackbar.open("Please enter a value to submit.", "dismiss", { panelClass: 'failure-snackbar' })
+      this._snackbar.open("Please enter a value to submit.", "dismiss", { panelClass: 'neutral-snackbar' })
     }
     else {
       this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {

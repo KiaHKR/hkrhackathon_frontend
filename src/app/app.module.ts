@@ -15,13 +15,14 @@ import { PuzzleListComponent } from './puzzle-list/puzzle-list.component';
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { AdminPageComponentsModule } from './admin-page-components/admin-page-components.module';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { AccountComponent } from './account/account.component';
 import { PuzzleListComponentsModule } from './puzzle-list-components/puzzle-list-components.module';
 import { MatRippleModule } from '@angular/material/core';
+import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -31,7 +32,7 @@ import { MatRippleModule } from '@angular/material/core';
     LoginPageComponent,
     PuzzleListComponent,
     AdminPageComponent,
-    AccountComponent
+    ResetPasswordPageComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +49,12 @@ import { MatRippleModule } from '@angular/material/core';
     MatFormFieldModule,
     MatButtonModule,
     PuzzleListComponentsModule,
-    MatRippleModule
+    MatRippleModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
     JwtHelperService
   ],
   bootstrap: [AppComponent]

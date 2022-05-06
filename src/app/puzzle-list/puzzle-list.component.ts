@@ -11,7 +11,6 @@ import { tabFadeAnimation } from 'src/utils/animations';
 @Component({
   templateUrl: './puzzle-list.component.html',
   styleUrls: ['./puzzle-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
   animations: [
     tabFadeAnimation,
     trigger('tabsBodyExpand', [
@@ -41,6 +40,13 @@ export class PuzzleListComponent implements OnInit {
   userIsAdmin: boolean = false;
   user!: User;
 
+  // Tab definitions
+  tabList: { name: string, value: string, visible: () => boolean }[] = [
+    { name: "All puzzles", value: 'list', visible: () => true },
+    { name: "Chosen puzzle", value: 'puzzle', visible: () => this.chosenPuzzle != undefined },
+    { name: "Account", value: 'account', visible: () => true },
+  ]
+
   // Tab active bools
   puzzleTabActive: boolean = false;
   listTabActive: boolean = true;
@@ -60,7 +66,7 @@ export class PuzzleListComponent implements OnInit {
   }
 
   displayError(error: string): void {
-    this._snackBar.open(error, 'dismiss')
+    this._snackBar.open(error, 'dismiss', { panelClass: 'failure-snackbar' })
   }
 
   updateList() {
@@ -140,7 +146,7 @@ export class PuzzleListComponent implements OnInit {
     })
   }
 
-  openCloseMenu() {
+  toggleMenuState() {
     this.mobileMenuPositionState = this.mobileMenuPositionState == 'in' ? 'out' : 'in';
   }
 

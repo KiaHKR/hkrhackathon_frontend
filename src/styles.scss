@@ -17,6 +17,12 @@ body {
     overflow: overlay
 }
 
+.neutral-snackbar {
+    .mat-simple-snackbar-action {
+        color: #9c9c9c !important;
+    }
+}
+
 .success-snackbar {
     background: green !important;
     color: white !important;

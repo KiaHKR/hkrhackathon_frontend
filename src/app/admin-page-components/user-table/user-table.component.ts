@@ -38,7 +38,7 @@ export class UserTableComponent implements OnInit {
   }
 
   displayError(error: string): void {
-    this._snackBar.open(error, 'dismiss')
+    this._snackBar.open(error, 'dismiss', { panelClass: 'failure-snackbar' })
   }
 
   fetchUsers(): void {

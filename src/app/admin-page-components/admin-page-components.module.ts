@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditableComponentsModule } from './editable-components/editable-components.module';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -25,8 +24,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    EditableComponentsModule,
-    MatSnackBarModule,
+    EditableComponentsModule
   ],
   exports: [
     UserTableComponent,

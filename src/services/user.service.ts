@@ -54,7 +54,7 @@ export class UserService {
       }
     })
 
-    if (puzzleStringRes == null || !puzzleStringRes.ok) {
+    if (puzzleStringRes == undefined || !puzzleStringRes.ok) {
       if (notifyDisplayError != undefined) notifyDisplayError('There was an error fetching your puzzle data. Please reload the page and try again.');
       return null;
     }
@@ -67,5 +67,73 @@ export class UserService {
     }
 
     return data.userInput;
+  }
+
+  async updateUserInfo(name: string, year: string, notifyDisplayError: (error: string) => void): Promise<boolean> {
+    const token = localStorage.getItem('x-auth-token');
+    if (token == null) {
+      notifyDisplayError('Saved user token not found. Try logging in again.');
+      return false;
+    }
+
+    const res = await fetch(`${BASE_API_URL}/user`, {
+      method: 'PUT',
+      headers: {
+        'x-auth-header': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        year: year,
+      }),
+    });
+
+    if (res == undefined) {
+      notifyDisplayError('There was an internal error while updating info.')
+      return false;
+    }
+
+    const data = await res.text();
+
+    if (!res.ok) {
+      notifyDisplayError(data);
+      return false;
+    }
+
+    return true;
+  }
+
+  async updateUserPassword(oldPassword: string, newPassword: string, notifyDisplayError: (error: string) => void): Promise<boolean> {
+    const token = localStorage.getItem('x-auth-token');
+    if (token == null) {
+      notifyDisplayError('Saved user token not found. Try logging in again.');
+      return false;
+    }
+
+    const res = await fetch(`${BASE_API_URL}/user/password`, {
+      method: 'POST',
+      headers: {
+        'x-auth-header': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+      }),
+    });
+
+    if (res == undefined) {
+      notifyDisplayError('There was an internal error while updating password.')
+      return false;
+    }
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      notifyDisplayError(data.error.replaceAll('"', '').replace('newPassword', 'New password').replace('oldPassword', 'Current password'));
+      return false;
+    }
+
+    return true;
   }
 }
