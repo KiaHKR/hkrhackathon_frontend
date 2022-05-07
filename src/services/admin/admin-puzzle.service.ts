@@ -8,7 +8,7 @@ export class AdminPuzzleService {
 
   constructor() { }
 
-  async getPuzzleVisibilityList(errorCB: (error: string) => void): Promise<{ puzzleId: string, visible: boolean }[] | null> {
+  async getPuzzleVisibilityList(errorCB: (error: string) => void): Promise<{ puzzleid: string, visibility: boolean }[] | null> {
     const token = localStorage.getItem('x-auth-token');
     if (token == undefined) {
       errorCB("Couldn't fetch user token.")
@@ -36,7 +36,7 @@ export class AdminPuzzleService {
     return body;
   }
 
-  async udpatePuzzleVisibilityList(puzzleVisibilities: { puzzleId: string, visible: boolean }[], errorCB: (error: string) => void): Promise<boolean> {
+  async updatePuzzleVisibilityList(puzzleVisibilities: { puzzleid: string, visibility: boolean }[], errorCB: (error: string) => void): Promise<boolean> {
     const token = localStorage.getItem('x-auth-token');
     if (token == undefined) {
       errorCB("Couldn't fetch user token.")
@@ -44,12 +44,12 @@ export class AdminPuzzleService {
     }
 
     const res = await fetch(`${BASE_API_URL}/admin/save/puzzles`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         'x-auth-header': token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(puzzleVisibilities),
+      body: JSON.stringify({ orderArray: puzzleVisibilities }),
     });
 
     if (res == undefined) {
@@ -57,10 +57,10 @@ export class AdminPuzzleService {
       return false;
     }
 
-    const body = await res.json();
+    const body = await res.text();
 
     if (!res.ok) {
-      errorCB(body.error);
+      errorCB(body);
       return false;
     }
 

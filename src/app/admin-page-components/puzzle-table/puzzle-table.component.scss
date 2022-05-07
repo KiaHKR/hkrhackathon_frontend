@@ -5,27 +5,17 @@
     .email-text {
         padding-right: 0.5em;
     }
+
+    li{
+        cursor: grab;
+
+    }
+
 }
 
 ::ng-deep .center-header .mat-sort-header-container {
     display: flex;
     justify-content: center;
-}
-
-.mat-row {
-    height: auto;
-}
-
-.mat-column-delete {
-    text-align: right;
-}
-
-.mat-column-isAdmin {
-    text-align: center;
-}
-
-.mat-column-year {
-    text-align: center;
 }
 
 .user-info-title{

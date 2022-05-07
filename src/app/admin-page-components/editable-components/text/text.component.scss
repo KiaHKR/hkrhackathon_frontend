@@ -3,6 +3,9 @@
     flex-flow: row nowrap;
     gap: 0.1rem;
     align-items: center;
+    justify-content: space-between;
+    max-width: 75%;
+    width: 45%;
 
     p {
         margin: 0;
@@ -17,4 +20,6 @@
     ::ng-deep .material-icons {
         font-size: 20px;
     }
+
+
 }

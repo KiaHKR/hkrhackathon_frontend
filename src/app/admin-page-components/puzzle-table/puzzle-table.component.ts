@@ -1,14 +1,11 @@
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatSelectChange } from '@angular/material/select';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { User } from 'src/models/user';
+import { AdminPuzzleService } from 'src/services/admin/admin-puzzle.service';
 import { AdminUserService } from 'src/services/admin/admin-user.service';
 import { PuzzleService } from 'src/services/puzzle-service.service';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'admin-puzzle-table',
@@ -18,151 +15,57 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 export class PuzzleTableComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  users: MatTableDataSource<User> = new MatTableDataSource<User>();
-  puzzleIds: string[] = [];
+  reconstructedData: { puzzleid: string, visibility: boolean }[] = []
   columns: string[] = [
-    'email',
-    'name',
-    'year',
-    'currentPuzzleId',
-    'isAdmin',
-    'delete'
+    'puzzleID',
+    'isActive'
   ]
 
-  constructor(private adminUserService: AdminUserService, private dialog: MatDialog, private puzzleService: PuzzleService, private _snackBar: MatSnackBar) { }
+  constructor(private adminUserService: AdminUserService, private dialog: MatDialog, private puzzleService: PuzzleService, private _snackBar: MatSnackBar, private adminPuzzleService: AdminPuzzleService) { }
 
   ngOnInit(): void {
-    this.users.sort = this.sort;
     this.fetchPuzzleIds();
-    this.fetchUsers();
   }
 
   displayError(error: string): void {
-    this._snackBar.open(error, 'dismiss')
-  }
-
-  fetchUsers(): void {
-    this.adminUserService.getAllUsers(this.displayError.bind(this)).then(users => {
-      if (users != undefined && users != null) return this.reloadUserList(users);
-    })
+    this._snackBar.open(error, 'dismiss', { panelClass: 'failure-snackbar' })
   }
 
   fetchPuzzleIds(): void {
-    this.puzzleService.fetchPuzzles(this.displayError.bind(this)).then((puzzles) => {
-      if (puzzles == null) return;
+    this.adminPuzzleService.getPuzzleVisibilityList(this.displayError.bind(this)).then((vPuzzles) => {
+      if (vPuzzles == null) return;
 
-      for (const puzzle of puzzles) {
-        this.puzzleIds.push(puzzle.id);
+      for (const visiblityPuzzle of vPuzzles) {
+        this.reconstructedData.push(visiblityPuzzle)
       }
+      console.log(this.reconstructedData)
     });
   }
 
-  reloadUserList(newList: User[]): void {
-    this.users.data = newList;
-  }
+  drop(event: CdkDragDrop<string[]>) {
+    this.moveItemInArray(this.reconstructedData, event.previousIndex, event.currentIndex);
+    this.adminPuzzleService.updatePuzzleVisibilityList(this.reconstructedData, this.displayError.bind(this)).then(success => {
+      if (!success) return
 
-  adminChanged(user: User, event: MatSlideToggleChange) {
-    let tempUserList = this.users.data;
-
-    const userObjIndex = tempUserList.indexOf(user);
-    user.isAdmin = event.checked;
-
-    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
-      if (!success) {
-        event.source.toggle();
-        return;
-      }
-
-      tempUserList[userObjIndex] = user;
-
-      this.reloadUserList(tempUserList);
-
+      this._snackBar.open("Puzzle list updated", "dismiss", { panelClass: "success-snackbar" })
     })
   }
 
-  deleteUser(user: User) {
-    this.dialog.open(DeleteDialogComponent, {
-      autoFocus: 'dialog',
-      data: {
-        email: user.email
-      }
-    }).afterClosed().subscribe((success: boolean) => {
-      if (!success) return;
+  moveItemInArray(array: { puzzleid: string, visibility: boolean }[], previousIndex: number, currentIndex: number) {
+    const item = array.splice(previousIndex, 1)
+    array.splice(currentIndex, 0, item[0])
 
-      this.adminUserService.deleteUser(user.email, this.displayError.bind(this)).then((success) => {
-        if (!success) return;
-
-        let tempUserList = this.users.data;
-
-        const userIndex = tempUserList.indexOf(user);
-        tempUserList.splice(userIndex, 1);
-
-        this.users.data = tempUserList;
-      })
-    })
   }
 
-  async updatePuzzleId(user: User, event: MatSelectChange): Promise<void> {
-    let tempUserList = this.users.data;
+  updateVisiblity(item: { puzzleid: string, visibility: boolean }) {
+    item.visibility = !item.visibility
+    this.adminPuzzleService.updatePuzzleVisibilityList(this.reconstructedData, this.displayError.bind(this)).then(success => {
+      if (!success) return
 
-    const userObjIndex = tempUserList.indexOf(user);
-    const oldUser = tempUserList[userObjIndex];
-    user.currentPuzzleId = event.value;
+      this._snackBar.open(`${item.puzzleid} visibility updated to: ${item.visibility.valueOf().toString().toUpperCase()}`, "dismiss", { panelClass: "success-snackbar" })
+    });
 
-    const puzzles = await this.puzzleService.fetchPuzzles(this.displayError.bind(this));
-    if (puzzles == null) return;
 
-    let newAllowedPuzzleIds = [];
-    for (const puzzle of puzzles) {
-      newAllowedPuzzleIds.push(puzzle.id)
-      if (puzzle.id == user.currentPuzzleId) break;
-    }
-
-    const success = await this.adminUserService.updateUserPuzzles(user.email, newAllowedPuzzleIds, user.currentPuzzleId, this.displayError.bind(this));
-    if (!success) {
-      event.source.value = oldUser.currentPuzzleId;
-      return;
-    }
-
-    tempUserList[userObjIndex] = user;
-    this.reloadUserList(tempUserList);
   }
 
-  updateYear(user: User, event: MatSelectChange): void {
-    let tempUserList = this.users.data;
-
-    const userObjIndex = tempUserList.indexOf(user);
-    const oldUser = tempUserList[userObjIndex];
-    user.year = Number.parseInt(event.value);
-
-    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
-      if (!success) {
-        event.source.value = oldUser.year;
-        return;
-      }
-
-      tempUserList[userObjIndex] = user;
-      this.reloadUserList(tempUserList);
-    })
-  }
-
-  updateName(user: User, event: { preventChange: () => void, confirmChange: () => void, value: string }): void {
-    console.log("ACTUALLY UPDATING NOW")
-    let tempUserList = this.users.data;
-
-    const userObjIndex = tempUserList.indexOf(user);
-    const oldUser = tempUserList[userObjIndex];
-    user.name = event.value;
-
-    this.adminUserService.updateUser(user.email, user, this.displayError.bind(this)).then((success) => {
-      if (!success) {
-        event.preventChange();
-        return;
-      }
-
-      event.confirmChange();
-      tempUserList[userObjIndex] = user;
-      this.reloadUserList(tempUserList);
-    })
-  }
 }

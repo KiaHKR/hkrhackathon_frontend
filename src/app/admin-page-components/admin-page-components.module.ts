@@ -10,6 +10,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { EditableComponentsModule } from './editable-components/editable-components.module';
 import { PuzzleTableComponent } from './puzzle-table/puzzle-table.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { PuzzleTableComponent } from './puzzle-table/puzzle-table.component';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    EditableComponentsModule
+    EditableComponentsModule,
+    DragDropModule
   ],
   exports: [
     UserTableComponent,
