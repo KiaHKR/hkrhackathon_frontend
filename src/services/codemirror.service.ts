@@ -9,7 +9,7 @@ export class CodeMirrorService {
 
   constructor() { }
 
-  private getCodeMirrorFromTextArea(textarea: HTMLTextAreaElement, notifiyEnterPressed: () => void): CodeMirror.EditorFromTextArea {
+  private getCodeMirrorFromTextArea(textarea: HTMLTextAreaElement, allowedEditingIdentifiers: Array<CMEditingIdentifier>, notifiyEnterPressed: () => void): CodeMirror.EditorFromTextArea {
     return CodeMirror.fromTextArea(textarea, {
       lineNumbers: true,
       mode: 'python',
@@ -20,6 +20,28 @@ export class CodeMirrorService {
         Enter: () => { notifiyEnterPressed() },
         "Ctrl-Z": () => { },
         "Ctrl-Shift-Z": () => { },
+        "Tab": (cm) => {
+          for (const editingIdentifier of allowedEditingIdentifiers) {
+            if (editingIdentifier.line > cm.getCursor().line) {
+              cm.setCursor({
+                line: editingIdentifier.line,
+                ch: editingIdentifier.ch,
+              })
+              break;
+            }
+          }
+        },
+        "Shift-Tab": (cm) => {
+          for (const editingIdentifier of [...allowedEditingIdentifiers].reverse()) {
+            if (editingIdentifier.line < cm.getCursor().line) {
+              cm.setCursor({
+                line: editingIdentifier.line,
+                ch: editingIdentifier.ch,
+              })
+              break;
+            }
+          }
+        }
       }
     });
   }
@@ -32,7 +54,7 @@ export class CodeMirrorService {
     getPasswordString: () => string,
     notifyEnterPressed: () => void,
   ): CodeMirror.EditorFromTextArea {
-    const cmSession = this.getCodeMirrorFromTextArea(textarea, notifyEnterPressed);
+    const cmSession = this.getCodeMirrorFromTextArea(textarea, allowedEditingIdentifiers, notifyEnterPressed);
     this.lockMirror(cmSession, allowedEditingIdentifiers, inputCounters, setPasswordString, getPasswordString);
     return cmSession;
   }
