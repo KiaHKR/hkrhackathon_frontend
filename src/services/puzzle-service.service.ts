@@ -27,13 +27,13 @@ export class PuzzleService {
       return null;
     };
 
-    const data: { id: string, title: string, story: string, examples: { inputExample: string, logicExample: string } }[] = await puzzlesRes.json();
+    const data: { _id: string, _title: string, _story: string, _examples: { inputExample: string, logicExample: string } }[] = await puzzlesRes.json();
 
     console.log(data);
 
     let puzzleList: Puzzle[] = [];
     data.forEach(element => {
-      puzzleList.push(new Puzzle(element.id, element.title, element.story, element.examples))
+      puzzleList.push(new Puzzle(element._id, element._title, element._story, element._examples))
     });
 
     return puzzleList;
