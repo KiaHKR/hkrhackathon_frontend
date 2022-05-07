@@ -3,12 +3,13 @@
     <h6>Edit puzzles order & visibility</h6>
 </div>
 
-<div class="user-table user-info-title">
+<div class="user-table">
     <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event)">
-        <li class="list-group-item d-flex justify-content-between align-items-center"  *ngFor="let item of reconstructedData" cdkDrag>
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of reconstructedData" cdkDrag>
             {{item.puzzleid}}
             <mat-slide-toggle [checked]="item.visibility" (change)="updateVisiblity(item)"></mat-slide-toggle>
         </li>
-      </ul>
-      
+    </ul>
+
 </div>
