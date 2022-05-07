@@ -9,3 +9,50 @@
 app-root {
     font-family: 'Roboto', sans-serif;
 }
+
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    overflow: overlay
+}
+
+.neutral-snackbar {
+    .mat-simple-snackbar-action {
+        color: #9c9c9c !important;
+    }
+}
+
+.success-snackbar {
+    background: green !important;
+    color: white !important;
+
+    .mat-simple-snackbar-action {
+        color: white !important;
+    }
+}
+
+.failure-snackbar {
+    background: rgb(204, 0, 0) !important;
+    color: white !important;
+
+    .mat-simple-snackbar-action {
+        color: white !important;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+    overflow: overlay
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 10px;
+}

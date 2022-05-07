@@ -3,7 +3,7 @@ export default class Puzzle {
         private _id: string,
         private _title: string,
         private _story: string,
-        private _examples: string[]
+        private _examples: { inputExample: string, logicExample: string }
     ) { }
 
 
@@ -32,11 +32,11 @@ export default class Puzzle {
     }
 
 
-    get examples(): string[] {
+    get examples(): { inputExample: string, logicExample: string } {
         return this._examples;
     }
 
-    set examples(value: string[]) {
+    set examples(value: { inputExample: string, logicExample: string }) {
         this._examples = value;
     }
 }

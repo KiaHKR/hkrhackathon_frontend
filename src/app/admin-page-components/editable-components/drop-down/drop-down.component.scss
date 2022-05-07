@@ -1,0 +1,27 @@
+.static-container {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0.1rem;
+    align-items: center;
+
+    p {
+        margin: 0;
+    }
+
+    ::ng-deep .material-icons {
+        font-size: 20px;
+    }
+}
+
+.editing-container {
+    ::ng-deep .mat-form-field-wrapper {
+        padding-bottom: 1em;
+
+        .mat-form-field-infix {
+            width: fit-content;
+            min-width: 3rem;
+
+            padding-left: 5px;
+        }
+    }
+}

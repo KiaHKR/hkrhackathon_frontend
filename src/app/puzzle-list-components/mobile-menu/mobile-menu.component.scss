@@ -1,0 +1,74 @@
+@import '/src/app/globals.scss';
+
+.screen-overlay {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.menu-container {
+    padding-top: 5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background-color: $color-primary;
+    overflow-x: hidden;
+    color: white;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+
+    .menu-body {
+        width: 100%;
+
+        ul {
+            padding: 0;
+            list-style-type: none;
+    
+            li {
+                white-space: nowrap;
+                padding: 1em 1rem;
+                transition: background-color 200ms ease-out;
+    
+                &:first-child {
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                }
+    
+                &:last-child {
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
+            }
+    
+            hr {
+                padding: 0;
+                margin: 0;    
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    }
+    
+    .menu-footer {
+        a {
+            color: white;
+            text-decoration: none;
+
+            h6 {
+                font-weight: 300;
+                margin: 0;
+            }
+        }
+    }
+}

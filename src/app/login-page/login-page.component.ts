@@ -5,11 +5,14 @@ import { AuthService } from '../../services/auth.service';
 import { InputValidationService } from '../../services/input-validation.service';
 import { CodeMirrorService } from 'src/services/codemirror.service';
 import { Router } from '@angular/router';
+import { tabFadeAnimation } from 'src/utils/animations';
 
 @Component({
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  animations: [
+    tabFadeAnimation
+  ]
 })
 export class LoginPageComponent implements OnInit {
 
@@ -45,6 +48,9 @@ export class LoginPageComponent implements OnInit {
       register_password: 0,
     }
 
+  // Animation states
+  tabVisibilityState: string = 'hidden';
+
   get registerDefaultText(): string {
     return `def sign_up(user):
   e_mail = ""
@@ -77,7 +83,12 @@ export class LoginPageComponent implements OnInit {
     this._inputError = value;
   }
 
-  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) { }
+
+  constructor(private authService: AuthService, private cmService: CodeMirrorService, private validationService: InputValidationService, private route: Router) {
+    authService.isAuthenticated().then((authenticated) => {
+      if (authenticated) route.navigate(['puzzles']);
+    })
+  }
 
   ngOnInit(): void {
 
@@ -87,6 +98,7 @@ export class LoginPageComponent implements OnInit {
     this.loginCodemirror = this.getLoginCM();
     this.loginCodemirror.setValue(this.loginDefaultText);
     this.loginCodemirror.refresh();
+    this.tabVisibilityState = 'shown';
   }
 
   getLoginCM(): CodeMirror.EditorFromTextArea {
@@ -114,7 +126,6 @@ export class LoginPageComponent implements OnInit {
   async userLogin() {
     const currentLoginCMValue: string = this.loginCodemirror.getValue();
     const email: string = /e_mail = "(.*?)"/.exec(currentLoginCMValue)![1].trim();
-
     if (await this.authService.userLogin(email, this.passwordString, this.notifiyLoginError.bind(this))) {
       this.route.navigate(['puzzles'])
     }
@@ -125,11 +136,10 @@ export class LoginPageComponent implements OnInit {
     const email: string = /e_mail = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const name: string = /name = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const year: string = /year = (.*?)#/.exec(currentRegisterCMValue)![1].trim();
-    const password: string = /password = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
 
-    this.validationService.validateUserRegister(email, name, year, password, this.notifiyRegisterError.bind(this));
+    this.validationService.validateUserRegister(email, name, year, this.passwordString, this.notifiyRegisterError.bind(this));
 
-    if (await this.authService.userRegister(email, name, year, password, this.notifiyRegisterError.bind(this))) {
+    if (await this.authService.userRegister(email, name, Number.parseInt(year), this.passwordString, this.notifiyRegisterError.bind(this))) {
       this.route.navigate(['puzzles'])
     }
   }
@@ -137,6 +147,7 @@ export class LoginPageComponent implements OnInit {
   changeTab(newTabIndex: number): void {
     this.selectedTab = newTabIndex;
     this.passwordString = ``;
+    this._inputError = ``;
 
     if (newTabIndex == 0) {
       this.registerCodemirror!.toTextArea()

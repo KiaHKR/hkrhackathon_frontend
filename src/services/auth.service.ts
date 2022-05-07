@@ -16,8 +16,8 @@ export class AuthService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "email": email,
-        "password": password
+        email,
+        password
       })
     });
 
@@ -29,7 +29,7 @@ export class AuthService {
     const json = await res.json();
 
     if (!res.ok) {
-      notifiyLoginError(json.error);
+      notifiyLoginError("Invalid email or password.");
       return false;
     }
 
@@ -37,7 +37,8 @@ export class AuthService {
     return true;
   }
 
-  async userRegister(email: string, name: string, year: string, password: string, notifiyRegisterError: (value: string) => void): Promise<boolean> {
+  async userRegister(email: string, name: string, year: number, password: string, notifiyRegisterError: (value: string) => void): Promise<boolean> {
+
     const res = await fetch(`${BASE_API_URL}/user`, {
       method: 'POST',
       headers: {
@@ -59,7 +60,7 @@ export class AuthService {
     const json = await res.json();
 
     if (!res.ok) {
-      notifiyRegisterError(json.error)
+      notifiyRegisterError(json.error.replaceAll('"', ''))
       return false;
     }
 
@@ -67,7 +68,7 @@ export class AuthService {
     return true;
   }
 
-  async isAuthenticated(): Promise<boolean> {
+  async isAuthenticated(adminAuth: boolean = false): Promise<boolean> {
     const token = localStorage.getItem('x-auth-token');
     if (token === null) return false;
     if (this.jwtHelper.isTokenExpired(token)) return false;
@@ -79,8 +80,12 @@ export class AuthService {
       }
     });
 
-    if (authorizedRes == null) return false;
-    if (!authorizedRes.ok) return false;
+    if (authorizedRes == null || !authorizedRes.ok) return false;
+
+    if (adminAuth) {
+      const body = await authorizedRes.json();
+      if (!body.isAdmin) return false;
+    }
 
     return true;
   }

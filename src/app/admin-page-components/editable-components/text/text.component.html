@@ -1,0 +1,17 @@
+<div *ngIf="!editing" class="static-container">
+    <p>{{form.value['input']}}</p>
+    <button mat-icon-button (click)="toggleEditing()">
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+
+<div *ngIf="editing" class="editing-container">
+    <form [formGroup]="form" (ngSubmit)="emitChange(); toggleEditing();">
+        <mat-form-field>
+            <input formControlName="input" matInput [value]="initValue">
+        </mat-form-field>
+        <button type="submit" [disabled]="!form.valid" mat-icon-button>
+            <mat-icon>done</mat-icon>
+        </button>
+    </form>
+</div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ChildrenOutletContexts } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hackathonNg';
+
+  showBackgroundParticles!: boolean;
+
+  constructor(private contexts: ChildrenOutletContexts) {
+  }
+
+  getRoutePage() {
+    this.showBackgroundParticles = this.contexts.getContext('primary')?.route?.snapshot?.data?.['showBackground'];
+  }
 }

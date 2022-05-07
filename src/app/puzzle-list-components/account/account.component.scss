@@ -1,0 +1,62 @@
+#welcome-user {
+    overflow-wrap: normal;
+}
+
+.account-section {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 0.5em;
+}
+
+.manage-account {
+    form {
+        .field-container {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 2em;
+        }
+    }
+}
+
+.manage-password {
+    form {
+        .new-password-container {
+            display: flex;
+            flex-flow: row wrap;
+            gap: 2em;
+        }
+    }
+}
+
+.mat-form {
+    ::ng-deep .mat-focused .mat-form-field-label {
+        /*change color of label*/
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    ::ng-deep.mat-form-field-underline {
+        /*change color of underline*/
+        background-color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    ::ng-deep.mat-form-field-ripple {
+        /*change color of underline when focused*/
+        background-color: white !important;
+    }
+
+    ::ng-deep .mat-form-field-label {
+        color: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    ::ng-deep .mat-input-element {
+        caret-color: rgb(255, 255, 255) !important;
+    }
+
+    .mat-stroked-button:not(.mat-button-disabled) {
+        border-color: white;
+    }
+
+    .mat-button-disabled {
+        color: rgba(255, 255, 255, 0.3);
+    }
+}

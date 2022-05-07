@@ -1,24 +1,100 @@
 @import '/src/app/globals.scss';
+
+.top-buttons {
+    margin-top: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .top-btn-container {
+        margin-right: 2rem;
+    
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-end;
+    
+        gap: 1rem;
+    }
+    
+    .top-menu-container {
+        margin-left: 1rem;
+        visibility: hidden;
+        display: flex;
+    
+        button {
+            z-index: 15;
+            background-color: transparent;
+            border: none;
+            display: flex;
+            padding: 0;
+        }
+    }
+}
+
+
 .list-container {
-    background-color: #2e3440;
+    background-color: $color-primary;
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 10px;
     border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    overflow: hidden;
 
     .puzzle-list-container {
+        div:first-child {
+            .puzzle-list-item {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+        }
+
+        div:last-child {
+            .puzzle-list-item {
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
         .puzzle-list-item {
             list-style: none;
-            padding: 0.2em;
+            padding: 1em;
             padding-left: 0.6em;
-            border-radius: 5px;
 
             &:hover {
                 background-color: rgba($color: #fff, $alpha: 0.2);
                 cursor: pointer;
             }
+
+            .puzzle-container {
+                display: flex;
+                flex-flow: row nowrap;
+                align-items: center;
+                width: 100%;
+
+                .puzzle-title {
+                    flex-grow: 1;
+                    white-space: nowrap;
+                    margin: 0;
+                }
+
+                .puzzle-status {
+                    font-size: 12pt;
+                    color: rgb(170, 170, 170);
+                    margin: 0;
+                    margin-right: 0.4em;
+                }
+
+                .open-icon {
+                    color: rgb(170, 170, 170);
+                }
+            }
+
+
         }
 
         .inaccessible {
@@ -28,104 +104,92 @@
                 background-color: rgba($color: #fff, $alpha: 0.1);
                 cursor: default;
             }
+
+            .puzzle-container {
+                .puzzle-status-divider {
+                    background-color: #7d7d7d;
+                }
+
+                .puzzle-status {
+                    color: #7d7d7d;
+                }
+            }
         }
 
     }
 }
 
-.nav-tabs {
-    margin-top: 50px;
-
-    .nav-item {
-        margin: 0;
-
-        .nav-link {
-            border: none;
-            border-radius: 0px;
-            padding: 3px 15px;
-
-            background-color: $color-primary;
-            color: #8b8b8b;
+::ng-deep .animated-tab-container {
+    .nav-tabs {
+        border-bottom: none;
+    
+        .nav-item {
+            margin: 0;
+    
+            .nav-link {
+                border: none;
+                border-radius: 0px;
+                padding: 3px 15px;
+                height: 100%;
+                display: flex;
+    
+                background-color: $color-primary;
+                color: #8b8b8b;
+            }
+    
+            .nav-link.active {
+                color: white;
+    
+                border-bottom: 2px;
+            }
+    
+            &:first-child {
+                .nav-link {
+                    border-top-left-radius: 5px;
+                }
+            }
+    
+            &:nth-child(2) {
+                .nav-link {
+                    border-top-right-radius: 5px;
+                }
+            }
+    
+            &:last-child {
+                margin-left: auto;
+    
+                .nav-link {
+                    border-top-right-radius: 5px;
+                    border-top-left-radius: 5px;
+                }
+            }
         }
+    }
+} 
 
-        .nav-link.active {
-            color: white;
+@media screen and (max-width: 550px) {
+    .top-buttons {
+        margin-top: 1rem;
 
-            border-bottom: 2px;
+        .top-menu-container {
+            visibility: visible;
+        }
+    
+        .top-btn-container {
+            z-index: 5;
+            margin-right: 1rem;
         }
     }
 
-    .nav-item:first-child {
-        .nav-link {
-            border-top-left-radius: 5px;
-        }
-    }
 
-    .nav-item:last-child {
-        .nav-link {
-            border-top-right-radius: 5px;
-        }
-    }
-}
-
-
-.top-row{
-    display: flex;
-    align-items: center;
-
-
-    .task-number{
-        flex-direction: column;
-        flex-grow: 1;
-    }
-}
-
-.examples{
-    .example-text-container{
-        background-color: #20282e !important;
-        padding: 15px;
+    .list-container {
         border-radius: 10px;
     }
-    .example-text-container>p{
-        margin: 0
+    
+    ::ng-deep .animated-tab-container {
+        .nav-tabs {
+            display: none;
+        }
     }
+    
 }
-
-#bottom-container{
-    max-height: 800px;
-    overflow-y: scroll;
-    width: auto;
-    overflow-x: hidden;
-}
-
-/* Scroll 3 */
-#bottom-container::-webkit-scrollbar {
-    width: 8px;
-    height: 10px;
-  }
-  #bottom-container::-webkit-scrollbar-track {
-    background-color: transparent;
-    border-radius: 10px;
-  }
-  #bottom-container::-webkit-scrollbar-thumb {
-    background-color: #20282e !important;
-    border-radius: 10px;
-  }
-
-  #file{
-      color: #fff;
-  }
-
-  #task-title{
-      overflow-wrap: normal;
-  }
-
-  #user-answer{
-      background-color: transparent;
-      color: #fff;
-      border: 1px solid white;
-      border-radius: 5px;
-  }
-  #user-answer:focus{
-    outline: none;
-  }

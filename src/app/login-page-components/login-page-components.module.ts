@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GlitchLogoComponent } from './glitch-logo/glitch-logo.component';
-
+import { BackgroundParticlesComponent } from './background-particles/background-particles.component';
+import { NgParticlesModule } from "tsparticles-modules/ng-particles";
 
 
 @NgModule({
   declarations: [
-    GlitchLogoComponent
+    GlitchLogoComponent,
+    BackgroundParticlesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgParticlesModule,
   ],
   exports: [
-    GlitchLogoComponent
+    GlitchLogoComponent,
+    BackgroundParticlesComponent
   ]
 })
 export class LoginPageComponentsModule { }

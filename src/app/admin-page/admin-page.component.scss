@@ -1,0 +1,35 @@
+@import '/src/app/globals.scss';
+
+.table-container {
+    margin-top: 5rem;
+    max-height: 60%;
+    overflow-y: auto;
+}
+
+.top-btn-container {
+    position: absolute;
+    right: 3rem;
+    top: 2rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    gap: 1rem;
+
+    button {
+        outline-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .top-btn-container {
+        z-index: 10;
+        right: 1rem;
+        top: 1rem;
+    }
+}

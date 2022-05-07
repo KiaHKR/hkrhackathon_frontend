@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<app-background-particles *ngIf="showBackgroundParticles"></app-background-particles>
+
+<router-outlet (activate)="getRoutePage()"></router-outlet>
