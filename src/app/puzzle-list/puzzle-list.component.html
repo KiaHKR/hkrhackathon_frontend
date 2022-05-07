@@ -25,13 +25,14 @@
 <div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-4 my-5"
     [@tabsFadeTrigger]="tabVisibilityState">
     <tabset class="tab-container">
-        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="changeTab('list')" [active]="listTabActive">
+        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="updateTabFromMenu('list'); changeTab('list')"
+            [active]="listTabActive">
             <div class="py-3 px-4 list-container" #listContainer [@tabsBodyExpand]="puzzleListTabExpandState">
                 <h3 *ngIf="!loading" class="mb-4">Challenges</h3>
                 <ul *ngIf="!loading" class="m-0 p-0 puzzle-list-container">
                     <div *ngFor="let puzzle of accessiblePuzzles; let i = index">
                         <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" class="puzzle-list-item"
-                            (click)="openPuzzle(puzzle, i+1)">
+                            (click)="openPuzzle(puzzle, i + 1)">
                             <div class="puzzle-container">
                                 <p class="puzzle-title">{{puzzle.title}}</p>
                                 <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}</p>
@@ -57,8 +58,8 @@
             </div>
         </tab>
 
-        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py" (selectTab)="changeTab('puzzle')"
-            [active]="puzzleTabActive">
+        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py"
+            (selectTab)="updateTabFromMenu('puzzle'); changeTab('puzzle')" [active]="puzzleTabActive">
             <div class="py-3 px-2 list-container" id="puzzle-container" [@tabsBodyExpand]="puzzleTabExpandState">
                 <puzzle-component *ngIf="!loading" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!"
                     [indexTotal]="puzzleList.length.toString()">
@@ -66,7 +67,7 @@
             </div>
         </tab>
 
-        <tab (selectTab)="changeTab('account')" [active]="accountTabActive">
+        <tab (selectTab)="updateTabFromMenu('account'); changeTab('account')" [active]="accountTabActive">
             <ng-template tabHeading>
                 <mat-icon style="font-size: 20pt" class="material-icons-outlined">manage_accounts</mat-icon>
             </ng-template>
