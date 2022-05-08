@@ -1,0 +1,162 @@
+@media (max-width: 991px) {
+  .about-text {
+    margin-top: 40px;
+  }
+}
+.about-section{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.about-text {
+  text-align: right;
+  h3 {
+    font-size: 45px;
+    font-weight: 700;
+    margin: 0 0 10px;
+    color:rgb(240, 240, 240);
+  }
+
+  h4 {
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 18px;
+    color:rgb(185, 185, 185);
+
+    mark {
+      font-weight: 600;
+      color: #3a3973;
+    }
+  }
+
+  .btn-bar {
+    padding-top: 8px;
+
+    a {
+      min-width: 150px;
+      text-align: center;
+      margin-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .about-text h3 {
+    font-size: 35px;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-text h4 {
+    font-size: 18px;
+  }
+}
+
+.about-list {
+  padding-top: 10px;
+
+  .media {
+    padding: 5px 0;
+  }
+
+  label {
+    color: #3a3973;
+    font-weight: 600;
+    width: 88px;
+    margin: 0;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 11px;
+      width: 1px;
+      height: 12px;
+      background: #3a3973;
+      -moz-transform: rotate(15deg);
+      -o-transform: rotate(15deg);
+      -ms-transform: rotate(15deg);
+      -webkit-transform: rotate(15deg);
+      transform: rotate(15deg);
+      margin: auto;
+      opacity: 0.5;
+    }
+  }
+
+  p {
+    margin: 0;
+    font-size: 15px;
+  }
+}
+
+.about-img {
+  box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.06);
+  padding: 10px;
+}
+
+@media (max-width: 991px) {
+  .about-img {
+    margin-top: 30px;
+  }
+}
+
+.counter-section {
+  padding: 40px 20px;
+
+  .count-data {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .count {
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px;
+  }
+
+  p {
+    font-weight: 500;
+    margin: 0;
+    color: #fe4f6c;
+  }
+}
+
+.theme-color {
+  color: #fe4f6c;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.px-btn {
+  &.theme {
+    background: #fe4f6c;
+    color: #ffffff;
+    border: 2px solid #fe4f6c;
+  }
+
+  padding: 0 20px;
+  line-height: 42px;
+  border: 2px solid transparent;
+  position: relative;
+  display: inline-block;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 500;
+
+  &.theme-t {
+    background: transparent;
+    border: 2px solid #fe4f6c;
+    color: #fe4f6c;
+  }
+}

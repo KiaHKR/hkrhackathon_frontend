@@ -10,6 +10,7 @@ import { MobileMenuComponent } from './mobile-menu/mobile-menu.component';
 import { MatRippleModule } from '@angular/material/core';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     MatRippleModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   exports: [
     PuzzleComponent,
