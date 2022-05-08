@@ -23,6 +23,8 @@ import { PuzzleListComponentsModule } from './puzzle-list-components/puzzle-list
 import { MatRippleModule } from '@angular/material/core';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AboutPageComponent } from './about-page/about-page.component';
+import { FooterComponent } from './footer-component/footer-component.component';
 
 
 
@@ -32,7 +34,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginPageComponent,
     PuzzleListComponent,
     AdminPageComponent,
-    ResetPasswordPageComponent
+    ResetPasswordPageComponent,
+    AboutPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
