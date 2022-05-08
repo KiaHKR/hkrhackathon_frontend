@@ -1,0 +1,29 @@
+.page-footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    
+    a{
+        color: #fff;
+    }
+
+    .footer-container{
+        display: flex;
+        flex-direction: row !important;
+        justify-content: space-around;
+        div{
+            width: fit-content;
+        }
+    }
+
+
+
+    
+}
+@media only screen and (max-width: 550px) {
+    .page-footer{
+        position: relative;
+        margin-top: 200px !important;
+
+    }
+  }

@@ -1,5 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-menu',
@@ -46,7 +47,7 @@ export class MobileMenuComponent implements OnInit {
   @Input() toggleMenuState!: () => void;
   @Input() changeTab!: (tab: string) => void;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
