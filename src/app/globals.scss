@@ -1,1 +1,34 @@
-$color-primary: #2e3440;
+// Text Colors
+$mainText: #fff;
+$subtleText: #C9C9C9;
+$verySubtleText: #8D8D8D;
+
+// On Colors
+$onCodeBlock: #D8DEE9;
+$onPrimary: #fff;
+
+// Surface Colors
+$primary: #F44C68;
+$codeBlock: #252A30;
+
+$colors: (
+    primary: $primary,
+    codeBlock: $codeBlock,
+    mainText: $mainText,
+    subtleText: $subtleText,
+    verySubtleText: $verySubtleText,
+    on: (
+        primary: $onPrimary,
+        codeBlock: $onCodeBlock,
+    )
+);
+
+@function clr($clr) {
+    $color: map-get($map: $colors, $key: $clr);
+    @return $color;
+}
+
+@function on-clr($clr) {
+    $color: map-get(map-get($colors, on), $clr);
+    @return color;
+}

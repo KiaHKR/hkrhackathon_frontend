@@ -18,10 +18,10 @@
     gap: 1rem;
 
     button {
-        outline-color: $color-primary;
+        outline-color: clr(primary);
 
         &:hover {
-            background-color: $color-primary;
+            background-color: clr(primary);
         }
     }
 }

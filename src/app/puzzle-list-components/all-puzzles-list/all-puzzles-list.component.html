@@ -1,0 +1,57 @@
+<ul class="m-0 p-0 puzzle-list-container">
+    <div *ngFor="let puzzle of accessiblePuzzles; let i = index">
+        <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" class="puzzle-list-item"
+            (click)="openPuzzle(puzzle, i + 1)">
+            <div class="puzzle-container">
+                <p class="puzzle-title">{{puzzle.title}}</p>
+                <div *ngIf="i == accessiblePuzzles.length - 1" id="arrow-button-spacer">
+                    <div class="arrow-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14.669" height="14.297"
+                            viewBox="0 0 14.669 14.297">
+                            <path
+                                d="M6.237,2.722,6.964,2a.783.783,0,0,1,1.11,0l6.364,6.361a.783.783,0,0,1,0,1.11L8.073,15.831a.783.783,0,0,1-1.11,0L6.237,15.1a.787.787,0,0,1,.013-1.123l3.945-3.758H.786A.784.784,0,0,1,0,9.437V8.39A.784.784,0,0,1,.786,7.6h9.409L6.25,3.845A.781.781,0,0,1,6.237,2.722Z"
+                                transform="translate(0 -1.765)" fill="#fff" />
+                        </svg>
+                    </div>
+                </div>
+                <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}</p>
+                <svg *ngIf="i != accessiblePuzzles.length - 1" class="open-icon" xmlns="http://www.w3.org/2000/svg"
+                    width="22.416" height="22.027" viewBox="0 0 22.416 22.027">
+                    <g id="Icon_feather-check-circle" data-name="Icon feather-check-circle"
+                        transform="translate(1.002 1.012)" opacity="1">
+                        <path id="Path_60" data-name="Path 60" d="M22,11.08V12a10,10,0,1,1-5.93-9.14"
+                            transform="translate(-2 -1.994)" fill="none" stroke="#fff" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" />
+                        <path id="Path_61" data-name="Path 61" d="M22,4,12,14.01l-3-3" transform="translate(-2 -1.994)"
+                            fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </g>
+                </svg>
+
+                <svg *ngIf="i == accessiblePuzzles.length - 1" class="open-icon" xmlns="http://www.w3.org/2000/svg"
+                    width="22" height="22" viewBox="0 0 22 22">
+                    <path id="Icon_feather-circle" data-name="Icon feather-circle"
+                        d="M22,12A10,10,0,1,1,12,2,10,10,0,0,1,22,12Z" transform="translate(-1 -1)" fill="none"
+                        stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="1" />
+                </svg>
+
+            </div>
+        </li>
+    </div>
+    <div *ngFor="let puzzle of inaccessiblePuzzles; let i = index">
+        <li class="puzzle-list-item inaccessible">
+            <div class="puzzle-container">
+                <p class="puzzle-title">{{puzzle.title}}</p>
+                <p class="puzzle-status">Locked</p>
+                <svg class="locked-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22">
+                    <g id="Icon_feather-lock" data-name="Icon feather-lock" transform="translate(-2 -1)">
+                        <path id="Path_70" data-name="Path 70"
+                            d="M5,11H19a2,2,0,0,1,2,2v7a2,2,0,0,1-2,2H5a2,2,0,0,1-2-2V13a2,2,0,0,1,2-2Z" fill="none"
+                            stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                        <path id="Path_71" data-name="Path 71" d="M7,11V7A5,5,0,0,1,17,7v4" fill="none" stroke="#fff"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                    </g>
+                </svg>
+            </div>
+        </li>
+    </div>
+</ul>

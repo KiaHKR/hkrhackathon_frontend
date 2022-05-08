@@ -1,0 +1,90 @@
+@import '/src/app/globals.scss';
+
+.puzzle-list-container {
+    .puzzle-list-item {
+        list-style: none;
+        padding: 1em;
+        border-radius: 0.5rem;
+        margin-bottom: 1.2rem;
+        transition: background-color 200ms ease-out;
+
+        &:hover {
+            background-color: clr(primary);
+            cursor: pointer;
+
+            .arrow-button {
+                margin-left: 80%;
+            }
+        }
+
+        .puzzle-container {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            width: 100%;
+
+            .puzzle-title {
+                font-size: 15pt;
+                white-space: nowrap;
+                margin: 0;
+                flex-grow: 1;
+            }
+
+            .puzzle-status {
+                font-size: 12pt;
+                color: rgb(170, 170, 170);
+                margin: 0;
+                margin-right: 0.4em;
+            }
+        }
+
+
+    }
+
+    .inaccessible {
+        color: clr(verySubtleText);
+
+        &:hover {
+            background-color: rgba($color: #fff, $alpha: 0.1);
+            cursor: default;
+        }
+
+        .puzzle-status {
+            color: clr(verySubtleText);
+        }
+
+
+    }
+
+}
+
+.arrow-button {
+    background-color: clr(primary);
+    width: 23px;
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    margin-left: 1rem;
+
+    transition: margin-left 400ms ease-in-out;
+}
+
+#arrow-button-spacer {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.open-icon {
+    path {
+        stroke: clr(subtleText) !important;
+    }
+}
+
+.locked-icon {
+    path {
+        stroke: clr(verySubtleText) !important;
+    }
+}
+
+

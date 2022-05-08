@@ -25,40 +25,17 @@
 <div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-4 my-5"
     [@tabsFadeTrigger]="tabVisibilityState">
     <tabset class="tab-container">
-        <tab heading="puzzle_list.py" id="puzzle-list-tab" (selectTab)="updateTabFromMenu('list'); changeTab('list')"
+        <tab heading="All puzzles" id="puzzle-list-tab" (selectTab)="updateTabFromMenu('list'); changeTab('list')"
             [active]="listTabActive">
-            <div class="py-3 px-4 list-container" #listContainer [@tabsBodyExpand]="puzzleListTabExpandState">
+            <div class="pb-3 pt-5 px-3 list-container" #listContainer [@tabsBodyExpand]="puzzleListTabExpandState">
                 <h3 *ngIf="!loading" class="mb-4">Challenges</h3>
-                <ul *ngIf="!loading" class="m-0 p-0 puzzle-list-container">
-                    <div *ngFor="let puzzle of accessiblePuzzles; let i = index">
-                        <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" class="puzzle-list-item"
-                            (click)="openPuzzle(puzzle, i + 1)">
-                            <div class="puzzle-container">
-                                <p class="puzzle-title">{{puzzle.title}}</p>
-                                <p class="puzzle-status">{{i == accessiblePuzzles.length - 1 ? 'Todo' : 'Done'}}</p>
-                                <mat-icon *ngIf="i != accessiblePuzzles.length - 1" class="open-icon">done</mat-icon>
-                                <mat-icon *ngIf="i == accessiblePuzzles.length - 1"
-                                    class="material-icons-outlined  open-icon">
-                                    pending</mat-icon>
-                            </div>
-                        </li>
-                        <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">
-                    </div>
-                    <div *ngFor="let puzzle of inaccessiblePuzzles; let i = index">
-                        <li matRipple matRippleColor="rgba(255, 255, 255, 0.2)" class="puzzle-list-item inaccessible">
-                            <div class="puzzle-container">
-                                <p class="puzzle-title">{{puzzle.title}}</p>
-                                <p class="puzzle-status">Locked</p>
-                                <mat-icon>block</mat-icon>
-                            </div>
-                        </li>
-                        <hr *ngIf="puzzle.id != puzzleList[puzzleList.length - 1].id" [style.margin.px]="0">
-                    </div>
-                </ul>
+                <app-all-puzzles-list [puzzleList]="puzzleList" [accessiblePuzzles]="accessiblePuzzles"
+                    [inaccessiblePuzzles]="inaccessiblePuzzles" [openPuzzle]="openPuzzle.bind(this)">
+                </app-all-puzzles-list>
             </div>
         </tab>
 
-        <tab [disabled]="chosenPuzzle==undefined" heading="puzzle.py"
+        <tab [disabled]="chosenPuzzle==undefined" heading="Puzzle"
             (selectTab)="updateTabFromMenu('puzzle'); changeTab('puzzle')" [active]="puzzleTabActive">
             <div class="py-3 px-2 list-container" id="puzzle-container" [@tabsBodyExpand]="puzzleTabExpandState">
                 <puzzle-component *ngIf="!loading" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!"

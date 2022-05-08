@@ -11,6 +11,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AllPuzzlesListComponent } from './all-puzzles-list/all-puzzles-list.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { RouterModule } from '@angular/router';
     PuzzleComponent,
     PuzzlePageComponent,
     MobileMenuComponent,
-    AccountComponent
+    AccountComponent,
+    AllPuzzlesListComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,8 @@ import { RouterModule } from '@angular/router';
     PuzzleComponent,
     PuzzlePageComponent,
     MobileMenuComponent,
-    AccountComponent
+    AccountComponent,
+    AllPuzzlesListComponent,
   ]
 })
 export class PuzzleListComponentsModule { }
