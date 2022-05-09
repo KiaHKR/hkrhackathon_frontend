@@ -10,11 +10,13 @@
                 <div class="about-text">
                     <h3 class="light-color">Welcome to the HKR Hackathon.</h3>
                     <h4 class="theme-color">Solve complex puzzles & challenges</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu ultricies nisi. Cras maximus dignissim metus, non suscipit dolor accumsan sit amet. In luctus pulvinar varius.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu ultricies nisi.</p>
+                    <p>The HKR Hackathon was originally made as a personal project, but it has now developed into a
+                        fully pledged hackathon website.</p>
                     <div class="btn-bar">
-                        <button  class="px-btn theme m-2" mat-button  (click)="goToLogin()">{{this.userLoggedIn() ? "Logout" : "Login/Register"}}</button>
-                        <button class="px-btn theme-t m-2" mat-button *ngIf="userLoggedIn()" (click)="goToPuzzle()">Go to puzzles</button>
+                        <button class="px-btn theme m-2" mat-button (click)="goToLogin()">{{this.userLoggedIn() ?
+                            "Logout" : "Login/Register"}}</button>
+                        <button class="px-btn theme-t m-2" mat-button *ngIf="userLoggedIn()" (click)="goToPuzzle()">Go
+                            to puzzles</button>
                     </div>
                 </div>
             </div>
