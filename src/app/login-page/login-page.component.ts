@@ -137,7 +137,8 @@ export class LoginPageComponent implements OnInit {
     const name: string = /name = "(.*?)"/.exec(currentRegisterCMValue)![1].trim();
     const year: string = /year = (.*?)#/.exec(currentRegisterCMValue)![1].trim();
 
-    this.validationService.validateUserRegister(email, name, year, this.passwordString, this.notifiyRegisterError.bind(this));
+    const valid = this.validationService.validateUserRegister(email, name, year, this.passwordString, this.notifiyRegisterError.bind(this));
+    if (!valid) return;
 
     if (await this.authService.userRegister(email, name, Number.parseInt(year), this.passwordString, this.notifiyRegisterError.bind(this))) {
       this.route.navigate(['puzzles'])
