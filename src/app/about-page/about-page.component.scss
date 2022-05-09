@@ -1,10 +1,12 @@
+@import '../globals.scss';
+
+
 @media (max-width: 991px) {
   .about-text {
     margin-top: 40px;
   }
 }
 .about-section{
-  height: 100vh;
   display: flex;
   align-items: center;
 }
@@ -158,5 +160,204 @@
     background: transparent;
     border: 2px solid #fe4f6c;
     color: #fe4f6c;
+  }
+}
+
+
+
+
+// OUR TEAM 
+.blog{
+    h1 {
+      margin-top: 0;
+      font-size: 3rem;
+      display: inline-block;
+      color: clr(mainText);
+
+      div {
+        position: relative;
+        float: left;
+
+        &:first-child {
+          color: #3498db;
+          margin-right: 1rem;
+        }
+      }
+    }
+  
+}
+
+/* PROFILE */
+
+.blog .carousel-indicators {
+  left: 0;
+  top: auto;
+  bottom: -40px;
+
+  li {
+    background: #a3a3a3;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    margin-bottom: 10px;
+  }
+
+  .active {
+    background: #707070;
+    margin-bottom: 10px;
+  }
+}
+
+/* The colour of the indicators */
+
+.our-team-section {
+  position: relative;
+  padding-top: 40px;
+  padding-bottom: 40px;
+
+  &:before {
+    position: absolute;
+    top: -0;
+    left: 0;
+    content: " ";
+    background-size: 100% 100px;
+    width: 100%;
+    height: 100px;
+    float: left;
+    z-index: 99;
+  }
+}
+
+.our-team {
+  padding: 0 0 40px;
+  background: #f9f9f9;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 5px solid #00325a;
+
+  &:hover {
+    border-bottom: 5px solid #2f2f2f;
+  }
+
+  .pic {
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 50px;
+    z-index: 1;
+    position: relative;
+
+    &:before {
+      content: "";
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: clr(primary);
+      position: absolute;
+      bottom: 135%;
+      right: 0;
+      left: 0;
+      opacity: 1;
+      transform: scale(3);
+      transition: all 0.3s linear 0s;
+    }
+  }
+
+  &:hover .pic:before {
+    height: 100%;
+    background: #2f2f2f;
+  }
+
+  .pic:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #ffffff00;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transition: all 0.3s linear 0s;
+  }
+
+  &:hover .pic:after {
+    background: clr(primary);
+  }
+
+  .pic img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    transform: scale(1);
+    transition: all 0.9s ease 0s;
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+    position: relative;
+    z-index: 2;
+  }
+
+  &:hover .pic img {
+    box-shadow: 0 0 0 14px #f7f5ec;
+    transform: scale(0.7);
+  }
+
+  .team-content {
+    margin-bottom: 30px;
+  }
+
+  .title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4e5052;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+  }
+
+  .post {
+    display: block;
+    font-size: 15px;
+    color: #4e5052;
+    text-transform: capitalize;
+  }
+
+  .social {
+    width: 100%;
+    padding-top: 10px;
+    margin: 0;
+    background: #2f2f2f;
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: all 0.5s ease 0s;
+  }
+
+  &:hover .social {
+    bottom: 0;
+  }
+
+  .social li {
+    display: inline-block;
+
+    a {
+      display: block;
+      padding-top: 6px;
+      font-size: 15px;
+      color: #fff;
+      transition: all 0.3s ease 0s;
+
+      &:hover {
+        color: #145889;
+        background: #f7f5ec;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .our-team {
+    margin-bottom: 10px;
   }
 }
