@@ -25,6 +25,7 @@ import { ResetPasswordPageComponent } from './reset-password-page/reset-password
 import { ReactiveFormsModule } from '@angular/forms';
 import { AboutPageComponent } from './about-page/about-page.component';
 import { FooterComponent } from './footer-component/footer-component.component';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 
 
@@ -62,7 +63,8 @@ import { FooterComponent } from './footer-component/footer-component.component';
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },
-    JwtHelperService
+    JwtHelperService,
+    { provide: LocationStrategy, useClass: PathLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
