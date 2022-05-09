@@ -12,7 +12,7 @@ import { AccountComponent } from './account/account.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AllPuzzlesListComponent } from './all-puzzles-list/all-puzzles-list.component';
-
+import { AppModule } from '../app.module';
 
 @NgModule({
   declarations: [

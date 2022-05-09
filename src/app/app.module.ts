@@ -56,6 +56,9 @@ import { FooterComponent } from './footer-component/footer-component.component';
     MatRippleModule,
     ReactiveFormsModule
   ],
+  exports: [
+    FooterComponent
+  ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } },

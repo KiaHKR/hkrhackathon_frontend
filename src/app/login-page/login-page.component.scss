@@ -4,72 +4,37 @@
     height: 50vh;
 }
 
-::ng-deep .nav-tabs {
-    margin-top: 50px;
-    border-bottom: none;
-
-    .nav-item {
-        margin: 0;
-
-        .nav-link {
-            border: none;
-            border-radius: 0px;
-            padding: 3px 15px;
-
-            background-color: clr(primary);
-            color: #8b8b8b;
-        }
-
-        .nav-link.active {
-            color: white;
-
-            border-bottom: 2px;
-        }
-    }
-
-    .nav-item:first-child {
-        .nav-link {
-            border-top-left-radius: 5px;
-        }
-    }
-
-    .nav-item:last-child {
-        .nav-link {
-            border-top-right-radius: 5px;
-        }
-    }
+::ng-deep .CodeMirror {
+    background: rgba($color: clr(codeBlock), $alpha: 0.85) !important;
+    padding: 1rem 0.3rem;
+    border-radius: 0.6rem;
 }
 
-::ng-deep .tabs-container {
-    .tab-content {
-        .tab-pane {
-            position: relative;
-    
-            .CodeMirror {
-                border-radius: 10px;
-                border-top-left-radius: 0px;
-            }
-    
-            .button-container {
-                position: absolute;
-                z-index: 5;
-                padding: 0.4rem 1rem;
-                bottom: 15px;
-                right: 15px;
+::ng-deep .CodeMirror-gutters {
+    background: transparent !important;
+}
 
-                a {
-                    color: hsla(0, 0%, 100%, 0.6);
-                    margin-right: 1.5em;
-                }
-            }
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
 
-            .mat-stroked-button:not(.mat-button-disabled) {
-                padding-top: 0;
-                padding-bottom: 0;
-                color: white;
-                border-color: white;
-            }
+    margin-top: 1rem;
+
+    button {
+        margin-right: 0.5rem;
+        color: clr(primary);
+        border-color: clr(primary);
+        transition: 0.3s;
+
+        &:hover {
+            background-color: clr(primary);
+            color: on-clr(primary);
         }
-    
+    }
+
+    a {
+        color: clr(subtleText);
     }
 }

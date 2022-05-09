@@ -2,6 +2,7 @@
 
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
+@import "/src/app/globals.scss";
 
 @import '~codemirror/lib/codemirror';
 @import '~codemirror/theme/nord';
@@ -38,6 +39,82 @@ body {
 
     .mat-simple-snackbar-action {
         color: white !important;
+    }
+}
+
+.nav-tabs {
+    border-bottom: none;
+    gap: 3rem;
+
+    .nav-item {
+        margin: 0;
+
+        .nav-link {
+            padding: 3px 0px;
+            padding-bottom: 5px;
+            height: 100%;
+            display: flex;
+            border: none;
+            background-color: transparent;
+            color: clr(subtleText);
+        }
+
+        .nav-icon {
+            path {
+                transition: stroke 200ms;
+                stroke: clr(subtleText);
+            }
+        }
+    
+        &::after {
+            content: '';
+            transition: background-color 200ms ease-out, width 200ms ease-out;
+            position: relative;
+            display: block;
+            height: 2px;
+            width: 50%;
+            background-color: clr(subtleText);
+            color: clr(subtleText);
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+        }
+        
+        &.active {
+            .nav-link {
+                color: clr(mainText);
+            }
+
+            .nav-icon {
+                path {
+                    stroke: clr(mainText);
+                }
+            }
+
+            &::after {
+                transition: background-color 200ms ease-out, width 200ms ease-out;
+                content: '';
+                position: rel ative;
+                display: block;
+                height: 2px;
+                width: 100%;
+                background-color: clr(primary);
+                color: clr(mainText);
+                margin: 0 auto;
+                left: 0;
+                right: 0;
+            }
+        }
+
+        &.disabled {
+            .nav-link {
+                color: clr(verySubtleText);
+            }
+
+            &::after {
+                background-color: clr(verySubtleText);
+            }
+        }
     }
 }
 

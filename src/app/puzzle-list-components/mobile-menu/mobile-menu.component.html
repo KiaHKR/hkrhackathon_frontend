@@ -9,12 +9,11 @@
             <div *ngFor="let item of itemList; let i = index">
                 <li *ngIf="item.visible()" matRipple matRippleColor="rgba(255, 255, 255, 0.2)"
                     (click)="selectTab(item.value)">{{item.name}}</li>
-                <hr *ngIf="item.visible() && i != itemList.length - 1">
             </div>
         </ul>
     </div>
     <div class="menu-footer">
-        <a  routerLink="/about">
+        <a routerLink="/about">
             <h6>about</h6>
         </a>
     </div>

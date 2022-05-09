@@ -2,11 +2,10 @@
     <div class="row">
         <h3 id="welcome-user">Welcome {{user.name}}!</h3>
     </div>
-    <hr>
-    <div class="bottom-container p-3">
-        <div class="manage-account account-section">
+    <div class="mt-4 bottom-container p-2">
+        <div class="mb-5 manage-account account-section">
             <h4>Manage Account</h4>
-            <div class="px-3">
+            <div>
                 <form [formGroup]="infoForm" (ngSubmit)="updateUserInfo()" autocomplete="off" class="mat-form">
                     <div class="field-container">
                         <mat-form-field appearance="fill">
@@ -22,10 +21,9 @@
                 </form>
             </div>
         </div>
-        <hr>
         <div class="manage-password account-section">
             <h4>Change Password</h4>
-            <div class="px-3">
+            <div>
                 <form [formGroup]="passwordForm" (ngSubmit)="updateUserPassword()" autocomplete="off" class="mat-form">
                     <mat-form-field appearance="fill">
                         <mat-label>Current password</mat-label>
