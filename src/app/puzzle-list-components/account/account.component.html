@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="row p-3">
+<div class="primary-container">
+    <div class="row">
         <h3 id="welcome-user">Welcome {{user.name}}!</h3>
     </div>
     <hr>
@@ -9,11 +9,11 @@
             <div class="px-3">
                 <form [formGroup]="infoForm" (ngSubmit)="updateUserInfo()" autocomplete="off" class="mat-form">
                     <div class="field-container">
-                        <mat-form-field>
+                        <mat-form-field appearance="fill">
                             <mat-label>Name</mat-label>
                             <input formControlName="name" matInput type="text" id="name-input">
                         </mat-form-field>
-                        <mat-form-field>
+                        <mat-form-field appearance="fill">
                             <mat-label>Year</mat-label>
                             <input formControlName="year" matInput type="text" id="year-input">
                         </mat-form-field>
@@ -27,17 +27,17 @@
             <h4>Change Password</h4>
             <div class="px-3">
                 <form [formGroup]="passwordForm" (ngSubmit)="updateUserPassword()" autocomplete="off" class="mat-form">
-                    <mat-form-field>
+                    <mat-form-field appearance="fill">
                         <mat-label>Current password</mat-label>
                         <input formControlName="oldPassword" matInput type="password" id="old-password">
                     </mat-form-field>
                     <div class="new-password-container">
-                        <mat-form-field>
+                        <mat-form-field appearance="fill">
                             <mat-label>New password</mat-label>
                             <input formControlName="newPassword" matInput type="password" id="new-password">
                         </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Repeat password</mat-label>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Confirm password</mat-label>
                             <input formControlName="repeatPassword" matInput type="password" id="repeat-new-password">
                         </mat-form-field>
                     </div>

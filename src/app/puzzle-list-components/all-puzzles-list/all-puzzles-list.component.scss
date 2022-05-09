@@ -76,12 +76,15 @@
 }
 
 .open-icon {
+    flex-shrink: 0;
     path {
         stroke: clr(subtleText) !important;
     }
 }
 
 .locked-icon {
+    flex-shrink: 0;
+
     path {
         stroke: clr(verySubtleText) !important;
     }

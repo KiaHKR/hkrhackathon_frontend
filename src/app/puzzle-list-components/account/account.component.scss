@@ -1,5 +1,6 @@
 #welcome-user {
     overflow-wrap: normal;
+    font-size: 32pt;
 }
 
 .account-section {
@@ -34,14 +35,23 @@
         color: rgba(255, 255, 255, 0.6) !important;
     }
 
-    ::ng-deep.mat-form-field-underline {
+    ::ng-deep .mat-form-field-underline::before {
         /*change color of underline*/
         background-color: rgba(255, 255, 255, 0.6) !important;
     }
-
-    ::ng-deep.mat-form-field-ripple {
-        /*change color of underline when focused*/
+    
+    ::ng-deep .mat-form-field-ripple {
         background-color: white !important;
+    }
+
+    ::ng-deep .mat-form-field-invalid {
+        .mat-form-field-ripple {
+            background-color: #ff5722 !important;
+        }
+    }
+
+    ::ng-deep .mat-form-field-flex {
+        background-color: rgba(255, 255, 255, 0.048) !important;
     }
 
     ::ng-deep .mat-form-field-label {
