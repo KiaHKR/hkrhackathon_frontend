@@ -35,8 +35,8 @@ export class LoginPageComponent implements OnInit {
   firstTime: boolean = true;
   loginCodemirror!: CodeMirror.EditorFromTextArea;
   registerCodemirror!: CodeMirror.EditorFromTextArea;
-  _passwordString: string = ``
-  _inputError: string = ``
+  _passwordString: string = ``;
+  _inputError: string = ``;
   inputCounters: {
     [counter: string]: number,
   } = {
@@ -45,29 +45,29 @@ export class LoginPageComponent implements OnInit {
       register_email: 0,
       register_name: 0,
       register_year: 0,
-      register_password: 0,
+      register_password: 0
     }
 
   // Animation states
   tabVisibilityState: string = 'hidden';
 
   get registerDefaultText(): string {
-    return `def sign_up(user):
-  e_mail = ""
-  name = ""
+    return `def sign_up():
+  e_mail = ""  # Enter your email
+  name = ""  # Enter your name
   year =  # 1, 2, or 3
-  password = ""
+  password = ""  # Enter your password
   ${this._inputError}
   return (e_mail, name, year, password)`
   }
 
   get loginDefaultText(): string {
-    return `def login(user):
-  e_mail = ""
-  password = ""
+    return `def login():
+  e_mail = ""  # Enter your email
+  password = ""  # Enter your password
   ${this._inputError}
   if len(e_mail) != 0 && len(password) != 0:
-    access = requests.post('14.29.13.42:8300/auth', [e_mail, password])
+    access = requests.post('14.29.13.42:8300/auth', {e_mail, password})
     
   return access`}
 

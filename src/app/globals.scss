@@ -30,5 +30,5 @@ $colors: (
 
 @function on-clr($clr) {
     $color: map-get(map-get($colors, on), $clr);
-    @return color;
+    @return $color;
 }

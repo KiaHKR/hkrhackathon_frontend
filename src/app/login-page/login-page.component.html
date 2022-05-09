@@ -1,23 +1,27 @@
 <login-page-glitch-logo></login-page-glitch-logo>
 
-<div class="col-sm-12 col-md-8 col-lg-5 container" [@tabsFadeTrigger]="tabVisibilityState">
+<div class="col-sm-12 col-md-8 col-lg-5 my-5 container" [@tabsFadeTrigger]="tabVisibilityState">
   <tabset class="tabs-container">
-    <tab #loginTab heading="login.py" id="login-tab" (selectTab)="changeTab(0)">
-      <div class="button-container">
-        <a routerLink="/user/reset">Forgot your password?</a>
-        <button mat-stroked-button type="button" (click)="userLogin()">
-          Login
-        </button>
+    <tab #loginTab heading="Login" id="login-tab" (selectTab)="changeTab(0)">
+      <div class="pt-5">
+        <textarea #loginCodemirror></textarea>
+        <div class="button-container">
+          <a routerLink="/user/reset">Forgot your password?</a>
+          <button mat-stroked-button type="button" (click)="userLogin()">
+            Login
+          </button>
+        </div>
       </div>
-      <textarea #loginCodemirror></textarea>
     </tab>
-    <tab #registerTab heading="register.py" id="register-tab" (selectTab)="changeTab(1)">
-      <div class="button-container">
-        <button mat-stroked-button type="button" (click)="userRegister()">
-          Register
-        </button>
+    <tab #registerTab heading="Register" id="register-tab" (selectTab)="changeTab(1)">
+      <div class="pt-5">
+        <textarea #registerCodemirror></textarea>
+        <div class="button-container">
+          <button mat-stroked-button type="button" (click)="userRegister()">
+            Register
+          </button>
+        </div>
       </div>
-      <textarea #registerCodemirror></textarea>
     </tab>
   </tabset>
 </div>

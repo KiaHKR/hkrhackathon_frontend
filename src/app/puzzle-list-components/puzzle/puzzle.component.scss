@@ -1,19 +1,44 @@
+@import "/src/app/globals.scss";
+
 .top-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    .task-number {
+    #task-number {
         text-align: right;
         width: fit-content;
+        font-size: 13pt;
+        font-weight: 400;
+
+        &::after {
+            content: '';
+            display: block;
+            position: relative;
+            background-color: clr(primary);
+            height: 4px;
+            width: 60%;
+            left: 1rem;
+            bottom: -0.5rem;
+            border-radius: 1rem;
+        }
     }
 }
 
 .examples {
+
+    &:last-child {
+        margin-top: 4rem;
+    }
+
+    h4 {
+        margin-bottom: 2rem;
+    }
+
     .example-text-container {
-        background-color: #20282e !important;
+        background-color: clr(codeBlock) !important;
         padding: 15px;
-        border-radius: 10px;
+        border-radius: 0.6rem;
     }
 
     .example-text-container>p {
@@ -22,13 +47,20 @@
     }
 }
 
-.file-link-container {
+#bottom-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
 
-    width: fit-content;
+.buttons-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
 
     #file {
         color: #fff;
-        padding-top: 1rem;
 
         &:hover {
             text-decoration: underline;
@@ -38,38 +70,67 @@
 }
 
 
+
 #task-title {
     overflow-wrap: normal;
+    font-size: 32pt;
+    padding: 0;
+    width: fit-content;
+
+    &::after {
+        content: '';
+        display: block;
+        position: relative;
+        background-color: clr(primary);
+        height: 4px;
+        width: 20%;
+        border-radius: 1rem;
+        bottom: -0.5rem;
+    }
 }
 
 .form-group {
-    display: flex;
-    flex-flow: column nowrap;
-
-
     ::ng-deep .mat-focused .mat-form-field-label {
         /*change color of label*/
-        color: rgb(190, 190, 190) !important;
+        color: clr(subtleText) !important;
     }
 
-    ::ng-deep.mat-form-field-underline {
+    ::ng-deep .mat-form-field-underline::before {
         /*change color of underline*/
-        background-color: rgb(190, 190, 190) !important;
+        background-color: clr(subtleText) !important;
+    }
+    
+    ::ng-deep .mat-form-field-ripple {
+        background-color: clr(mainText) !important;
     }
 
-    ::ng-deep.mat-form-field-ripple {
-        /*change color of underline when focused*/
-        background-color: white !important;
-        ;
+    ::ng-deep .mat-form-field-invalid {
+        .mat-form-field-ripple {
+            background-color: #ff5722 !important;
+        }
+    }
+
+    ::ng-deep .mat-form-field-flex {
+        background-color: rgba(clr(mainText), 0.05) !important;
     }
 
     ::ng-deep .mat-form-field-label {
-        color: white !important;
+        color: clr(subtleText) !important;
     }
 
     ::ng-deep .mat-input-element {
-        caret-color: rgb(223, 223, 223) !important;
+        caret-color: clr(mainText) !important;
     }
 
+    .mat-stroked-button:not(.mat-button-disabled) {
+        border-color: clr(primary);
+        color: on-clr(primary);
+        background-color: clr(primary);
+        transition: 0.3s;
+    }
 
+    .mat-button-disabled {
+        color: clr(verySubtleText);
+        transition: 0.3s;
+    }
 }
