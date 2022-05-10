@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AllPuzzlesListComponent } from './all-puzzles-list/all-puzzles-list.component';
 import { AppModule } from '../app.module';
+import { LeaderboardComponent } from './leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AppModule } from '../app.module';
     PuzzlePageComponent,
     MobileMenuComponent,
     AccountComponent,
-    AllPuzzlesListComponent
+    AllPuzzlesListComponent,
+    LeaderboardComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { AppModule } from '../app.module';
     MobileMenuComponent,
     AccountComponent,
     AllPuzzlesListComponent,
+    LeaderboardComponent
   ]
 })
 export class PuzzleListComponentsModule { }

@@ -1,0 +1,22 @@
+<div>
+    <h3 class="leaderboard-title">Leaderboard</h3>
+    <div class="mt-4 p-2">
+        <div class="p-0 leaderboard-container">
+            <div *ngFor="let entry of entries" class="entry-container">
+                <h4 style="flex-grow: 1;">{{entry.title}}</h4>
+                <div style="flex-grow: 1;" class="entry-body-container">
+                    <div class="number-container">
+                        <p>{{entry.completed}} players successfully completed this puzzle.</p>
+                        <p>{{entry.failed}} incorrect answers across all players.</p>
+                    </div>
+                    <div class="completed-container">
+                        <p *ngIf="entry.firstCompletedAt != undefined"
+                            [innerHtml]="'First completed on ' + entry.firstCompletedAt + ' by ' + entry.firstCompletedBy">
+                        </p>
+                        <p *ngIf="entry.firstCompletedAt == undefined">Be the first to solve this puzzle!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tabFadeAnimation } from 'src/utils/animations';
-import { PasswordResetService } from '../password-reset.service';
+import { PasswordResetService } from '../../services/password-reset.service';
 
 @Component({
   templateUrl: './reset-password-page.component.html',

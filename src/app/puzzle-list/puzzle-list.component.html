@@ -44,6 +44,13 @@
             </div>
         </tab>
 
+        <tab heading="Leaderboard" (selectTab)="updateTabFromMenu('leaderboard'); changeTab('leaderboard')"
+            [active]="leaderboardTabActive">
+            <div class="pb-3 pt-5 px-3 list-container">
+                <app-leaderboard *ngIf="!loading"></app-leaderboard>
+            </div>
+        </tab>
+
         <tab (selectTab)="updateTabFromMenu('account'); changeTab('account')" [active]="accountTabActive">
             <ng-template tabHeading>
                 <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 18 20">

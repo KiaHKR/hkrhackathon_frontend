@@ -1,5 +1,5 @@
 <app-background-particles *ngIf="showBackgroundParticles"></app-background-particles>
 
-<router-outlet (activate)="getRoutePage()"></router-outlet>
+<router-outlet (activate)="updateRouteAttributes()"></router-outlet>
 
-<app-footer-component></app-footer-component>
+<app-footer-component [showPuzzleLink]="!isLoginPage"></app-footer-component>

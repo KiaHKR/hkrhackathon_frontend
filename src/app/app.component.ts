@@ -10,11 +10,21 @@ export class AppComponent {
   title = 'hackathonNg';
 
   showBackgroundParticles!: boolean;
+  isLoginPage!: boolean;
 
   constructor(private contexts: ChildrenOutletContexts) {
   }
 
-  getRoutePage() {
+  updateRouteAttributes() {
+    this.getShowBackground();
+    this.getIsLoginPage();
+  }
+
+  getShowBackground() {
     this.showBackgroundParticles = this.contexts.getContext('primary')?.route?.snapshot?.data?.['showBackground'];
+  }
+
+  getIsLoginPage() {
+    this.isLoginPage = this.contexts.getContext('primary')?.route?.snapshot?.routeConfig?.path == 'login';
   }
 }

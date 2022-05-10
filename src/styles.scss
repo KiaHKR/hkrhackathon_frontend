@@ -49,6 +49,23 @@ body {
     .nav-item {
         margin: 0;
 
+        &:hover:not(.disabled) {
+            .nav-link {
+                color: clr(mainText);
+            }
+
+            .nav-icon {
+                path {
+                    stroke: clr(mainText);
+                }
+            }
+
+            &::after {
+                width: 75%;
+                background-color: clr(mainText);
+            }
+        }
+
         .nav-link {
             padding: 3px 0px;
             padding-bottom: 5px;
@@ -82,12 +99,12 @@ body {
         
         &.active {
             .nav-link {
-                color: clr(mainText);
+                color: clr(mainText) !important;
             }
 
             .nav-icon {
                 path {
-                    stroke: clr(mainText);
+                    stroke: clr(mainText) !important;
                 }
             }
 
@@ -97,8 +114,8 @@ body {
                 position: rel ative;
                 display: block;
                 height: 2px;
-                width: 100%;
-                background-color: clr(primary);
+                width: 100% !important;
+                background-color: clr(primary) !important;
                 color: clr(mainText);
                 margin: 0 auto;
                 left: 0;

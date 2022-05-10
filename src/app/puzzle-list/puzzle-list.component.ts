@@ -51,12 +51,14 @@ export class PuzzleListComponent implements OnInit {
   puzzleTabActive: boolean = false;
   listTabActive: boolean = true;
   accountTabActive: boolean = false;
+  leaderboardTabActive: boolean = false;
 
   // Animation states
   tabVisibilityState: string = 'hidden';
   puzzleTabExpandState: string = 'collapsed';
   accountTabExpandState: string = 'collapsed';
   puzzleListTabExpandState: string = 'collapsed';
+  leaderboardTabExpandState: string = 'collapsed';
   mobileMenuPositionState: string = 'in';
 
   constructor(private puzzleService: PuzzleService, public userService: UserService, private router: Router, private _snackBar: MatSnackBar) { }
@@ -108,33 +110,48 @@ export class PuzzleListComponent implements OnInit {
     this.listTabActive = false;
     this.puzzleTabActive = false;
     this.accountTabActive = false;
+    this.leaderboardTabActive = false;
 
-    if (activeTab == 'list') {
-      this.listTabActive = true;
-    } else
-      if (activeTab == 'puzzle') {
+    switch (activeTab) {
+      case 'list':
+        this.listTabActive = true;
+        break;
+      case 'puzzle':
         this.puzzleTabActive = true;
-      } else
-        if (activeTab == 'account') {
-          this.accountTabActive = true;
-        }
+        break;
+      case 'account':
+        this.accountTabActive = true;
+        break;
+      case 'leaderboard':
+        this.leaderboardTabActive = true;
+        break;
+      default:
+        break;
+    }
   }
 
   changeTab(activeTab: string) {
     this.accountTabExpandState = 'collapsed';
     this.puzzleListTabExpandState = 'collapsed';
     this.puzzleTabExpandState = 'collapsed';
+    this.leaderboardTabExpandState = 'collapsed';
 
-
-    if (activeTab == 'list') {
-      this.updateList()
-    } else
-      if (activeTab == 'puzzle') {
+    switch (activeTab) {
+      case 'list':
+        this.updateList();
+        break;
+      case 'puzzle':
         this.puzzleTabExpandState = 'expanded';
-      } else
-        if (activeTab == 'account') {
-          this.accountTabExpandState = 'expanded';
-        }
+        break;
+      case 'account':
+        this.accountTabExpandState = 'expanded';
+        break;
+      case 'leaderboard':
+        this.leaderboardTabExpandState = 'expanded';
+        break;
+      default:
+        break;
+    }
   }
 
   openPuzzle(puzzle: Puzzle, index: number): void {
