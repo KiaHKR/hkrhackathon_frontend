@@ -46,7 +46,7 @@
 
         <tab heading="Leaderboard" (selectTab)="updateTabFromMenu('leaderboard'); changeTab('leaderboard')"
             [active]="leaderboardTabActive">
-            <div class="pb-3 pt-5 px-3 list-container">
+            <div class="pb-3 pt-5 px-3 list-container" [@tabsBodyExpand]="leaderboardTabExpandState">
                 <app-leaderboard *ngIf="!loading"></app-leaderboard>
             </div>
         </tab>
