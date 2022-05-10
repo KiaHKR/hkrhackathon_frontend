@@ -43,7 +43,7 @@ export class PuzzleListComponent implements OnInit {
   // Tab definitions
   tabList: { name: string, value: string, visible: () => boolean }[] = [
     { name: "All puzzles", value: 'list', visible: () => true },
-    { name: "Chosen puzzle", value: 'puzzle', visible: () => this.chosenPuzzle != undefined },
+    { name: "Current puzzle", value: 'puzzle', visible: () => this.chosenPuzzle != undefined },
     { name: "Leaderboard", value: 'leaderboard', visible: () => true },
     { name: "Account", value: 'account', visible: () => true },
   ]

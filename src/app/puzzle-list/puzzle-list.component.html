@@ -22,7 +22,7 @@
     [itemList]="tabList" [toggleMenuState]="toggleMenuState.bind(this)" [showPuzzleTab]="chosenPuzzle != undefined">
 </app-mobile-menu>
 
-<div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-4 my-5"
+<div class="animated-tab-container container col-sm-8 col-md-6 col-lg-6 col-xl-5 my-5"
     [@tabsFadeTrigger]="tabVisibilityState">
     <tabset class="tab-container">
         <tab heading="All puzzles" id="puzzle-list-tab" (selectTab)="updateTabFromMenu('list'); changeTab('list')"
@@ -35,7 +35,7 @@
             </div>
         </tab>
 
-        <tab [disabled]="chosenPuzzle==undefined" heading="Puzzle"
+        <tab [disabled]="chosenPuzzle==undefined" heading="Current Puzzle"
             (selectTab)="updateTabFromMenu('puzzle'); changeTab('puzzle')" [active]="puzzleTabActive">
             <div class="pb-3 pt-5 px-3 list-container" id="puzzle-container" [@tabsBodyExpand]="puzzleTabExpandState">
                 <puzzle-component *ngIf="!loading" [puzzle]="chosenPuzzle!" [index]="chosenPuzzleIndex!"
