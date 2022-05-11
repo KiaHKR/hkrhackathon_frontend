@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { BASE_API_URL } from 'src/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,31 @@ export class LeaderboardService {
   constructor(private datepipe: DatePipe) { }
 
   async getLeaderboard(errorCB: (error: string) => void): Promise<{ title: string, completed: string, failed: string, firstCompletedAt?: string, firstCompletedBy?: string }[] | null> {
-    const tempList = [
-      { title: "Maze Puzzle About Mice in a Maze", completed: "14", failed: "30", firstCompletedAt: new Date(2020, 2, 4, 18, 20), firstCompletedBy: "Bob" },
-      { title: "Puzzle #2", completed: "56", failed: "49", firstCompletedAt: undefined, firstCompletedBy: undefined },
-      { title: "Puzzle #3", completed: "51658", failed: "56756", firstCompletedAt: new Date(2022, 9, 16, 2, 32), firstCompletedBy: "Lasse Poulsen" },
-    ]
+    const token = localStorage.getItem('x-auth-token');
+    if (token == null) {
+      errorCB('Saved user token not found.');
+      return null;
+    }
+
+    const res = await fetch(`${BASE_API_URL}/leaderboard`, {
+      headers: {
+        'x-auth-header': token
+      }
+    });
+
+    if (res == undefined) {
+      errorCB('There was an error fetching the leaderboards.');
+      return null;
+    }
+
+    if (!res.ok) {
+      const data: { error: string } = await res.json();
+      errorCB(data.error);
+      return null;
+    }
+
+    const tempList: { title: string, completed: string, failed: string, firstCompletedAt?: Date, firstCompletedBy?: string }[] = await res.json();
+    console.log(tempList);
 
     let outputList: { title: string, completed: string, failed: string, firstCompletedAt?: string, firstCompletedBy?: string }[] = [
 

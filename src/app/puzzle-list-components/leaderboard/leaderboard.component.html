@@ -6,8 +6,12 @@
                 <h4 style="flex-grow: 1;">{{entry.title}}</h4>
                 <div style="flex-grow: 1;" class="entry-body-container">
                     <div class="number-container">
-                        <p>{{entry.completed}} players successfully completed this puzzle.</p>
-                        <p>{{entry.failed}} incorrect answers across all players.</p>
+                        <p *ngIf="entry.completed == '1'">{{entry.completed}} player successfully completed this puzzle.
+                        </p>
+                        <p *ngIf="entry.completed != '1'">{{entry.completed}} players successfully completed this
+                            puzzle.</p>
+                        <p *ngIf="entry.failed == '1'">{{entry.failed}} incorrect answer across all players.</p>
+                        <p *ngIf="entry.failed != '1'">{{entry.failed}} incorrect answers across all players.</p>
                     </div>
                     <div class="completed-container">
                         <p *ngIf="entry.firstCompletedAt != undefined"
