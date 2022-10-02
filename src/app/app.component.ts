@@ -11,6 +11,7 @@ export class AppComponent {
 
   showBackgroundParticles!: boolean;
   isLoginPage!: boolean;
+  isPuzzlePage!: boolean;
 
   constructor(private contexts: ChildrenOutletContexts) {
   }
@@ -18,6 +19,7 @@ export class AppComponent {
   updateRouteAttributes() {
     this.getShowBackground();
     this.getIsLoginPage();
+    this.getIsPuzzlePage();
   }
 
   getShowBackground() {
@@ -26,5 +28,9 @@ export class AppComponent {
 
   getIsLoginPage() {
     this.isLoginPage = this.contexts.getContext('primary')?.route?.snapshot?.routeConfig?.path == 'login';
+  }
+
+  getIsPuzzlePage() {
+    this.isPuzzlePage = this.contexts.getContext('primary')?.route?.snapshot?.routeConfig?.path == 'puzzles/:id'
   }
 }

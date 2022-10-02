@@ -2,4 +2,4 @@
 
 <router-outlet (activate)="updateRouteAttributes()"></router-outlet>
 
-<app-footer-component [showPuzzleLink]="!isLoginPage"></app-footer-component>
+<app-footer-component *ngIf="!isPuzzlePage" [showPuzzleLink]="!isLoginPage"></app-footer-component>
