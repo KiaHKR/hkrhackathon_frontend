@@ -6,19 +6,19 @@
     <div id="bottom-container" class="p-2 mt-4">
         <div class="task-story">
             <h4>Story</h4>
-            <p id="task-story">{{puzzle == undefined ? "" : puzzle.story}}</p>
+            <p [innerText]="puzzle == undefined ? '' : puzzle.story" id="task-story"></p>
         </div>
         <div id="examples">
             <div class="examples">
                 <h4>Input Example</h4>
                 <div class="example-text-container">
-                    <p>{{puzzle == undefined ? "" : puzzle.examples.inputExample}}</p>
+                    <p [innerText]="puzzle == undefined ? '' : puzzle.examples.inputExample"></p>
                 </div>
             </div>
             <div class="examples">
                 <h4>Logic Example</h4>
                 <div class="example-text-container">
-                    <p>{{puzzle == undefined ? "" : puzzle.examples.logicExample}}</p>
+                   <p [innerText]="puzzle == undefined ? '' : puzzle.examples.logicExample"></p>
                 </div>
             </div>
         </div>
