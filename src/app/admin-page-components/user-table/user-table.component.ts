@@ -147,7 +147,6 @@ export class UserTableComponent implements OnInit {
   }
 
   updateName(user: User, event: { preventChange: () => void, confirmChange: () => void, value: string }): void {
-    console.log("ACTUALLY UPDATING NOW")
     let tempUserList = this.users.data;
 
     const userObjIndex = tempUserList.indexOf(user);

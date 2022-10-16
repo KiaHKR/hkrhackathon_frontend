@@ -38,7 +38,6 @@ export class PuzzleTableComponent implements OnInit {
       for (const visiblityPuzzle of vPuzzles) {
         this.reconstructedData.push(visiblityPuzzle)
       }
-      console.log(this.reconstructedData)
     });
   }
 

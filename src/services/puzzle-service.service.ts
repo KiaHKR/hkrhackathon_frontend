@@ -29,7 +29,6 @@ export class PuzzleService {
 
     const data: { _id: string, _title: string, _story: string, _examples: { inputExample: string, logicExample: string } }[] = await puzzlesRes.json();
 
-    console.log(data);
 
     let puzzleList: Puzzle[] = [];
     data.forEach(element => {

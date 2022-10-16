@@ -34,7 +34,6 @@ export class LeaderboardService {
     }
 
     const tempList: { title: string, completed: string, failed: string, firstCompletedAt?: Date, firstCompletedBy?: string }[] = await res.json();
-    console.log(tempList);
 
     let outputList: { title: string, completed: string, failed: string, firstCompletedAt?: string, firstCompletedBy?: string }[] = [
 
