@@ -37,8 +37,9 @@ export class PuzzleComponent implements OnInit {
     }
     else {
       this.puzzleService.answerPuzzle(this.puzzle.id, this.answerField.nativeElement.value).then(answer => {
-        if (answer?.answer == true) {
+        if (answer?.answer) {
           this._snackbar.open("Puzzle completed!", "dismiss", { duration: 5000, panelClass: 'success-snackbar' })
+          this.route.navigate(['puzzles'])
         }
         else {
           this._snackbar.open(answer?.information!, "dismiss", { duration: 5000, panelClass: 'failure-snackbar' })
