@@ -83,8 +83,16 @@ export class PuzzleListComponent implements OnInit {
       this.userIsAdmin = user == undefined ? false : user.isAdmin;
       this.user = user;
 
+      if (!this.unlocked()) {
+        this.loading = false;
+        this.tabVisibilityState = 'shown';
+        this.puzzleListTabExpandState = 'expanded';
+        return;
+      }
+
       this.puzzleService.fetchPuzzles(this.displayError.bind(this)).then((puzzles) => {
         if (puzzles == null) return
+
         this.puzzleList = puzzles;
         let accessible = true;
         for (const puzzle of this.puzzleList) {
