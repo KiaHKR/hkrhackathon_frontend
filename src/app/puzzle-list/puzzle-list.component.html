@@ -29,8 +29,12 @@
             [active]="listTabActive">
             <div class="pb-3 pt-5 px-3 list-container" #listContainer [@tabsBodyExpand]="puzzleListTabExpandState">
                 <h3 *ngIf="!loading" class="mb-4">Challenges</h3>
-                <app-all-puzzles-list [puzzleList]="puzzleList" [accessiblePuzzles]="accessiblePuzzles"
-                    [inaccessiblePuzzles]="inaccessiblePuzzles" [openPuzzle]="openPuzzle.bind(this)">
+                <h6 *ngIf="!loading && !unlocked()">You're a little early, come back <i>12-11-2022 14:00</i> and you'll
+                    get your
+                    puzzles!</h6>
+                <app-all-puzzles-list *ngIf="unlocked()" [puzzleList]="puzzleList"
+                    [accessiblePuzzles]="accessiblePuzzles" [inaccessiblePuzzles]="inaccessiblePuzzles"
+                    [openPuzzle]="openPuzzle.bind(this)">
                 </app-all-puzzles-list>
             </div>
         </tab>

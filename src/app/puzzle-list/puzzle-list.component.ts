@@ -171,4 +171,11 @@ export class PuzzleListComponent implements OnInit {
   openAdmin() {
     this.router.navigate(['dashboard'])
   }
+
+  unlocked(): boolean {
+    const now = new Date();
+    const unlockAt = new Date('2022-11-12T14:00:00');
+
+    return unlockAt < now;
+  }
 }
